@@ -1,0 +1,21 @@
+.image-tile {
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
+}
+
+.image-container {
+  max-width: _get-rem(607px);
+  min-width: _get-rem(218px);
+
+  > div {
+    position: unset !important;
+  }
+
+  .image {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+  }
+}
