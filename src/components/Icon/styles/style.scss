@@ -1,0 +1,15 @@
+@import "./config";
+
+.icon {
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+  display: block;
+}
+
+@each $variant, $size in $icon-sizes {
+  .icon--#{$variant} {
+    width: $size;
+    height: $size;
+  }
+}
