@@ -9,7 +9,7 @@
   fill: $color-primary;
   min-width: _get-rem(89px);
 
-  @media (max-width: 768px) {
+  @media (max-width: 960px) {
     width: _get-rem(89px);
   }
 }
