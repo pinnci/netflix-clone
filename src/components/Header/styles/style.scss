@@ -1,0 +1,7 @@
+.header__desktop {
+  height: _get-rem(86px);
+
+  @media (max-width: 640px) {
+    height: _get-rem(80px);
+  }
+}

@@ -1,4 +1,14 @@
 // VENDORS
 @import "../../node_modules/normalize.css/normalize";
+@import "./tailwind.css";
 
-@import "./globals.css";
+//BASE
+@import "./base/config";
+@import "./base/colors";
+
+// COMPONENTS
+@import "../components//Logo/styles/style";
+@import "../components/Header/styles/style";
+@import "../components/LanguageSelector/styles/style";
+@import "../components/Icon/styles/style";
+@import "../components/Button/styles/style";

@@ -1,0 +1,31 @@
+@import "../../../styles/base/style.scss";
+
+.languageSelector_container {
+  color: white;
+  margin: 0 _get-rem(16px);
+
+  &__globeIcon {
+    left: _get-rem(8px);
+  }
+
+  &__caretIcon {
+    right: _get-rem(16px);
+  }
+}
+
+.languageSelector {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0.25rem;
+  background: rgba($color-grey, 0.7);
+  border-color: rgba(128, 128, 128, 0.7);
+  padding-top: _get-rem(6px);
+  padding-bottom: _get-rem(6px);
+  padding-left: _get-rem(32px);
+  padding-right: _get-rem(40px);
+
+  //Hide default native caret
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
+}

@@ -1,0 +1,7 @@
+@import "../../../styles/base/style.scss";
+
+.button {
+  &--primary {
+    background: $color-primary;
+  }
+}
