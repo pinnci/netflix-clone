@@ -5,7 +5,7 @@ type Layout = React.ComponentProps<"div">;
 
 const Layout: React.FC<Layout> = ({ children, ...other }) => {
   return (
-    <div className="page" {...other}>
+    <div className="page relative" {...other}>
       <Header />
       {children}
       {/*<Footer />*/}
