@@ -4,11 +4,12 @@ import ImageTileContainer from "@/components/ImageTileContainer/ImageTileContain
 import Divider from "@/components/Divider/Divider";
 
 import { benefits } from "../data/homepage";
+import HeroBanner from "@/components/HeroBanner/HeroBanner";
 
 export default function Home() {
   return (
     <Layout>
-      <h1>Unlimited movies, TV shows, and more</h1>
+      <HeroBanner />
       <ImageTileContainer>
         {benefits.map((data, i) => {
           const { title, description, imageSrc, imagePosition, imageAlt } =
