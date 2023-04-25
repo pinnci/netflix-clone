@@ -6,7 +6,7 @@ type Logo = {
 };
 
 const Logo = ({ className, ...other }: Logo) => {
-  const classes = cx("logo", className);
+  const classes = cx("logo block h-auto", className);
 
   return (
     <Link href="/" className={classes} aria-label="Domovská stránka" {...other}>

@@ -2,9 +2,7 @@
 @import "../../../styles/base/helpers.scss";
 
 .logo {
-  display: block;
   width: _get-rem(148px);
-  height: auto;
   color: $color-primary;
   fill: $color-primary;
   min-width: _get-rem(89px);
