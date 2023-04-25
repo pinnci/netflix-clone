@@ -31,7 +31,7 @@ const ImageTile = ({
   return (
     <div className={classes} {...props}>
       <div>
-        <p className="text-3xl 2xl:text-5xl font-black text-white mt-5">
+        <p className="text-3xl 2xl:text-5xl xl:text-5xl font-black text-white mt-5">
           {title}
         </p>
         <p className="text-base 2xl:text-xl xl:text-xl font-normal	text-white mt-5">
