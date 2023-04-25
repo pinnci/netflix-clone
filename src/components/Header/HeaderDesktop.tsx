@@ -5,7 +5,7 @@ import Container from "../Container/Container";
 
 const HeaderDesktop = () => {
   return (
-    <div className="header__desktop flex">
+    <div className="header__desktop flex absolute top-0 left-0 w-full sm:px-8 md:px-8 lg:px-12">
       <Container className="flex justify-between items-center">
         <Logo />
         <div className="flex">
