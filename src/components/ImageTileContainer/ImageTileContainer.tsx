@@ -12,7 +12,7 @@ const ImageTileContainer = ({
   ...other
 }: ImageTileContainer) => {
   const classes = cx(
-    "image-tile-container py-3 px-4 2xl:px-36 xl:px-24 lg:px-20 md:px-16 sm:px-12 rounded-lg",
+    "image-tile-container py-3 px-4 2xl:px-36 xl:px-24 lg:px-20 md:px-16 sm:px-12 rounded-lg relative z-20",
     className,
   );
 
