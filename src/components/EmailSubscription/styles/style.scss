@@ -1,0 +1,31 @@
+@import "../../../styles/base/colors.scss";
+
+.email-subscription {
+  background: linear-gradient(0deg, $color-blue, $color-blue) padding-box,
+    linear-gradient(
+        271.65deg,
+        #233371 5.26%,
+        #00197a 50.02%,
+        $color-primary 97.68%
+      )
+      border-box;
+
+  &__title {
+    color: $color-white;
+  }
+
+  &__label {
+    color: rgba($color-white, 0.7);
+    top: _get-rem(16px);
+    left: _get-rem(16px);
+  }
+
+  &__inputWrapper {
+    min-width: _get-rem(200px);
+  }
+
+  &__input {
+    background: rgba(22, 22, 22, 0.7);
+    border-color: rgba(128, 128, 128, 0.7);
+  }
+}
