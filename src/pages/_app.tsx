@@ -1,7 +1,7 @@
 import "@/styles/main.scss";
 import type { AppProps } from "next/app";
 
-import localFont from "@next/font/local";
+import localFont from "next/font/local";
 
 const netflixSans = localFont({
   src: [
