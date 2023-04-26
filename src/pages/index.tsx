@@ -1,3 +1,5 @@
+import React from "react";
+
 import Layout from "@/components/Layout/Layout";
 import ImageTile from "@/components/ImageTile/ImageTile";
 import ImageTileContainer from "@/components/ImageTileContainer/ImageTileContainer";
@@ -17,7 +19,7 @@ export default function Home() {
 
           return i + 1 === benefits.length ? (
             <ImageTile
-              key={i}
+              key={title}
               title={title}
               description={description}
               imageSrc={imageSrc}
@@ -25,9 +27,9 @@ export default function Home() {
               imageAlt={imageAlt}
             />
           ) : (
-            <>
+            <React.Fragment key={title}>
               <ImageTile
-                key={i}
+                key={title}
                 title={title}
                 description={description}
                 imageSrc={imageSrc}
@@ -36,7 +38,7 @@ export default function Home() {
               />
 
               <Divider />
-            </>
+            </React.Fragment>
           );
         })}
       </ImageTileContainer>
