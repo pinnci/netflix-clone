@@ -7,6 +7,7 @@ import Divider from "@/components/Divider/Divider";
 
 import { benefits } from "../data/homepage";
 import HeroBanner from "@/components/HeroBanner/HeroBanner";
+import Faq from "@/components/Faq/Faq";
 
 export default function Home() {
   return (
@@ -42,6 +43,7 @@ export default function Home() {
           );
         })}
       </ImageTileContainer>
+      <Faq />
     </Layout>
   );
 }

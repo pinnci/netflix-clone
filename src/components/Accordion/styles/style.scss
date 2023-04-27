@@ -1,0 +1,39 @@
+@import "../../../styles/base/colors.scss";
+
+.accordion {
+  &__item {
+    color: $color-white;
+  }
+
+  &__item--active {
+    .accordion__item__indicator {
+      transform: rotate(45deg);
+    }
+  }
+
+  &__item__header {
+    background-color: rgba(19, 33, 68, 1);
+    border-color: $color-blue;
+
+    &:hover {
+      background: lighten(rgba(19, 33, 68, 1), 10%);
+    }
+  }
+
+  &__content {
+    background-color: rgba(19, 33, 68, 1);
+    max-height: 0;
+    visibility: collapse;
+    transition: all 0.25s cubic-bezier(0.5, 0, 0.1, 1);
+    overflow: hidden;
+  }
+
+  &__item--active {
+    .accordion__content {
+      max-height: 75rem;
+      visibility: visible;
+      padding-top: _get-rem(16px);
+      padding-bottom: _get-rem(16px);
+    }
+  }
+}

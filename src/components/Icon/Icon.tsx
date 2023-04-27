@@ -3,8 +3,9 @@ import cx from "classnames";
 
 import CaretDown from "./Icons/CaretDown";
 import Globe from "./Icons/Globe";
+import Plus from "./Icons/Plus";
 
-export const iconNamesArray = ["caret-down", "globe"] as const;
+export const iconNamesArray = ["caret-down", "globe", "plus"] as const;
 
 export type IconNames = (typeof iconNamesArray)[number];
 
@@ -32,6 +33,8 @@ const Icon: React.FC<Icon> = ({ className, size, name, ...other }: Icon) => {
         return <CaretDown />;
       case "globe":
         return <Globe />;
+      case "plus":
+        return <Plus />;
       default:
         return <svg />;
     }
