@@ -18,11 +18,11 @@ const HeroBanner = ({ className, ...other }: HeroBanner) => {
           <h1 className="text-4xl font-black text-white mt-4 mb-0 sm:w-9/12 md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
             Unlimited movies, TV shows, and more.
           </h1>
-          <p className="text-lg  font-medium	text-white mt-4 xl:text-2xl">
+          <p className="text-lg font-medium	text-white mt-4 xl:text-2xl">
             Watch anywhere. Cancel anytime.
           </p>
 
-          <EmailSubscription />
+          <EmailSubscription variant="bordered" className="mt-8" />
         </div>
       </Container>
     </div>
