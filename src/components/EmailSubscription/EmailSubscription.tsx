@@ -4,18 +4,26 @@ import Button from "../Button/Button";
 
 type EmailSubscription = {
   className?: string;
+  variant: "bordered" | "plain";
 } & React.ComponentProps<"div">;
 
-const EmailSubscription = ({ className, ...other }: EmailSubscription) => {
+const EmailSubscription = ({
+  className,
+  variant,
+  ...other
+}: EmailSubscription) => {
   const classes = cx(
-    "email-subscription rounded-lg w-full border-4 border-transparent mt-8 p-4",
+    "email-subscription w-full border-transparent",
+    {
+      "rounded-lg p-4 border-4": variant === "bordered",
+    },
     className,
   );
 
   return (
     <div className={classes} {...other}>
       <form className="flex flex-col">
-        <h3 className="email-subscription__title  text-lg lg:text-xl">
+        <h3 className="email-subscription__title text-lg lg:text-xl">
           Ready to watch? Enter your email to create or restart your membership.
         </h3>
         <div className="pt-4 flex flex-col items-start sm:flex-row">
