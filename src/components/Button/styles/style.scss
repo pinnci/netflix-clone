@@ -1,7 +1,13 @@
 @import "../../../styles/base/style.scss";
 
 .button {
-  &--primary {
-    background: $color-primary;
+  &--primary,
+  &--start {
+    background-color: $color-primary;
+    transition: background-color 0.15s ease-in-out;
+
+    &:hover {
+      background-color: darken($color-primary, 10%);
+    }
   }
 }

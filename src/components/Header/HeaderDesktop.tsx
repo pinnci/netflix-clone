@@ -10,11 +10,7 @@ const HeaderDesktop = () => {
         <Logo />
         <div className="flex">
           <LanguageSelector />
-          <Button
-            variant="primary"
-            className="py-1 px-4 text-sm text-white font-medium rounded-md inline-flex items-center"
-            href="/"
-          >
+          <Button variant="primary" href="/">
             Sign in
           </Button>
         </div>
