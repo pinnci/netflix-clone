@@ -38,11 +38,7 @@ const EmailSubscription = ({
               />
             </div>
           </div>
-          <Button
-            variant="primary"
-            href="#"
-            className="py-2 px-4 mt-4 font-medium text-white text-lg rounded items-center sm:text-2xl sm:py-3 sm:px-6 sm:ml-2 sm:mt-0"
-          >
+          <Button variant="start" href="#" className="mt-4 sm:mt-0 sm:ml-2">
             Get started
           </Button>
         </div>
