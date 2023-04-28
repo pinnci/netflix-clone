@@ -37,7 +37,7 @@ const AccordionItem = ({
           onClick={handleClick}
         >
           {title}
-          <Icon name="plus" className="accordion__item__indicator" />
+          <Icon name="plus" className="accordion__item__indicator ml-4" />
         </button>
       </h3>
       <div className="accordion__content px-6 text-lg lg:text-2xl">
