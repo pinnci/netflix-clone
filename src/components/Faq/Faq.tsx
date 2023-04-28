@@ -5,6 +5,7 @@ import Accordion from "../Accordion/Accordion";
 import AccordionItem from "../Accordion/AccordionItem";
 
 import { faq } from "../../data/homepage";
+import EmailSubscription from "../EmailSubscription/EmailSubscription";
 
 type Faq = {
   className?: string;
@@ -19,18 +20,22 @@ const Faq = ({ className, ...other }: Faq) => {
   return (
     <Container>
       <div className={classes} {...other}>
-        <h2 className="font-bold text-3xl text-white sm:text-4xl">
-          Frequently Asked Questions
-        </h2>
-        <Accordion>
-          {faq.map((question, i) => {
-            return (
-              <AccordionItem title={question.title} key={i} index={i}>
-                {question.description}
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
+        <div className="flex flex-col">
+          <h2 className="font-bold text-3xl text-white sm:text-4xl">
+            Frequently Asked Questions
+          </h2>
+          <Accordion>
+            {faq.map((question, i) => {
+              return (
+                <AccordionItem title={question.title} key={i} index={i}>
+                  {question.description}
+                </AccordionItem>
+              );
+            })}
+          </Accordion>
+
+          <EmailSubscription variant="plain" className="mt-4" />
+        </div>
       </div>
     </Container>
   );
