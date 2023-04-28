@@ -13,19 +13,4 @@
   &__title {
     color: $color-white;
   }
-
-  &__label {
-    color: rgba($color-white, 0.7);
-    top: _get-rem(16px);
-    left: _get-rem(16px);
-  }
-
-  &__inputWrapper {
-    min-width: _get-rem(200px);
-  }
-
-  &__input {
-    background: rgba(22, 22, 22, 0.7);
-    border-color: rgba(128, 128, 128, 0.7);
-  }
 }
