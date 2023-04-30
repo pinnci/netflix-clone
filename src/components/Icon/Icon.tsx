@@ -5,12 +5,14 @@ import CaretDown from "./Icons/CaretDown";
 import Globe from "./Icons/Globe";
 import Plus from "./Icons/Plus";
 import ChevronRight from "./Icons/ChevronRight";
+import Error from "./Icons/Error";
 
 export const iconNamesArray = [
   "caret-down",
   "globe",
   "plus",
   "chevron-right",
+  "error",
 ] as const;
 
 export type IconNames = (typeof iconNamesArray)[number];
@@ -43,6 +45,8 @@ const Icon: React.FC<Icon> = ({ className, size, name, ...other }: Icon) => {
         return <Plus />;
       case "chevron-right":
         return <ChevronRight />;
+      case "error":
+        return <Error />;
       default:
         return <svg />;
     }
