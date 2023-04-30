@@ -29,5 +29,6 @@
 
   &__errorMessage {
     color: $color-primary;
+    margin-top: _get-rem(3px);
   }
 }
