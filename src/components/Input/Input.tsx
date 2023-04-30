@@ -1,9 +1,7 @@
-import { useId, useState, useRef } from "react";
+import { useId, useState, useRef, forwardRef } from "react";
 import cx from "classnames";
 
 import Icon from "../Icon/Icon";
-
-// How to make it validate only after first onBlur?
 
 type Input = {
   labelClassName?: string;
@@ -12,21 +10,31 @@ type Input = {
   type?: "email" | "text";
   errorMessage: string;
   error: boolean;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onChange?: React.FocusEventHandler<HTMLInputElement>;
+  ref?: any;
 } & React.ComponentProps<"input">;
 
-const Input = ({
-  label,
-  labelClassName,
-  inputClassName,
-  type = "text",
-  errorMessage,
-  error,
-  ...other
-}: Input) => {
+const Input = forwardRef((props: Input, ref) => {
+  const {
+    label,
+    labelClassName,
+    inputClassName,
+    type = "text",
+    errorMessage,
+    error,
+    onBlur,
+    onFocus,
+    onChange,
+    ...other
+  } = props;
+
   const [inputActivated, setInputActivated] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const localRef = useRef<HTMLInputElement>(null);
+
   const inputId = useId();
 
   const labelClasses = cx(
@@ -46,19 +54,19 @@ const Input = ({
     inputClassName,
   );
 
-  const onFocus = () => setInputActivated(true);
+  const localOnFocus = () => setInputActivated(true);
 
-  const onBlur = () => {
+  const localOnBlur = () => {
     setInputActivated(false);
 
-    if (inputRef.current!.value) {
+    if (localRef.current!.value) {
       setInputActivated(true);
     }
   };
 
-  const handleChange = () => {
-    if (inputRef.current) {
-      setInputValue(inputRef.current.value);
+  const localOnChange = () => {
+    if (localRef.current) {
+      setInputValue(localRef.current.value);
     }
   };
 
@@ -72,20 +80,52 @@ const Input = ({
           type={type}
           id={inputId}
           className={inputClasses}
-          ref={inputRef}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onChange={handleChange}
+          ref={
+            ref
+              ? (el) => {
+                  //@ts-ignore
+                  ref.current = el;
+                  //@ts-ignore
+                  localRef.current = el;
+                }
+              : localRef
+          }
+          onFocus={
+            onFocus
+              ? (e) => {
+                  onFocus(e);
+                  localOnFocus();
+                }
+              : localOnFocus
+          }
+          onBlur={
+            onBlur
+              ? (e) => {
+                  onBlur(e);
+                  localOnBlur();
+                }
+              : localOnBlur
+          }
+          onChange={
+            onChange
+              ? (e) => {
+                  onChange(e);
+                  localOnChange();
+                }
+              : localOnBlur
+          }
           {...other}
         />
         {error ? (
-          <span className="input__field__errorMessage flex items-center mt-2">
+          <span className="input__field__errorMessage absolute flex items-center">
             <Icon name="error" className="mr-1" /> {errorMessage}
           </span>
         ) : null}
       </div>
     </div>
   );
-};
+});
+
+Input.displayName = "Input";
 
 export default Input;
