@@ -1,8 +1,19 @@
+import cx from "classnames";
+
 import Icon from "../Icon/Icon";
 
-const LanguageSelector = () => {
+type LanguageSelector = {
+  className?: string;
+} & React.ComponentProps<"div">;
+
+const LanguageSelector = ({ className, ...other }: LanguageSelector) => {
+  const classes = cx(
+    "flex items-center relative languageSelector_container",
+    className,
+  );
+
   return (
-    <div className="flex items-center relative mx-3 sm:mx-4 languageSelector_container">
+    <div className={classes} {...other}>
       <Icon
         name="globe"
         className="languageSelector_container__globeIcon absolute pointer-events-none"

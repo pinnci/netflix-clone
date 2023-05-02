@@ -13,7 +13,7 @@ type Faq = {
 
 const Faq = ({ className, ...other }: Faq) => {
   const classes = cx(
-    "faq mt-12 px-4 pt-14 pb-12 md:pt-16 md:px-40 md:pb-16 md:mt-12 lg:pt-14 lg:px-28 lg:pb-14 lg:mt-16 xl:pt-24 xl:px-24 xl:pb-24 xl:mt-14 2xl:pt-24 2xl:px-40 2xl:pb-36 2xl:mt-16",
+    "faq mt-12 px-4 pt-14 pb-12 md:pt-16 md:px-20 md:pb-16 md:mt-12 lg:pt-14 lg:px-28 lg:pb-14 lg:mt-16 xl:pt-24 xl:px-24 xl:pb-24 xl:mt-14 2xl:pt-24 2xl:px-40 2xl:pb-36 2xl:mt-16",
     className,
   );
 

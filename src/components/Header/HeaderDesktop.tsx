@@ -9,7 +9,7 @@ const HeaderDesktop = () => {
       <Container className="flex justify-between items-center">
         <Logo />
         <div className="flex">
-          <LanguageSelector />
+          <LanguageSelector className="mx-3 sm:mx-4" />
           <Button variant="primary" href="/">
             Sign in
           </Button>

@@ -26,6 +26,7 @@ const EmailSubscription = ({
   const classes = cx(
     "email-subscription w-full border-transparent",
     {
+      [`email-subscription--${variant}`]: variant,
       "rounded-lg p-4 pb-6 border-4": variant === "bordered",
     },
     className,
