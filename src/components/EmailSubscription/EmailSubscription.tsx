@@ -1,5 +1,8 @@
 import { useRouter } from "next/router";
 import { useState, useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addEmail } from "../../../slices/registrationEmailSlice";
+
 import cx from "classnames";
 
 import Button from "../Button/Button";
@@ -18,6 +21,8 @@ const EmailSubscription = ({
   const [error, setError] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
   const [inputField, setInputField] = useState<HTMLInputElement | null>(null);
+
+  const dispatch = useDispatch();
 
   const router = useRouter();
 
@@ -81,6 +86,8 @@ const EmailSubscription = ({
 
     if (!error && inputValue) {
       router.push("/signup/password");
+
+      dispatch(addEmail(inputValue));
     }
   };
 
