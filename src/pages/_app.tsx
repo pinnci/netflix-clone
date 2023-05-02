@@ -1,5 +1,6 @@
 import "@/styles/main.scss";
 import type { AppProps } from "next/app";
+import { wrapper } from "../../store";
 
 import localFont from "next/font/local";
 
@@ -25,10 +26,12 @@ const netflixSans = localFont({
   variable: "--font-netflixSans",
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${netflixSans.variable} font-sans`}>
       <Component {...pageProps} />
     </main>
   );
 }
+
+export default wrapper.withRedux(App);
