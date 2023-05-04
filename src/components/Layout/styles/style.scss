@@ -1,0 +1,9 @@
+.layout {
+  &--notLoggedIn {
+    background-color: $color-background;
+  }
+
+  &--registration {
+    background-color: $color-white;
+  }
+}
