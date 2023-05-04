@@ -11,7 +11,7 @@ import Faq from "@/components/Faq/Faq";
 
 export default function Home() {
   return (
-    <Layout>
+    <Layout variant="notLoggedIn">
       <HeroBanner />
       <ImageTileContainer>
         {benefits.map((data, i) => {

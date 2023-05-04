@@ -1,7 +1,13 @@
 .header__desktop {
-  height: _get-rem(86px);
+  &--notLoggedIn {
+    height: _get-rem(86px);
 
-  @media (max-width: 640px) {
-    height: _get-rem(80px);
+    @media (max-width: 640px) {
+      height: _get-rem(80px);
+    }
+  }
+
+  &--registration {
+    border-bottom: 1px solid rgba($color-lightgrey, 0.2);
   }
 }

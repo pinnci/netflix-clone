@@ -1,14 +1,33 @@
+import cx from "classnames";
+
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-type Layout = React.ComponentProps<"div">;
+type Layout = {
+  variant: "notLoggedIn" | "loggedIn" | "registration";
+  className?: string;
+} & React.ComponentProps<"div">;
 
-const Layout: React.FC<Layout> = ({ children, ...other }) => {
+const Layout: React.FC<Layout> = ({
+  variant,
+  children,
+  className,
+  ...other
+}) => {
+  const classes = cx(
+    "layout page relative",
+    {
+      [`layout--${variant}`]: variant,
+      "min-h-screen flex flex-col": variant === "registration",
+    },
+    className,
+  );
+
   return (
-    <div className="page relative" {...other}>
-      <Header />
+    <div className={classes} {...other}>
+      <Header variant={variant} />
       {children}
-      <Footer />
+      <Footer variant={variant} />
     </div>
   );
 };

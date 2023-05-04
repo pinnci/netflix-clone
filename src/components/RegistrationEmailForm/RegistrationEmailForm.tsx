@@ -1,23 +1,24 @@
+import cx from "classnames";
 import { useRouter } from "next/router";
 import { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addEmail } from "../../../slices/registrationEmailSlice";
 
-import cx from "classnames";
-
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 
-type EmailSubscription = {
+import { registrationEmailForm } from "../../data/registration";
+
+type RegistrationEmailForm = {
   className?: string;
   variant: "bordered" | "plain";
 } & React.ComponentProps<"div">;
 
-const EmailSubscription = ({
+const RegistrationEmailForm = ({
   className,
   variant,
   ...other
-}: EmailSubscription) => {
+}: RegistrationEmailForm) => {
   const [error, setError] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
   const [inputField, setInputField] = useState<HTMLInputElement | null>(null);
@@ -29,9 +30,9 @@ const EmailSubscription = ({
   const inputRef = useRef(null);
 
   const classes = cx(
-    "email-subscription w-full border-transparent",
+    "registrationEmailForm w-full border-transparent",
     {
-      [`email-subscription--${variant}`]: variant,
+      [`registrationEmailForm--${variant}`]: variant,
       "rounded-lg p-4 pb-6 border-4": variant === "bordered",
     },
     className,
@@ -95,31 +96,36 @@ const EmailSubscription = ({
     setInputField(inputRef.current);
   }, []);
 
+  const { title, inputLabel, errorMessage, buttonTitle } =
+    registrationEmailForm;
+
   return (
     <div className={classes} {...other}>
       <form className="flex flex-col" onSubmit={handleSubmit}>
-        <h3 className="email-subscription__title text-lg lg:text-xl">
-          Ready to watch? Enter your email to create or restart your membership.
+        <h3 className="registrationEmailForm__title text-lg lg:text-xl">
+          {title}
         </h3>
         <div className="pt-4 flex flex-col items-start sm:flex-row">
           <Input
-            label="Email adress"
+            label={inputLabel}
             type="email"
-            errorMessage="Please enter a valid email address"
+            errorMessage={errorMessage}
             onChange={(e) => handleChange(e)}
             onBlur={(e) => handleBlur(e)}
             onFocus={(e) => handleFocus(e)}
             ref={inputRef}
             error={error}
             autoComplete="off"
+            inputContainerClassName="sm:w-auto sm:max-w-sm"
           />
 
           <Button
+            size="large"
             variant="start"
             type="submit"
             className="mt-4 sm:mt-0 sm:ml-2"
           >
-            Get started
+            {buttonTitle}
           </Button>
         </div>
       </form>
@@ -127,4 +133,4 @@ const EmailSubscription = ({
   );
 };
 
-export default EmailSubscription;
+export default RegistrationEmailForm;

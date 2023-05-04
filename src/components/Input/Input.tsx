@@ -6,8 +6,10 @@ import Icon from "../Icon/Icon";
 type Input = {
   labelClassName?: string;
   inputClassName?: string;
+  inputContainerClassName?: string;
   label: string;
-  type?: "email" | "text";
+  type?: "email" | "text" | "password";
+  variant?: "dark" | "light";
   errorMessage: string;
   error: boolean;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
@@ -21,7 +23,9 @@ const Input = forwardRef((props: Input, ref) => {
     label,
     labelClassName,
     inputClassName,
+    inputContainerClassName,
     type = "text",
+    variant = "dark",
     errorMessage,
     error,
     onBlur,
@@ -42,6 +46,7 @@ const Input = forwardRef((props: Input, ref) => {
     {
       "input__field__label--active text-xs": inputActivated,
       "input__field__label--filled text-xs": inputValue,
+      [`input__field__label--${variant}`]: variant,
     },
     labelClassName,
   );
@@ -50,8 +55,14 @@ const Input = forwardRef((props: Input, ref) => {
     "input__field__input border rounded border-solid pt-6 px-4 pb-2 w-full leading-6",
     {
       "input__field__input--error": error,
+      [`input__field__input--${variant}`]: variant,
     },
     inputClassName,
+  );
+
+  const inputContainerClasses = cx(
+    "input__field__container border-1 relative inline-flex w-full flex-auto max-w-none",
+    inputContainerClassName,
   );
 
   const localOnFocus = () => setInputActivated(true);
@@ -71,7 +82,7 @@ const Input = forwardRef((props: Input, ref) => {
   };
 
   return (
-    <div className="input__field__container border-1 relative inline-flex w-full flex-auto max-w-none sm:w-auto sm:max-w-sm">
+    <div className={inputContainerClasses}>
       <label className={labelClasses} htmlFor={inputId}>
         {label}
       </label>

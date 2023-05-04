@@ -4,4 +4,9 @@
   &__supportContact {
     color: rgba($color-white, 0.7);
   }
+
+  &--registration {
+    border-top: 1px solid rgba($color-lightgrey, 0.2);
+    background-color: rgba($color-lightgrey, 0.1);
+  }
 }
