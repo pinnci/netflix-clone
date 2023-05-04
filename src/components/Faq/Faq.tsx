@@ -5,7 +5,7 @@ import Accordion from "../Accordion/Accordion";
 import AccordionItem from "../Accordion/AccordionItem";
 
 import { faq } from "../../data/homepage";
-import EmailSubscription from "../EmailSubscription/EmailSubscription";
+import RegistrationEmailForm from "../RegistrationEmailForm/RegistrationEmailForm";
 
 type Faq = {
   className?: string;
@@ -34,7 +34,7 @@ const Faq = ({ className, ...other }: Faq) => {
             })}
           </Accordion>
 
-          <EmailSubscription variant="plain" className="mt-4" />
+          <RegistrationEmailForm variant="plain" className="mt-4" />
         </div>
       </div>
     </Container>
