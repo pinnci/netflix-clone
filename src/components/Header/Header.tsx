@@ -1,15 +1,18 @@
 import HeaderDesktop from "./HeaderDesktop";
 
-type Header = React.ComponentProps<"nav">;
+type Header = {
+  variant: HeaderDesktop["variant"];
+} & React.ComponentProps<"nav">;
 
-const Header: React.FC<Header> = () => {
+const Header: React.FC<Header> = ({ variant, ...other }) => {
   return (
     <nav
       role="navigation"
       aria-label="Main menu"
       className="header relative z-50"
+      {...other}
     >
-      <HeaderDesktop />
+      <HeaderDesktop variant={variant} />
     </nav>
   );
 };
