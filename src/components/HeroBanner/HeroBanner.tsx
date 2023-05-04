@@ -1,6 +1,6 @@
 import cx from "classnames";
 import Container from "../Container/Container";
-import EmailSubscription from "../EmailSubscription/EmailSubscription";
+import EmailSubscription from "../RegistrationEmailForm/RegistrationEmailForm";
 
 type HeroBanner = {
   className?: string;
