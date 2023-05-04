@@ -1,6 +1,6 @@
 import cx from "classnames";
 import Container from "../Container/Container";
-import EmailSubscription from "../RegistrationEmailForm/RegistrationEmailForm";
+import RegistrationEmailForm from "../RegistrationEmailForm/RegistrationEmailForm";
 
 type HeroBanner = {
   className?: string;
@@ -22,7 +22,7 @@ const HeroBanner = ({ className, ...other }: HeroBanner) => {
             Watch anywhere. Cancel anytime.
           </p>
 
-          <EmailSubscription variant="bordered" className="mt-8" />
+          <RegistrationEmailForm variant="bordered" className="mt-8" />
         </div>
       </Container>
     </div>
