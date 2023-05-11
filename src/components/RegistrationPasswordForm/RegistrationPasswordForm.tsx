@@ -103,6 +103,9 @@ const RegistrationPasswordForm = ({
           console.log(user);
           // ...
           //TO DO - AUMATICALLY LOG USER IN
+          //TODO : AFTER LOG IN, REDIRECT TO HOMEPAGE WHERE CHECK IF USER IS LOGGED. IF YES, SHOW DASHBOARD. IF NOT, SHOW NOT LOGGED IN PAGE
+
+          router.push("/");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -111,10 +114,6 @@ const RegistrationPasswordForm = ({
           console.log(errorMessage);
           // ..
         });
-
-      //TODO : AFTER LOG IN, REDIRECT TO HOMEPAGE WHERE CHECK IF USER IS LOGGED. IF YES, SHOW DASHBOARD. IF NOT, SHOW NOT LOGGED IN PAGE
-
-      router.push("/");
     }
   };
 
