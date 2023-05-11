@@ -9,4 +9,8 @@
     border-top: 1px solid rgba($color-lightgrey, 0.2);
     background-color: rgba($color-lightgrey, 0.1);
   }
+
+  &--login {
+    background-color: rgba($color-black, 0.75);
+  }
 }
