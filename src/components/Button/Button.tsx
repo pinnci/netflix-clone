@@ -6,7 +6,7 @@ import Icon from "../Icon/Icon";
 
 type Button = {
   variant: "primary" | "secondary" | "start";
-  size: "small" | "large";
+  size: "small" | "medium" | "large";
   className?: string;
   href?: string;
   tag?: string | React.ReactNode;
@@ -29,6 +29,7 @@ const Button = ({
       "font-medium text-white rounded-md": variant === "start",
       "font-medium text-white rounded": variant === "primary",
       "py-1 px-4 text-sm": size === "small",
+      "py-2 px-4 text-base sm:py-3 sm:px-6": size === "medium",
       "py-2 px-4 text-lg sm:text-2xl sm:py-3 sm:px-6": size === "large",
     },
     className,
