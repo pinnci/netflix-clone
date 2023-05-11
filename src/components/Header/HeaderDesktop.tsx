@@ -7,7 +7,7 @@ import Button from "../Button/Button";
 import Container from "../Container/Container";
 
 type HeaderDesktop = {
-  variant: "notLoggedIn" | "loggedIn" | "registration";
+  variant: "notLoggedIn" | "loggedIn" | "registration" | "login";
   className?: string;
 } & React.ComponentProps<"header">;
 
@@ -16,7 +16,7 @@ const HeaderDesktop = ({ variant, className, ...other }: HeaderDesktop) => {
     "header__desktop",
     {
       "header__desktop--notLoggedIn flex absolute top-0 left-0 w-full sm:px-8 md:px-8 lg:px-12":
-        variant === "notLoggedIn",
+        variant === "notLoggedIn" || variant === "login",
       "header__desktop--registration py-3 flex lg:px-4 lg:py-4":
         variant === "registration",
     },
@@ -32,20 +32,20 @@ const HeaderDesktop = ({ variant, className, ...other }: HeaderDesktop) => {
           variant === "notLoggedIn" ? (
             <div className="flex">
               <LanguageSelector className="mx-3 sm:mx-4" />
-              <Button variant="primary" href="/" size="small">
-                Sign in
+              <Button variant="primary" href="/login" size="small">
+                Sign In
               </Button>
             </div>
           ) : variant === "registration" ? (
             <div className="flex">
               <Link
-                href="/"
+                href="/login"
                 className="text-sm font-medium hover:underline md:text-base lg:text-xl"
               >
                 Sign In
               </Link>
             </div>
-          ) : null /**logged in header here */
+          ) : variant === "login" ? null : null /**logged in header here */
         }
       </Container>
     </header>

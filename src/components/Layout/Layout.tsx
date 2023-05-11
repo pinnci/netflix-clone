@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
 type Layout = {
-  variant: "notLoggedIn" | "loggedIn" | "registration";
+  variant: "notLoggedIn" | "loggedIn" | "registration" | "login";
   className?: string;
 } & React.ComponentProps<"div">;
 
@@ -18,7 +18,8 @@ const Layout: React.FC<Layout> = ({
     "layout page relative",
     {
       [`layout--${variant}`]: variant,
-      "min-h-screen flex flex-col": variant === "registration",
+      "min-h-screen flex flex-col":
+        variant === "registration" || variant === "login",
     },
     className,
   );
