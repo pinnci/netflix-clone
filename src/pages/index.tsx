@@ -4,15 +4,15 @@ import Layout from "@/components/Layout/Layout";
 import ImageTile from "@/components/ImageTile/ImageTile";
 import ImageTileContainer from "@/components/ImageTileContainer/ImageTileContainer";
 import Divider from "@/components/Divider/Divider";
-
-import { benefits } from "../data/homepage";
-import HeroBanner from "@/components/HeroBanner/HeroBanner";
 import Faq from "@/components/Faq/Faq";
+import HeroBanner from "@/components/HeroBanner/HeroBanner";
 
 import { auth } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "../../slices/userSlice";
+
+import { benefits } from "../data/homepage";
 
 export default function Home() {
   const user = useSelector(selectUser);
