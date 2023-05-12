@@ -1,20 +1,19 @@
-import HeaderDesktop from "./HeaderDesktop";
+import HeaderNotLoggedIn from "./HeaderNotLoggedIn";
+import HeaderRegistration from "./HeaderRegistration";
+import HeaderLogin from "./HeaderLogin";
 
-type Header = {
-  variant: HeaderDesktop["variant"];
-} & React.ComponentProps<"nav">;
+export type Header = {
+  variant: "notLoggedIn" | "loggedIn" | "registration" | "login";
+};
 
-const Header: React.FC<Header> = ({ variant, ...other }) => {
-  return (
-    <nav
-      role="navigation"
-      aria-label="Main menu"
-      className="header relative z-50"
-      {...other}
-    >
-      <HeaderDesktop variant={variant} />
-    </nav>
-  );
+const Header = ({ variant }: Header) => {
+  return variant === "notLoggedIn" ? (
+    <HeaderNotLoggedIn />
+  ) : variant === "registration" ? (
+    <HeaderRegistration />
+  ) : variant === "login" ? (
+    <HeaderLogin />
+  ) : null;
 };
 
 export default Header;

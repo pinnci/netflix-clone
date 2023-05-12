@@ -1,5 +1,6 @@
-.header__desktop {
-  &--notLoggedIn {
+.header {
+  &--notLoggedIn,
+  &--login {
     height: _get-rem(86px);
 
     @media (max-width: 640px) {
