@@ -1,6 +1,9 @@
 import cx from "classnames";
+
 import Container from "../Container/Container";
 import RegistrationEmailForm from "../RegistrationEmailForm/RegistrationEmailForm";
+
+import { heroBanner } from "../../data/heroBanner";
 
 type HeroBanner = {
   className?: string;
@@ -9,6 +12,8 @@ type HeroBanner = {
 const HeroBanner = ({ className, ...other }: HeroBanner) => {
   const classes = cx("hero-banner relative z-10 pb-8 xl:pb-16", className);
 
+  const { title, subTitle } = heroBanner;
+
   return (
     <div className={classes} {...other}>
       <div className="hero-banner__image absolute top-0 left-0 w-full"></div>
@@ -16,10 +21,10 @@ const HeroBanner = ({ className, ...other }: HeroBanner) => {
       <Container>
         <div className="hero-banner__content relative pt-32 px-4 sm:px-16 md:px-20 lg:px-24 xl:pt-40 xl:px-24 2xl:pt-40">
           <h1 className="text-4xl font-black text-white mt-4 mb-0 sm:w-9/12 md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
-            Unlimited movies, TV shows, and more.
+            {title}
           </h1>
           <p className="text-lg font-medium	text-white mt-4 xl:text-2xl">
-            Watch anywhere. Cancel anytime.
+            {subTitle}
           </p>
 
           <RegistrationEmailForm variant="bordered" className="mt-8" />
