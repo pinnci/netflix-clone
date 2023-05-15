@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import Checkbox from "../Checkbox/Checkbox";
 
 import { loginForm } from "@/data/login";
 
@@ -16,6 +17,8 @@ const LoginForm = () => {
 
   const [passwordError, setPasswordError] = useState(false);
   const [passwordInputValue, setPasswordInputValue] = useState<string>("");
+
+  const [rememberMe, setRememberMe] = useState(false);
 
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
@@ -119,6 +122,17 @@ const LoginForm = () => {
           //TO DO DISPATCH IT TO REDUX STATE AND CALL FIREBASE LOGIN FUNCTION
           //dispatch(addEmail(inputValue));
           console.log("user", user);
+
+          if (rememberMe) {
+            //Write to localStorage when checkbox is checked
+            localStorage.setItem(
+              "login-credentials",
+              JSON.stringify({
+                email: emailInputValue,
+                password: passwordInputValue,
+              }),
+            );
+          }
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -130,6 +144,25 @@ const LoginForm = () => {
       router.push("/");
     }
   };
+
+  //REMEMBER ME
+  const handleRememberMe = (e: any) => {
+    setRememberMe(e.target.checked);
+  };
+
+  useEffect(() => {
+    const userCredentials = localStorage.getItem("login-credentials");
+    //@ts-ignore
+    const parsedUserCredentials = JSON.parse(userCredentials);
+
+    if (userCredentials) {
+      const email = parsedUserCredentials.email;
+      const password = parsedUserCredentials.password;
+
+      setEmailInputValue(email);
+      setPasswordInputValue(password);
+    }
+  }, []);
 
   const {
     title,
@@ -156,6 +189,7 @@ const LoginForm = () => {
             onBlur={(e) => handleEmailBlur(e)}
             onFocus={(e) => handleEmailFocus(e)}
             ref={emailInputRef}
+            value={emailInputValue}
           />
 
           <Input
@@ -168,6 +202,7 @@ const LoginForm = () => {
             onBlur={(e) => handlePasswordBlur(e)}
             onFocus={(e) => handlePasswordFocus(e)}
             ref={passwordInputRef}
+            value={passwordInputValue}
           />
 
           <Button
@@ -180,10 +215,12 @@ const LoginForm = () => {
           </Button>
 
           <div className="flex justify-between">
-            <label className="text-neutral-400 text-sm flex items-center">
-              <input type="checkbox" className="mr-1" />
-              {checkboxLabel}
-            </label>
+            <Checkbox
+              label={checkboxLabel}
+              className="mr-1"
+              labelClassName="text-neutral-400 text-sm"
+              onChange={handleRememberMe}
+            />
 
             <Link href="#" className="text-neutral-400 text-sm hover:underline">
               {helpLabel}
