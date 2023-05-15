@@ -1,4 +1,4 @@
-import { useId, useState, useRef, forwardRef } from "react";
+import { useId, useState, useRef, forwardRef, useEffect } from "react";
 import cx from "classnames";
 
 import Icon from "../Icon/Icon";
@@ -10,6 +10,7 @@ type Input = {
   label: string;
   type?: "email" | "text" | "password";
   variant?: "dark" | "light";
+  value?: string;
   errorMessage: string;
   error: boolean;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
@@ -28,6 +29,7 @@ const Input = forwardRef((props: Input, ref) => {
     variant = "dark",
     errorMessage,
     error,
+    value,
     onBlur,
     onFocus,
     onChange,
@@ -81,6 +83,12 @@ const Input = forwardRef((props: Input, ref) => {
     }
   };
 
+  useEffect(() => {
+    if (value) {
+      setInputValue(value);
+    }
+  }, [value]);
+
   return (
     <div className={inputContainerClasses}>
       <label className={labelClasses} htmlFor={inputId}>
@@ -123,8 +131,9 @@ const Input = forwardRef((props: Input, ref) => {
                   onChange(e);
                   localOnChange();
                 }
-              : localOnBlur
+              : localOnChange
           }
+          value={inputValue}
           {...other}
         />
         {error ? (
