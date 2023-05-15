@@ -10,7 +10,6 @@ export type Benefit = {
   description: ImageTile["description"];
   imageSrc: ImageTile["imageSrc"];
   imagePosition: ImageTile["imagePosition"];
-  imageAlt: ImageTile["imageAlt"];
 };
 
 export type Faq = {
@@ -25,7 +24,6 @@ export const benefits: Benefit[] = [
       "Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.",
     imageSrc: EnjoyYourTvImage,
     imagePosition: "right",
-    imageAlt: "Enjoy on your TV.",
   },
   {
     title: "Watch everywhere.",
@@ -33,7 +31,6 @@ export const benefits: Benefit[] = [
       "Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV without paying more.",
     imageSrc: WatchEverythereImage,
     imagePosition: "left",
-    imageAlt: "Watch everywhere.",
   },
   {
     title: "Create profiles for kids.",
@@ -41,7 +38,6 @@ export const benefits: Benefit[] = [
       "Send kids on adventures with their favorite characters in a space made just for them—free with your membership.",
     imageSrc: CreateProfilesForKidsImage,
     imagePosition: "right",
-    imageAlt: "Create profiles for kids.",
   },
   {
     title: "Download your shows to watch offline.",
@@ -49,7 +45,6 @@ export const benefits: Benefit[] = [
       "Save your favorites easily and always have something to watch.",
     imageSrc: DownloadYourShowsImage,
     imagePosition: "left",
-    imageAlt: "Download your shows to watch offline.",
   },
 ];
 

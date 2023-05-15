@@ -15,8 +15,7 @@ const Homepage = () => {
       <HeroBanner />
       <ImageTileContainer>
         {benefits.map((data, i) => {
-          const { title, description, imageSrc, imagePosition, imageAlt } =
-            data;
+          const { title, description, imageSrc, imagePosition } = data;
 
           return i + 1 === benefits.length ? (
             <ImageTile
@@ -25,7 +24,7 @@ const Homepage = () => {
               description={description}
               imageSrc={imageSrc}
               imagePosition={imagePosition}
-              imageAlt={imageAlt}
+              imageAlt={title}
             />
           ) : (
             <React.Fragment key={title}>
@@ -35,7 +34,7 @@ const Homepage = () => {
                 description={description}
                 imageSrc={imageSrc}
                 imagePosition={imagePosition}
-                imageAlt={imageAlt}
+                imageAlt={title}
               />
 
               <Divider />

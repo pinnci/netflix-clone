@@ -22,7 +22,7 @@ type FooterLogin = {
 
 const FooterLogin = ({ className, ...other }: FooterLogin) => {
   const classes = cx(
-    "footer footer--login relative w-full pt-8 pb-5 lg:px-4",
+    "footer footer--login relative z-20 w-full pt-8 pb-5 lg:px-4",
     className,
   );
 
