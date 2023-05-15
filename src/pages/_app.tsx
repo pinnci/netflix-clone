@@ -1,6 +1,8 @@
 import "@/styles/main.scss";
 import type { AppProps } from "next/app";
 import { wrapper } from "../../store";
+import { DefaultSeo } from "next-seo";
+import SEO from "../../next-seo.config";
 
 import localFont from "next/font/local";
 
@@ -28,9 +30,12 @@ const netflixSans = localFont({
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={`${netflixSans.variable} font-sans`}>
-      <Component {...pageProps} />
-    </main>
+    <>
+      <DefaultSeo {...SEO} />
+      <main className={`${netflixSans.variable} font-sans`}>
+        <Component {...pageProps} />
+      </main>
+    </>
   );
 }
 
