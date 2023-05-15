@@ -1,4 +1,6 @@
 type LoginForm = {
+  imageSrc: string;
+  imageAlt: string;
   title: string;
   email: { label: string; errorMessage: string };
   password: { label: string; errorMessage: string };
@@ -13,6 +15,8 @@ type LoginForm = {
 };
 
 export const loginForm: LoginForm = {
+  imageSrc: "/images/hero-banner.jpg",
+  imageAlt: "Cover picture of Netflix catalogue",
   title: "Sign In",
   email: {
     label: "Email",
