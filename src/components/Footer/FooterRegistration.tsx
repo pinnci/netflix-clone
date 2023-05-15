@@ -7,13 +7,7 @@ import LanguageSelector from "../LanguageSelector/LanguageSelector";
 import List from "../List/List";
 import ListItem from "../ListItem/ListItem";
 
-import {
-  supportContact,
-  firstColumn,
-  secondColumn,
-  thirdColumn,
-  fourthColumn,
-} from "../../data/footerRegistration";
+import { supportContact, footer } from "../../data/footerRegistration";
 
 type FooterRegistration = {
   className?: string;
@@ -36,81 +30,28 @@ const FooterRegistration = ({ className, ...other }: FooterRegistration) => {
           </Link>
         </p>
         <div className="footer__linksContainer max-w-5xl mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:flex md:flex-row">
-          <div className="footer__column md:w-1/4">
-            <List>
-              {firstColumn.map((data, i) => {
-                const { title, href } = data;
+          {footer.map((col, index) => {
+            return (
+              <div className="footer__column md:w-1/4" key={index}>
+                <List>
+                  {col.column.map((data, i) => {
+                    const { title, href } = data;
 
-                return (
-                  <ListItem key={i} className="mt-3">
-                    <Link
-                      href={href}
-                      className="inline-block text-sm text-neutral-500 hover:underline"
-                    >
-                      {title}
-                    </Link>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </div>
-
-          <div className="footer__column md:w-1/4">
-            <List>
-              {secondColumn.map((data, i) => {
-                const { title, href } = data;
-
-                return (
-                  <ListItem key={i} className="mt-3">
-                    <Link
-                      href={href}
-                      className="inline-block text-sm text-neutral-500 hover:underline"
-                    >
-                      {title}
-                    </Link>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </div>
-
-          <div className="footer__column md:w-1/4">
-            <List>
-              {thirdColumn.map((data, i) => {
-                const { title, href } = data;
-
-                return (
-                  <ListItem key={i} className="mt-3">
-                    <Link
-                      href={href}
-                      className="inline-block text-sm text-neutral-500 hover:underline"
-                    >
-                      {title}
-                    </Link>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </div>
-
-          <div className="footer__column md:w-1/4">
-            <List>
-              {fourthColumn.map((data, i) => {
-                const { title, href } = data;
-
-                return (
-                  <ListItem key={i} className="mt-3">
-                    <Link
-                      href={href}
-                      className="inline-block text-sm text-neutral-500 hover:underline"
-                    >
-                      {title}
-                    </Link>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </div>
+                    return (
+                      <ListItem key={i} className="mt-3">
+                        <Link
+                          href={href}
+                          className="inline-block text-sm text-neutral-500 hover:underline"
+                        >
+                          {title}
+                        </Link>
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              </div>
+            );
+          })}
         </div>
         <div className="footer__languageSelectorContainer mt-4">
           <LanguageSelector className="inline-flex" />

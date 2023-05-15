@@ -3,6 +3,10 @@ type FooterLink = {
   href: string;
 };
 
+type FooterColumn = {
+  column: FooterLink[];
+};
+
 type SupportContact = {
   title: string;
   href: string;
@@ -13,42 +17,49 @@ export const supportContact: SupportContact = {
   href: "#",
 };
 
-export const firstColumn: FooterLink[] = [
+export const footer: FooterColumn[] = [
   {
-    title: "FAQ",
-    href: "#",
+    column: [
+      {
+        title: "FAQ",
+        href: "#",
+      },
+      {
+        title: "Privacy",
+        href: "#",
+      },
+    ],
   },
   {
-    title: "Privacy",
-    href: "#",
-  },
-];
-
-export const secondColumn: FooterLink[] = [
-  {
-    title: "Help Center",
-    href: "#",
-  },
-  {
-    title: "Cookie Preferences",
-    href: "#",
-  },
-];
-
-export const thirdColumn: FooterLink[] = [
-  {
-    title: "Netflix Shop",
-    href: "#",
+    column: [
+      {
+        title: "Help Center",
+        href: "#",
+      },
+      {
+        title: "Cookie Preferences",
+        href: "#",
+      },
+    ],
   },
   {
-    title: "Corporate Information",
-    href: "#",
+    column: [
+      {
+        title: "Netflix Shop",
+        href: "#",
+      },
+      {
+        title: "Corporate Information",
+        href: "#",
+      },
+    ],
   },
-];
-
-export const fourthColumn: FooterLink[] = [
   {
-    title: "Terms of Use",
-    href: "#",
+    column: [
+      {
+        title: "Terms of Use",
+        href: "#",
+      },
+    ],
   },
 ];
