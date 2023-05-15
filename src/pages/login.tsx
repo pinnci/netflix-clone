@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { NextSeo } from "next-seo";
 
 import Container from "@/components/Container/Container";
 import Layout from "../components/Layout/Layout";
@@ -7,10 +8,11 @@ import LoginForm from "../components/LoginForm/LoginForm";
 import { loginForm } from "../data/login";
 
 const Login = () => {
-  const { imageSrc, imageAlt } = loginForm;
+  const { imageSrc, imageAlt, title } = loginForm;
 
   return (
     <Layout variant="login">
+      <NextSeo title={title} />
       <div className="loginForm__gradient absolute w-full min-h-full"></div>
       <div className="loginForm__imageContainer absolute w-full h-full">
         <Image
