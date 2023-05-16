@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { wrapper } from "../../store";
 import { DefaultSeo } from "next-seo";
 import SEO from "../../next-seo.config";
+import { appWithTranslation } from "next-i18next";
 
 import localFont from "next/font/local";
 
@@ -39,4 +40,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default wrapper.withRedux(App);
+export default appWithTranslation(wrapper.withRedux(App));
