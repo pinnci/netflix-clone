@@ -3,11 +3,10 @@ import { useRouter } from "next/router";
 import { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addEmail } from "../../../slices/registrationEmailSlice";
+import { useTranslation } from "next-i18next";
 
 import Button from "../Button/Button";
 import Input from "../Input/Input";
-
-import { registrationEmailForm } from "../../data/registration";
 
 type RegistrationEmailForm = {
   className?: string;
@@ -22,6 +21,8 @@ const RegistrationEmailForm = ({
   const [error, setError] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
   const [inputField, setInputField] = useState<HTMLInputElement | null>(null);
+
+  const { t } = useTranslation("homepage");
 
   const dispatch = useDispatch();
 
@@ -96,20 +97,17 @@ const RegistrationEmailForm = ({
     setInputField(inputRef.current);
   }, []);
 
-  const { title, inputLabel, errorMessage, buttonTitle } =
-    registrationEmailForm;
-
   return (
     <div className={classes} {...other}>
       <form className="flex flex-col" onSubmit={handleSubmit}>
         <h3 className="registrationEmailForm__title text-lg lg:text-xl">
-          {title}
+          {t("registrationEmail.title")}
         </h3>
         <div className="pt-4 flex flex-col items-start sm:flex-row">
           <Input
-            label={inputLabel}
+            label={t("registrationEmail.label")}
             type="email"
-            errorMessage={errorMessage}
+            errorMessage={t("registrationEmail.errorMessage")}
             onChange={(e) => handleChange(e)}
             onBlur={(e) => handleBlur(e)}
             onFocus={(e) => handleFocus(e)}
@@ -125,7 +123,7 @@ const RegistrationEmailForm = ({
             type="submit"
             className="mt-4 sm:mt-0 sm:ml-2"
           >
-            {buttonTitle}
+            {t("registrationEmail.buttonTitle")}
           </Button>
         </div>
       </form>
