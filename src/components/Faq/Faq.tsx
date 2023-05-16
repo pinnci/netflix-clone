@@ -11,6 +11,11 @@ type Faq = {
   className?: string;
 } & React.ComponentProps<"div">;
 
+type FaqItems = {
+  title: string;
+  description: string;
+};
+
 const Faq = ({ className, ...other }: Faq) => {
   const { t } = useTranslation("homepage");
 
@@ -29,7 +34,7 @@ const Faq = ({ className, ...other }: Faq) => {
           <Accordion>
             {/**@ts-ignore */}
             {t("faqs", { returnObjects: true }).map(
-              ({ title, description }: any, i: number) => {
+              ({ title, description }: FaqItems, i: number) => {
                 return (
                   <AccordionItem title={title} key={i} index={i}>
                     {description}
