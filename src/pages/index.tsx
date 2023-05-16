@@ -37,7 +37,11 @@ export default function Home() {
   );
 }
 
-export async function getStaticProps({ locale }: any) {
+type Locale = {
+  locale: "en" | "cs";
+};
+
+export async function getStaticProps({ locale }: Locale) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ["homepage"])),
