@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import cx from "classnames";
 import Link from "next/link";
-
+import { useTranslation } from "next-i18next";
 import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useSelector } from "react-redux";
@@ -11,8 +11,6 @@ import { AppState } from "../../../store";
 import Container from "../Container/Container";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-
-import { registrationPasswordForm } from "../../data/registration";
 
 type RegistrationPasswordForm = {
   className?: string;
@@ -26,6 +24,8 @@ const RegistrationPasswordForm = ({
   const [inputValue, setInputValue] = useState<string>("");
   const [inputField, setInputField] = useState<HTMLInputElement | null>(null);
 
+  const { t } = useTranslation("registration");
+
   const router = useRouter();
 
   const inputRef = useRef(null);
@@ -38,16 +38,6 @@ const RegistrationPasswordForm = ({
     "registrationPasswordForm flex justify-center mt-5",
     className,
   );
-
-  const {
-    title,
-    description,
-    emailLabel,
-    inputLabel,
-    forgottenPassword,
-    buttonTitle,
-    errorMessage,
-  } = registrationPasswordForm;
 
   const checkPassword = () => {
     if (inputValue.length >= 5) {
@@ -127,20 +117,20 @@ const RegistrationPasswordForm = ({
         <form className={classes} {...other} onSubmit={handleSubmit}>
           <div className="max-w-md">
             <h1
-              dangerouslySetInnerHTML={{ __html: title }}
+              dangerouslySetInnerHTML={{ __html: `${t("title")}` }}
               className="text-3xl font-medium"
             />
 
-            <p className="text-lg">{description}</p>
+            <p className="text-lg">{t("description")}</p>
 
             <div className="mt-4 mb-8">
-              <p className="text-base">{emailLabel}</p>
+              <p className="text-base">{t("emailLabel")}</p>
               <p className="text-base font-medium mb-4">{registrationEmail}</p>
 
               <Input
-                label={inputLabel}
+                label={t("passwordInput.label")}
                 type="password"
-                errorMessage={errorMessage}
+                errorMessage={t("passwordInput.errorMessage")}
                 onChange={(e) => handleChange(e)}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -151,10 +141,10 @@ const RegistrationPasswordForm = ({
             </div>
 
             <Link
-              href={forgottenPassword.href}
+              href={`${t("forgottenPassword.href")}`}
               className="text-blue-500 block mb-6 hover:underline"
             >
-              {forgottenPassword.title}
+              {t("forgottenPassword.title")}
             </Link>
 
             <Button
@@ -163,7 +153,7 @@ const RegistrationPasswordForm = ({
               variant="primary"
               className="w-full text-2xl font-light justify-center"
             >
-              {buttonTitle}
+              {t("buttonTitle")}
             </Button>
           </div>
         </form>
