@@ -11,6 +11,10 @@ type FooterNotLoggedIn = {
   className?: string;
 } & React.ComponentProps<"footer">;
 
+type FooterColumn = { column: { title: string; href: string } };
+
+type FooterData = { title: string; href: string };
+
 const FooterNotLoggedIn = ({ className, ...other }: FooterNotLoggedIn) => {
   const { t } = useTranslation("homepage");
 
@@ -36,11 +40,12 @@ const FooterNotLoggedIn = ({ className, ...other }: FooterNotLoggedIn) => {
         <div className="footer__linksContainer mt-9 grid gap-4 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {/**@ts-ignore */}
           {t("footer", { returnObjects: true }).map(
-            ({ column }: any, index: number) => {
+            ({ column }: FooterColumn, index: number) => {
               return (
                 <div className="footer__column" key={index}>
                   <List>
-                    {column.map((data: any, i: number) => {
+                    {/**@ts-ignore */}
+                    {column.map((data: FooterData, i: number) => {
                       const { title, href } = data;
 
                       return (
