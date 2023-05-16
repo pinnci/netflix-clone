@@ -51,7 +51,7 @@ const RegistrationEmailForm = ({
     if (inputValue === "") setError(false);
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
 
     if (error) {
@@ -63,13 +63,13 @@ const RegistrationEmailForm = ({
     }
   };
 
-  const handleFocus = (e: any) => {
+  const handleFocus = () => {
     if (error && inputValue) {
       checkEmailRegex();
     }
   };
 
-  const handleBlur = (e: any) => {
+  const handleBlur = () => {
     if (inputValue) {
       checkEmailRegex();
     }
@@ -109,8 +109,8 @@ const RegistrationEmailForm = ({
             type="email"
             errorMessage={t("registrationEmail.errorMessage")}
             onChange={(e) => handleChange(e)}
-            onBlur={(e) => handleBlur(e)}
-            onFocus={(e) => handleFocus(e)}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
             ref={inputRef}
             error={error}
             autoComplete="off"
