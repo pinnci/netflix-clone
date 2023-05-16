@@ -8,6 +8,7 @@ import Layout from "../components/Layout/Layout";
 import LoginForm from "../components/LoginForm/LoginForm";
 
 import { loginForm } from "../data/login";
+import type { Locale } from "@/data/languageSelector";
 
 const Login = () => {
   const { t } = useTranslation("login");
@@ -33,10 +34,6 @@ const Login = () => {
 };
 
 export default Login;
-
-type Locale = {
-  locale: "en" | "cs";
-};
 
 export async function getStaticProps({ locale }: Locale) {
   return {
