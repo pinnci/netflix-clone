@@ -38,7 +38,7 @@ const LoginForm = () => {
     if (emailInputValue === "") setEmailError(false);
   };
 
-  const handleEmailChange = (e: any) => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmailInputValue(e.target.value);
 
     if (emailError) {
@@ -50,13 +50,13 @@ const LoginForm = () => {
     }
   };
 
-  const handleEmailFocus = (e: any) => {
+  const handleEmailFocus = () => {
     if (emailError && emailInputValue) {
       checkEmailRegex();
     }
   };
 
-  const handleEmailBlur = (e: any) => {
+  const handleEmailBlur = () => {
     if (emailInputValue) {
       checkEmailRegex();
     }
@@ -73,7 +73,7 @@ const LoginForm = () => {
     if (passwordInputValue === "") setPasswordError(false);
   };
 
-  const handlePasswordChange = (e: any) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordInputValue(e.target.value);
 
     if (passwordError) {
@@ -85,13 +85,13 @@ const LoginForm = () => {
     }
   };
 
-  const handlePasswordFocus = (e: any) => {
+  const handlePasswordFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     if (passwordError && passwordInputValue) {
       checkPassword();
     }
   };
 
-  const handlePasswordBlur = (e: any) => {
+  const handlePasswordBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (passwordInputValue) {
       checkPassword();
     }
@@ -146,7 +146,7 @@ const LoginForm = () => {
   };
 
   //REMEMBER ME
-  const handleRememberMe = (e: any) => {
+  const handleRememberMe = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRememberMe(e.target.checked);
   };
 
@@ -186,8 +186,8 @@ const LoginForm = () => {
             error={emailError}
             inputContainerClassName="mb-7"
             onChange={(e) => handleEmailChange(e)}
-            onBlur={(e) => handleEmailBlur(e)}
-            onFocus={(e) => handleEmailFocus(e)}
+            onBlur={() => handleEmailBlur()}
+            onFocus={() => handleEmailFocus()}
             ref={emailInputRef}
             value={emailInputValue}
           />
