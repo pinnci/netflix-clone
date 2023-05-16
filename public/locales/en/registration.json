@@ -1,0 +1,70 @@
+{
+  "header": {
+    "button": {
+      "title": "Sign In",
+      "href": "/login"
+    }
+  },
+  "title": "Welcome back! <br/> Joining Netflix is easy.",
+  "description": "Enter your password and you'll be watching in no time.",
+  "emailLabel": "E-mail",
+  "passwordInput": {
+    "label": "Enter your password",
+    "errorMessage": "Password should be longer that 5 characters."
+  },
+  "forgottenPassword": {
+    "title": "Forgot your password?",
+    "href": "#"
+  },
+  "buttonTitle": "Create account",
+  "supportContact": {
+    "title": "Questions? Call",
+    "phoneNumber": "1-844-505-2993"
+  },
+  "footer": [
+    {
+      "column": [
+        {
+          "title": "FAQ",
+          "href": "#"
+        },
+        {
+          "title": "Privacy",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Help Center",
+          "href": "#"
+        },
+        {
+          "title": "Cookie Preferences",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Netflix Shop",
+          "href": "#"
+        },
+        {
+          "title": "Corporate Information",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Terms of Use",
+          "href": "#"
+        }
+      ]
+    }
+  ]
+}

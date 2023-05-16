@@ -1,0 +1,169 @@
+{
+  "title": "Neomezené sledování filmů, TV pořadů a dalšího obsahu.",
+  "subTitle": "Dívejte se kdekoli. Zrušte kdykoli.",
+  "imageAlt": "Titulní obrázek katalógu Netflix",
+  "benefits": [
+    {
+      "title": "Užijte si podívanou na televizi.",
+      "description": "Dívejte se na Smart TV, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray přehrávačích a dalších zařízeních."
+    },
+    {
+      "title": "Dívejte se kdekoli.",
+      "description": "Streamujte neomezeně filmy a TV pořady na telefonu, tabletu, notebooku nebo televizi."
+    },
+    {
+      "title": "Vytvořte profily pro děti.",
+      "description": "S vaším členstvím se děti můžou vydat za dobrodružstvím i se svými oblíbenými hrdiny, a to v prostředí, které je stvořené přímo pro ně."
+    },
+    {
+      "title": "Stáhněte si svoje oblíbené pořady, abyste se mohli dívat i offline.",
+      "description": "Uložte si svoje oblíbené pořady, abyste se měli pořád na co dívat."
+    }
+  ],
+  "faqTitle": "Často kladené dotazy",
+  "faqs": [
+    {
+      "title": "Co je to Netflix?",
+      "description": [
+        "Netflix je streamovací služba, která nabízí pestrý výběr oceňovaných TV pořadů, filmů, anime, dokumentů a dalšího, vše dostupné na tisících zařízení s možností připojení k internetu.",
+        "Dívejte se podle libosti kdekoli budete chtít, a to bez jediné reklamy a za jeden nízký měsíční poplatek. Vždycky můžete objevovat něco nového, TV pořady a filmy přidáváme každý týden!"
+      ]
+    },
+    {
+      "title": "Kolik Netflix stojí?",
+      "description": "Na Netflix se můžete dívat na smartphonu, tabletu, Smart TV, notebooku nebo jiném streamovacím zařízení – všechno za jednu měsíční sazbu. Předplatné od 7,99 EUR do 11,99 EUR měsíčně. Bez příplatků, beze smluv."
+    },
+    {
+      "title": "Kde se můžu dívat?",
+      "description": [
+        "Dívejte se kdekoli a kdykoli. Přihlaste se přes svůj účet Netflix na netflix.com nebo v naší aplikaci a dívejte se na počítači, chytré televizi, telefonu, tabletu, přehrávači nebo herní konzoli. Stačí připojení k internetu.",
+        "S aplikací pro iOS, Android a Windows 10 si můžete svoje oblíbené seriály taky stahovat. Stahování využijete hlavně před cestou bez internetového připojení. Vezměte si Netflix vždycky s sebou."
+      ]
+    },
+    {
+      "title": "Jak předplatné zruším?",
+      "description": "Netflix je flexibilní. Bez otravných smluv a závazků. Účet lze kdykoli jednoduše zrušit dvěma kliknutími. Žádné poplatky za zrušení účtu – začněte nebo přestaňte užívat účet kdykoli."
+    },
+    {
+      "title": "Co můžu na Netflixu vidět?",
+      "description": "Netflix má rozsáhlou knihovnu filmů, dokumentů, TV pořadů, anime, oceňovaných pořadů z originální produkce Netflix a mnoho dalšího. Dívejte se podle libosti."
+    },
+    {
+      "title": "Je Netflix dobrý pro děti?",
+      "description": [
+        "Součástí vašeho členství na Netflixu je i dětský profil, díky kterému si děti užijí TV pořady a filmy pro celou rodinu, a rodiče budou mít přitom všechno pod kontrolou.",
+        "Dětské profily mají rodičovský zámek chráněný kódem PIN, který vám umožňuje stanovit u obsahu, na který se děti koukají, věkové omezení a blokovat konkrétní pořady, na které nechcete, aby se děti dívaly."
+      ]
+    }
+  ],
+  "registrationEmail": {
+    "title": "Jste připraveni se dívat? Pro vytvoření nebo obnovení účtu zadejte e-mail.",
+    "label": "E-mailová adresa",
+    "errorMessage": "Zadejte prosím platnou e-mailovou adresu",
+    "buttonTitle": "Začít"
+  },
+  "supportContact": {
+    "title": "Dotazy? Kontaktujte nás",
+    "phoneNumber": "1-844-505-2993"
+  },
+  "footer": [
+    {
+      "column": [
+        {
+          "title": "Často kladené dotazy",
+          "href": "/"
+        },
+        {
+          "title": "Vztahy s investory",
+          "href": "/"
+        },
+        {
+          "title": "Koupit dárkové poukazy",
+          "href": "/"
+        },
+        {
+          "title": "Nastavení Cookies",
+          "href": "/"
+        },
+        {
+          "title": "Právní záruka",
+          "href": "/"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Centrum pomoci",
+          "href": "/"
+        },
+        {
+          "title": "Kariéra",
+          "href": "/"
+        },
+        {
+          "title": "Možnosti sledování",
+          "href": "/"
+        },
+        {
+          "title": "Podnikové informace",
+          "href": "/"
+        },
+        {
+          "title": "Uvádí jedině Netflix",
+          "href": "/"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Účet",
+          "href": "/"
+        },
+        {
+          "title": "Obchod Netflix",
+          "href": "/"
+        },
+        {
+          "title": "Podmínky používání",
+          "href": "/"
+        },
+        {
+          "title": "Kontaktujte nás",
+          "href": "/"
+        },
+        {
+          "title": "Neprodávejte a neposkytujte mé osobní informace",
+          "href": "/"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Centrum médií",
+          "href": "/"
+        },
+        {
+          "title": "Uplatnit dárkové poukazy",
+          "href": "/"
+        },
+        {
+          "title": "Soukromí",
+          "href": "/"
+        },
+        {
+          "title": "Test rychlosti",
+          "href": "/"
+        }
+      ]
+    }
+  ],
+  "header": {
+    "button": {
+      "title": "Přihlásit se",
+      "href": "/login"
+    }
+  }
+}

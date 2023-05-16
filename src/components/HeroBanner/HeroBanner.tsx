@@ -1,5 +1,6 @@
 import cx from "classnames";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 
 import Container from "../Container/Container";
 import RegistrationEmailForm from "../RegistrationEmailForm/RegistrationEmailForm";
@@ -11,9 +12,11 @@ type HeroBanner = {
 } & React.ComponentProps<"div">;
 
 const HeroBanner = ({ className, ...other }: HeroBanner) => {
+  const { t } = useTranslation("homepage");
+
   const classes = cx("hero-banner relative z-10 pb-8 xl:pb-16", className);
 
-  const { title, subTitle, imageSrc, imageAlt } = heroBanner;
+  const { imageSrc } = heroBanner;
 
   return (
     <div className={classes} {...other}>
@@ -21,7 +24,7 @@ const HeroBanner = ({ className, ...other }: HeroBanner) => {
         <Image
           src={imageSrc}
           className="object-cover object-left"
-          alt={imageAlt}
+          alt={t("imageAlt")}
           fill
         />
       </div>
@@ -29,10 +32,10 @@ const HeroBanner = ({ className, ...other }: HeroBanner) => {
       <Container className="z-20 relative">
         <div className="hero-banner__content relative pt-32 px-4 sm:px-16 md:px-20 lg:px-24 xl:pt-40 xl:px-24 2xl:pt-40">
           <h1 className="text-4xl font-black text-white mt-4 mb-0 sm:w-9/12 md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
-            {title}
+            {t("title")}
           </h1>
           <p className="text-lg font-medium	text-white mt-4 xl:text-2xl">
-            {subTitle}
+            {t("subTitle")}
           </p>
 
           <RegistrationEmailForm variant="bordered" className="mt-8" />

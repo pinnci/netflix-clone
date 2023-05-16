@@ -1,22 +1,21 @@
 import cx from "classnames";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 import Logo from "../Logo/Logo";
 import Container from "../Container/Container";
-
-import { header } from "../../data/headerNotLoggedIn";
 
 type HeaderRegistration = {
   className?: string;
 } & React.ComponentProps<"header">;
 
 const HeaderRegistration = ({ className, ...other }: HeaderRegistration) => {
+  const { t } = useTranslation("registration");
+
   const classes = cx(
     "header header--registration py-3 flex lg:px-4 lg:py-4",
     className,
   );
-
-  const { loginButton } = header;
 
   return (
     <nav
@@ -30,10 +29,10 @@ const HeaderRegistration = ({ className, ...other }: HeaderRegistration) => {
 
           <div className="flex">
             <Link
-              href={loginButton.href}
+              href={`${t("header.button.href")}`}
               className="text-sm font-medium hover:underline md:text-base lg:text-xl"
             >
-              {loginButton.title}
+              {t("header.button.title")}
             </Link>
           </div>
         </Container>

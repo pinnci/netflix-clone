@@ -1,0 +1,66 @@
+{
+  "imageAlt": "Cover picture of Netflix catalogue",
+  "title": "Sign In",
+  "emailInput": {
+    "label": "Email",
+    "errorMessage": "Please enter a valid email."
+  },
+  "passwordInput": {
+    "label": "Password",
+    "errorMessage": "Password is required."
+  },
+  "buttonLabel": "Sign In",
+  "checkboxLabel": "Remember me",
+  "helpLabel": "Need help?",
+  "signUp": {
+    "title": "New to Netflix?",
+    "link": "Sign up now",
+    "href": "/"
+  },
+  "supportContact": {
+    "title": "Questions? Call",
+    "phoneNumber": "1-844-505-2993"
+  },
+  "footer": [
+    {
+      "column": [
+        {
+          "title": "FAQ",
+          "href": "#"
+        },
+        {
+          "title": "Cookie Preferences",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Help Center",
+          "href": "#"
+        },
+        {
+          "title": "Corporate Information",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Terms of Use",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Privacy",
+          "href": "#"
+        }
+      ]
+    }
+  ]
+}

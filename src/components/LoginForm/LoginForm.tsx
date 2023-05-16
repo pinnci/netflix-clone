@@ -1,15 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
+import { useTranslation } from "next-i18next";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Checkbox from "../Checkbox/Checkbox";
-
-import { loginForm } from "@/data/login";
 
 const LoginForm = () => {
   const [emailError, setEmailError] = useState<boolean>(false);
@@ -25,6 +23,8 @@ const LoginForm = () => {
 
   const router = useRouter();
 
+  const { t } = useTranslation("login");
+
   //EMAIL CHECK
   const checkEmailRegex = () => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -38,7 +38,7 @@ const LoginForm = () => {
     if (emailInputValue === "") setEmailError(false);
   };
 
-  const handleEmailChange = (e: any) => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmailInputValue(e.target.value);
 
     if (emailError) {
@@ -50,13 +50,13 @@ const LoginForm = () => {
     }
   };
 
-  const handleEmailFocus = (e: any) => {
+  const handleEmailFocus = () => {
     if (emailError && emailInputValue) {
       checkEmailRegex();
     }
   };
 
-  const handleEmailBlur = (e: any) => {
+  const handleEmailBlur = () => {
     if (emailInputValue) {
       checkEmailRegex();
     }
@@ -73,7 +73,7 @@ const LoginForm = () => {
     if (passwordInputValue === "") setPasswordError(false);
   };
 
-  const handlePasswordChange = (e: any) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordInputValue(e.target.value);
 
     if (passwordError) {
@@ -85,13 +85,13 @@ const LoginForm = () => {
     }
   };
 
-  const handlePasswordFocus = (e: any) => {
+  const handlePasswordFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     if (passwordError && passwordInputValue) {
       checkPassword();
     }
   };
 
-  const handlePasswordBlur = (e: any) => {
+  const handlePasswordBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (passwordInputValue) {
       checkPassword();
     }
@@ -146,7 +146,7 @@ const LoginForm = () => {
   };
 
   //REMEMBER ME
-  const handleRememberMe = (e: any) => {
+  const handleRememberMe = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRememberMe(e.target.checked);
   };
 
@@ -164,38 +164,30 @@ const LoginForm = () => {
     }
   }, []);
 
-  const {
-    title,
-    email,
-    password,
-    buttonLabel,
-    checkboxLabel,
-    helpLabel,
-    signUp,
-  } = loginForm;
-
   return (
     <div className="loginForm__container w-full max-w-none z-20 sm:max-w-md">
       <div className="loginForm sm:pt-16 sm:px-16 sm:pb-10">
         <form className="mb-8" onSubmit={handleSubmit}>
-          <h1 className="text-white mt-0 mb-7 font-medium text-3xl">{title}</h1>
+          <h1 className="text-white mt-0 mb-7 font-medium text-3xl">
+            {t("title")}
+          </h1>
           <Input
             type="email"
-            label={email.label}
-            errorMessage={email.errorMessage}
+            label={t("emailInput.label")}
+            errorMessage={t("emailInput.errorMessage")}
             error={emailError}
             inputContainerClassName="mb-7"
             onChange={(e) => handleEmailChange(e)}
-            onBlur={(e) => handleEmailBlur(e)}
-            onFocus={(e) => handleEmailFocus(e)}
+            onBlur={() => handleEmailBlur()}
+            onFocus={() => handleEmailFocus()}
             ref={emailInputRef}
             value={emailInputValue}
           />
 
           <Input
             type="password"
-            label={password.label}
-            errorMessage={password.errorMessage}
+            label={t("passwordInput.label")}
+            errorMessage={t("passwordInput.errorMessage")}
             error={passwordError}
             inputContainerClassName="mb-10"
             onChange={(e) => handlePasswordChange(e)}
@@ -211,27 +203,30 @@ const LoginForm = () => {
             type="submit"
             className="w-full justify-center mb-3"
           >
-            {buttonLabel}
+            {t("buttonLabel")}
           </Button>
 
           <div className="flex justify-between">
             <Checkbox
-              label={checkboxLabel}
+              label={t("checkboxLabel")}
               className="mr-1"
               labelClassName="text-neutral-400 text-sm"
               onChange={handleRememberMe}
             />
 
             <Link href="#" className="text-neutral-400 text-sm hover:underline">
-              {helpLabel}
+              {t("helpLabel")}
             </Link>
           </div>
         </form>
 
         <span className="text-neutral-400">
-          {signUp.title}{" "}
-          <Link href={signUp.href} className="text-white hover:underline">
-            {signUp.link}
+          {t("signUp.title")}{" "}
+          <Link
+            href={`${t("signUp.href")}`}
+            className="text-white hover:underline"
+          >
+            {t("signUp.link")}
           </Link>
           .
         </span>

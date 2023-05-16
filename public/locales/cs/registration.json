@@ -1,0 +1,70 @@
+{
+  "header": {
+    "button": {
+      "title": "Přihlásit se",
+      "href": "/login"
+    }
+  },
+  "title": "Vítejte zpátky! <br/> Registrace k Netflixu je jednoduchá.",
+  "description": "Zadejte heslo a můžete se hned začít dívat.",
+  "emailLabel": "E-mail",
+  "passwordInput": {
+    "label": "Zadejte heslo",
+    "errorMessage": "Heslo musí mít více než 5 znaků."
+  },
+  "forgottenPassword": {
+    "title": "Zapomněli jste heslo?",
+    "href": "#"
+  },
+  "buttonTitle": "Vytvořit účet",
+  "supportContact": {
+    "title": "Dotazy? Kontaktujte nás",
+    "phoneNumber": "1-844-505-2993"
+  },
+  "footer": [
+    {
+      "column": [
+        {
+          "title": "Často kladené dotazy",
+          "href": "#"
+        },
+        {
+          "title": "Soukromí",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Centrum pomoci",
+          "href": "#"
+        },
+        {
+          "title": "Nastavení Cookies",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Obchod Netflix",
+          "href": "#"
+        },
+        {
+          "title": "Podnikové Informace",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Podmínky používání",
+          "href": "#"
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import cx from "classnames";
+import { useRouter } from "next/router";
 
 import Icon from "../Icon/Icon";
 
@@ -14,13 +15,27 @@ const LanguageSelector = ({ className, ...other }: LanguageSelector) => {
     className,
   );
 
+  const router = useRouter();
+
+  const handleLocaleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+
+    router.push(router.route, router.asPath, {
+      locale: value,
+    });
+  };
+
   return (
     <div className={classes} {...other}>
       <Icon
         name="globe"
         className="languageSelector_container__globeIcon absolute pointer-events-none"
       />
-      <select className="languageSelector rounded w-0 pl-5 pr-8 py-1.5 sm:w-full sm:px-8">
+      <select
+        className="languageSelector rounded w-0 pl-5 pr-8 py-1.5 sm:w-full sm:px-8"
+        onChange={handleLocaleChange}
+        value={router.locale}
+      >
         {languageSelector.map((language, index) => {
           return (
             <option

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "next-i18next";
 
 import Layout from "../Layout/Layout";
 import HeroBanner from "../HeroBanner/HeroBanner";
@@ -9,38 +10,46 @@ import Divider from "../Divider/Divider";
 
 import { benefits } from "../../data/homepage";
 
+type ImageTile = {
+  title: string;
+  description: string;
+};
+
 const Homepage = () => {
+  const { t } = useTranslation("homepage");
+
   return (
     <Layout variant="notLoggedIn">
       <HeroBanner />
       <ImageTileContainer>
-        {benefits.map((data, i) => {
-          const { title, description, imageSrc, imagePosition } = data;
-
-          return i + 1 === benefits.length ? (
-            <ImageTile
-              key={title}
-              title={title}
-              description={description}
-              imageSrc={imageSrc}
-              imagePosition={imagePosition}
-              imageAlt={title}
-            />
-          ) : (
-            <React.Fragment key={title}>
+        {/*@ts-ignore*/}
+        {t("benefits", { returnObjects: true }).map(
+          ({ title, description }: ImageTile, i: number) => {
+            return i + 1 === benefits.length ? (
               <ImageTile
                 key={title}
                 title={title}
                 description={description}
-                imageSrc={imageSrc}
-                imagePosition={imagePosition}
+                imageSrc={benefits[i].imageSrc}
+                imagePosition={benefits[i].imagePosition}
                 imageAlt={title}
               />
+            ) : (
+              <React.Fragment key={t(title)}>
+                <ImageTile
+                  key={title}
+                  title={title}
+                  description={description}
+                  imageSrc={benefits[i].imageSrc}
+                  imagePosition={benefits[i].imagePosition}
+                  imageAlt={title}
+                />
 
-              <Divider />
-            </React.Fragment>
-          );
-        })}
+                <Divider />
+              </React.Fragment>
+            );
+          },
+        )}
       </ImageTileContainer>
       <Faq />
     </Layout>
