@@ -9,6 +9,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "../../slices/userSlice";
 
+import type { Locale } from "@/data/languageSelector";
+
 export default function Home() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
@@ -36,10 +38,6 @@ export default function Home() {
     <React.Fragment>{!user ? <Homepage /> : <Dashboard />}</React.Fragment>
   );
 }
-
-type Locale = {
-  locale: "en" | "cs";
-};
 
 export async function getStaticProps({ locale }: Locale) {
   return {
