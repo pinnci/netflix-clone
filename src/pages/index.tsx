@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import Homepage from "../components/Homepage/Homepage";
 import Dashboard from "@/components/Dashboard/Dashboard";
@@ -34,4 +35,12 @@ export default function Home() {
   return (
     <React.Fragment>{!user ? <Homepage /> : <Dashboard />}</React.Fragment>
   );
+}
+
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["homepage"])),
+    },
+  };
 }
