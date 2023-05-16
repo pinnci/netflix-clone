@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 type AccordionContextType = {
   activeIndex: string | number | null;
-  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
 const AccordionState = {
