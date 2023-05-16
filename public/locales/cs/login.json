@@ -1,0 +1,66 @@
+{
+  "imageAlt": "Titulní obrázek katalógu Netflix",
+  "title": "Přihlásit se",
+  "emailInput": {
+    "label": "Email",
+    "errorMessage": "Zadejte prosím platnou e-mailovou adresu."
+  },
+  "passwordInput": {
+    "label": "Heslo",
+    "errorMessage": "Heslo je povinní."
+  },
+  "buttonLabel": "Přihlásit se",
+  "checkboxLabel": "Zapamatovat",
+  "helpLabel": "Potřebujete pomoc?",
+  "signUp": {
+    "title": "Teprve s Netflixem začínáte?",
+    "link": "Zaregistrujte se",
+    "href": "/"
+  },
+  "supportContact": {
+    "title": "Dotazy? Kontaktujte nás",
+    "phoneNumber": "1-844-505-2993"
+  },
+  "footer": [
+    {
+      "column": [
+        {
+          "title": "Často kladené dotazy",
+          "href": "#"
+        },
+        {
+          "title": "Nastavení Cookies",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Centrum pomoci",
+          "href": "#"
+        },
+        {
+          "title": "Podnikové Informace",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Podmínky používání",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Soukromí",
+          "href": "#"
+        }
+      ]
+    }
+  ]
+}
