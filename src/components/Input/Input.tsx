@@ -16,7 +16,7 @@ type Input = {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onChange?: React.FocusEventHandler<HTMLInputElement>;
-  ref?: any;
+  ref?: typeof useRef<HTMLInputElement>;
 } & React.ComponentProps<"input">;
 
 const Input = forwardRef((props: Input, ref) => {
