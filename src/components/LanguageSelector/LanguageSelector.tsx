@@ -17,7 +17,7 @@ const LanguageSelector = ({ className, ...other }: LanguageSelector) => {
 
   const router = useRouter();
 
-  const handleLocaleChange = (event: any) => {
+  const handleLocaleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
 
     router.push(router.route, router.asPath, {
