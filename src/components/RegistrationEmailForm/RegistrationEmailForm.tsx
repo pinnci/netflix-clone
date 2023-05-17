@@ -45,6 +45,7 @@ const RegistrationEmailForm = ({
 
     if (!emailRegex.test(inputValue)) {
       setError(true);
+      setSuccess(false);
     } else {
       setError(false);
     }
@@ -61,6 +62,7 @@ const RegistrationEmailForm = ({
 
     if (e.target.value === "") {
       setError(false);
+      setSuccess(false);
     }
   };
 
