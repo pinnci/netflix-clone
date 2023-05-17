@@ -19,6 +19,7 @@ const RegistrationEmailForm = ({
   ...other
 }: RegistrationEmailForm) => {
   const [error, setError] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
   const [inputField, setInputField] = useState<HTMLInputElement | null>(null);
 
@@ -90,12 +91,25 @@ const RegistrationEmailForm = ({
       router.push("/signup/password");
 
       dispatch(addEmail(inputValue));
+
+      localStorage.setItem("registration-email", inputValue);
     }
   };
 
   useEffect(() => {
     setInputField(inputRef.current);
-  }, []);
+
+    if (localStorage.getItem("registration-email")) {
+      const localStorageRegistrationEmail =
+        localStorage.getItem("registration-email");
+
+      if (localStorageRegistrationEmail) {
+        setInputValue(localStorageRegistrationEmail);
+        setSuccess(true);
+        dispatch(addEmail(localStorageRegistrationEmail));
+      }
+    }
+  }, [dispatch]);
 
   return (
     <div className={classes} {...other}>
@@ -115,6 +129,8 @@ const RegistrationEmailForm = ({
             error={error}
             autoComplete="off"
             inputContainerClassName="sm:w-auto sm:max-w-sm"
+            value={inputValue}
+            success={success}
           />
 
           <Button
