@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { NextSeo } from "next-seo";
 
 import Homepage from "../components/Homepage/Homepage";
 import Dashboard from "@/components/Dashboard/Dashboard";
@@ -14,6 +16,7 @@ import type { Locale } from "@/data/languageSelector";
 export default function Home() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -35,14 +38,22 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <React.Fragment>{!user ? <Homepage /> : <Dashboard />}</React.Fragment>
+    <>
+      <NextSeo
+        title={`${t("defaultTitle")}`}
+        description={`${t("description")}`}
+        openGraph={{ description: `${t("openGraph.description")}` }}
+        additionalMetaTags={[{ name: "keywords", content: `${t("keywords")}` }]}
+      />
+      <React.Fragment>{!user ? <Homepage /> : <Dashboard />}</React.Fragment>
+    </>
   );
 }
 
 export async function getStaticProps({ locale }: Locale) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["homepage"])),
+      ...(await serverSideTranslations(locale, ["homepage", "common"])),
     },
   };
 }
