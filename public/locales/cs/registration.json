@@ -7,6 +7,14 @@
   },
   "title": "Vítejte zpátky! <br/> Registrace k Netflixu je jednoduchá.",
   "description": "Zadejte heslo a můžete se hned začít dívat.",
+  "registration": {
+    "title": "Vytvořte si heslo a zahajte svoje členství",
+    "description": "Už jen jeden krůček a bude hotovo! <br/> I my máme odpor k papírování."
+  },
+  "registrationEmailInput": {
+    "label": "E-mailová adresa",
+    "errorMessage": "Zadejte prosím platnou e-mailovou adresu"
+  },
   "emailLabel": "E-mail",
   "passwordInput": {
     "label": "Zadejte heslo",
