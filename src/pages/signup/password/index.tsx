@@ -8,11 +8,18 @@ import RegistrationPasswordForm from "@/components/RegistrationPasswordForm/Regi
 import type { Locale } from "@/data/languageSelector";
 
 const CreatePassword = () => {
-  const { t } = useTranslation("registration");
+  const { t } = useTranslation(["commob", "registration"]);
 
   return (
     <Layout variant="registration">
-      <NextSeo title={`${t("buttonTitle")}`} />
+      <NextSeo
+        title={`${t("registration:buttonTitle")}`}
+        description={`${t("common:description")}`}
+        openGraph={{ description: `${t("common:openGraph.description")}` }}
+        additionalMetaTags={[
+          { name: "keywords", content: `${t("common:keywords")}` },
+        ]}
+      />
       <RegistrationPasswordForm />
     </Layout>
   );
@@ -23,7 +30,7 @@ export default CreatePassword;
 export async function getStaticProps({ locale }: Locale) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["registration"])),
+      ...(await serverSideTranslations(locale, ["registration", "common"])),
     },
   };
 }
