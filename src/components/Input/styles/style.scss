@@ -40,6 +40,10 @@
     &--error {
       border-color: $color-primary;
     }
+
+    &--success {
+      border-color: $color-success;
+    }
   }
 
   &__errorMessage {

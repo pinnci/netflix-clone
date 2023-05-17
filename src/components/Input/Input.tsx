@@ -13,6 +13,7 @@ type Input = {
   value?: string;
   errorMessage: string;
   error: boolean;
+  success?: boolean;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onChange?: React.FocusEventHandler<HTMLInputElement>;
@@ -29,6 +30,7 @@ const Input = forwardRef((props: Input, ref) => {
     variant = "dark",
     errorMessage,
     error,
+    success,
     value,
     onBlur,
     onFocus,
@@ -57,6 +59,7 @@ const Input = forwardRef((props: Input, ref) => {
     "input__field__input border rounded border-solid pt-6 px-4 pb-2 w-full leading-6",
     {
       "input__field__input--error": error,
+      "input__field__input--success": success,
       [`input__field__input--${variant}`]: variant,
     },
     inputClassName,

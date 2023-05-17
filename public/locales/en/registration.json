@@ -7,6 +7,14 @@
   },
   "title": "Welcome back! <br/> Joining Netflix is easy.",
   "description": "Enter your password and you'll be watching in no time.",
+  "registration": {
+    "title": "Create a password to start",
+    "description": "Just one more step and you're done! <br/> We hate paperwork, too."
+  },
+  "registrationEmailInput": {
+    "label": "Email adress",
+    "errorMessage": "Please enter a valid email address."
+  },
   "emailLabel": "E-mail",
   "passwordInput": {
     "label": "Enter your password",
