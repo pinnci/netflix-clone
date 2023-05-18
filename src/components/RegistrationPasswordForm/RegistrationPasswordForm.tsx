@@ -50,7 +50,7 @@ const RegistrationPasswordForm = ({
   const passwordInputRef = useRef(null);
 
   const checkPassword = () => {
-    if (passwordInputValue.length >= 5) {
+    if (passwordInputValue.length > 6) {
       setPasswordError(false);
     } else {
       setPasswordError(true);
