@@ -18,7 +18,7 @@
   "emailLabel": "E-mail",
   "passwordInput": {
     "label": "Enter your password",
-    "errorMessage": "Password should be longer that 5 characters."
+    "errorMessage": "Password should be longer that 6 characters."
   },
   "forgottenPassword": {
     "title": "Forgot your password?",

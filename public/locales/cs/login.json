@@ -62,5 +62,23 @@
         }
       ]
     }
-  ]
+  ],
+  "errorMessages": {
+    "auth/wrong-password": {
+      "errorMessage": "Nesprávné heslo. Skontrolujte svoje heslo a zkuste to znova."
+    },
+    "auth/user-not-found": {
+      "errorMessage": "Litujeme, ale účet se zadanou e-mailovou adresou nemůžeme najít. Zkuste to znova nebo",
+      "errorMessageLinkTitle": "si založte nový účet",
+      "errorMessageLinkHref": "/"
+    },
+    "auth/email-already-in-use": {
+      "errorMessage": "Litujeme, ale účet se zadanou e-mailovou adresou již existuje.",
+      "errorMessageLinkTitle": "Přihlásit se",
+      "errorMessageLinkHref": "/login"
+    },
+    "auth/too-many-requests": {
+      "errorMessage": "Omlouváme se, ale na server je příliš mnoho požadavků. Zkuste to znovu později."
+    }
+  }
 }
