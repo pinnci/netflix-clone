@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://netflix-clone-pinnci.vercel.app/
+
+# Sitemaps
+Sitemap: https://netflix-clone-pinnci.vercel.app/sitemap.xml
