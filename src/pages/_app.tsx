@@ -4,7 +4,7 @@ import { wrapper } from "../../store";
 import { DefaultSeo } from "next-seo";
 import SEO from "../../next-seo.config";
 import { appWithTranslation } from "next-i18next";
-
+import { Provider } from "react-redux";
 import localFont from "next/font/local";
 
 const netflixSans = localFont({
@@ -29,15 +29,19 @@ const netflixSans = localFont({
   variable: "--font-netflixSans",
 });
 
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, ...rest }: AppProps) {
+  const { store, props } = wrapper.useWrappedStore(rest);
+
   return (
     <>
-      <DefaultSeo {...SEO} />
-      <main className={`${netflixSans.variable} font-sans`}>
-        <Component {...pageProps} />
-      </main>
+      <Provider store={store}>
+        <DefaultSeo {...SEO} />
+        <main className={`${netflixSans.variable} font-sans`}>
+          <Component {...props.pageProps} />
+        </main>
+      </Provider>
     </>
   );
 }
 
-export default appWithTranslation(wrapper.withRedux(App));
+export default appWithTranslation(App);
