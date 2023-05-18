@@ -18,7 +18,7 @@
   "emailLabel": "E-mail",
   "passwordInput": {
     "label": "Zadejte heslo",
-    "errorMessage": "Heslo musí mít více než 5 znaků."
+    "errorMessage": "Heslo musí mít více než 6 znaků."
   },
   "forgottenPassword": {
     "title": "Zapomněli jste heslo?",
