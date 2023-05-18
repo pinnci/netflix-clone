@@ -16,6 +16,10 @@ const LoginForm = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordInputValue, setPasswordInputValue] = useState<string>("");
 
+  const [firebaseErrorCode, setFirebaseErrorCode] = useState<string | null>(
+    null,
+  );
+
   const [rememberMe, setRememberMe] = useState(false);
 
   const emailInputRef = useRef(null);
@@ -85,13 +89,13 @@ const LoginForm = () => {
     }
   };
 
-  const handlePasswordFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handlePasswordFocus = () => {
     if (passwordError && passwordInputValue) {
       checkPassword();
     }
   };
 
-  const handlePasswordBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handlePasswordBlur = () => {
     if (passwordInputValue) {
       checkPassword();
     }
@@ -118,9 +122,6 @@ const LoginForm = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          // ...
-          //TO DO DISPATCH IT TO REDUX STATE AND CALL FIREBASE LOGIN FUNCTION
-          //dispatch(addEmail(inputValue));
           console.log("user", user);
 
           if (rememberMe) {
@@ -133,15 +134,17 @@ const LoginForm = () => {
               }),
             );
           }
+
+          if (firebaseErrorCode) {
+            setFirebaseErrorCode(null);
+          }
+
+          router.push("/");
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log("error code", errorCode);
-          console.log("error message", errorMessage);
+          //Not signed in
+          setFirebaseErrorCode(error.code);
         });
-
-      router.push("/");
     }
   };
 
@@ -171,6 +174,45 @@ const LoginForm = () => {
           <h1 className="text-white mt-0 mb-7 font-medium text-3xl">
             {t("title")}
           </h1>
+
+          {firebaseErrorCode && (
+            <div>
+              {Object.keys(t("errorMessages", { returnObjects: true })).map(
+                (key) => {
+                  let errorMessageElement;
+
+                  if (firebaseErrorCode === key) {
+                    const {
+                      errorMessage,
+                      errorMessageLinkTitle,
+                      errorMessageLinkHref,
+                    } =
+                      //@ts-ignore
+                      t("errorMessages", {
+                        returnObjects: true,
+                      })[key];
+
+                    errorMessageElement = (
+                      <div key={key}>
+                        <h1 className="text-white">{errorMessage}</h1>
+                        {errorMessageLinkTitle && (
+                          <Link
+                            href={errorMessageLinkHref}
+                            className="text-white"
+                          >
+                            {errorMessageLinkTitle}
+                          </Link>
+                        )}
+                      </div>
+                    );
+
+                    return errorMessageElement;
+                  }
+                },
+              )}
+            </div>
+          )}
+
           <Input
             type="email"
             label={t("emailInput.label")}
@@ -178,8 +220,8 @@ const LoginForm = () => {
             error={emailError}
             inputContainerClassName="mb-7"
             onChange={(e) => handleEmailChange(e)}
-            onBlur={() => handleEmailBlur()}
-            onFocus={() => handleEmailFocus()}
+            onBlur={handleEmailBlur}
+            onFocus={handleEmailFocus}
             ref={emailInputRef}
             value={emailInputValue}
           />
@@ -191,8 +233,8 @@ const LoginForm = () => {
             error={passwordError}
             inputContainerClassName="mb-10"
             onChange={(e) => handlePasswordChange(e)}
-            onBlur={(e) => handlePasswordBlur(e)}
-            onFocus={(e) => handlePasswordFocus(e)}
+            onBlur={handlePasswordBlur}
+            onFocus={handlePasswordFocus}
             ref={passwordInputRef}
             value={passwordInputValue}
           />
@@ -218,6 +260,15 @@ const LoginForm = () => {
               {t("helpLabel")}
             </Link>
           </div>
+
+          <span
+            className="mt-4 block text-xs text-neutral-400 hover:cursor-pointer"
+            onClick={() => {
+              localStorage.removeItem("login-credentials");
+            }}
+          >
+            Clear out remember me
+          </span>
         </form>
 
         <span className="text-neutral-400">
