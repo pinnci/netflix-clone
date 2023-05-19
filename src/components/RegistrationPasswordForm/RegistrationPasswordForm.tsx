@@ -13,6 +13,7 @@ import emailjs from "@emailjs/browser";
 import Container from "../Container/Container";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import Toast from "../Toast/Toast";
 
 type RegistrationPasswordForm = {
   className?: string;
@@ -31,6 +32,10 @@ const RegistrationPasswordForm = ({
   const [emailInputValue, setEmailInputValue] = useState<string>("");
   const [emailInputField, setEmailInputField] =
     useState<HTMLInputElement | null>(null);
+
+  const [firebaseErrorCode, setFirebaseErrorCode] = useState<string | null>(
+    null,
+  );
 
   const { t } = useTranslation("registration");
 
@@ -135,6 +140,10 @@ const RegistrationPasswordForm = ({
     emailInputField && emailInputField.focus();
   };
 
+  const clearLocalStorageRegistrationEmail = () => {
+    localStorage.removeItem("registration-email");
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -163,7 +172,7 @@ const RegistrationPasswordForm = ({
           console.log(userCredential);
           console.log(user);
 
-          localStorage.removeItem("registration-email");
+          clearLocalStorageRegistrationEmail();
 
           router.push("/");
 
@@ -179,11 +188,7 @@ const RegistrationPasswordForm = ({
           );
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode);
-          console.log(errorMessage);
-          // ..
+          setFirebaseErrorCode(error.code);
         });
     }
   };
@@ -228,6 +233,48 @@ const RegistrationPasswordForm = ({
                   : `${t("registration.description")}`,
               }}
             />
+
+            {firebaseErrorCode && (
+              <Toast className="my-4">
+                {Object.keys(t("errorMessages", { returnObjects: true })).map(
+                  (key) => {
+                    let errorMessageElement;
+
+                    if (firebaseErrorCode === key) {
+                      const {
+                        errorMessage,
+                        errorMessageLinkTitle,
+                        errorMessageLinkHref,
+                      } =
+                        //@ts-ignore
+                        t("errorMessages", {
+                          returnObjects: true,
+                        })[key];
+
+                      errorMessageElement = (
+                        <div key={key}>
+                          <span className="text-white text-sm">
+                            {errorMessage}
+                          </span>{" "}
+                          {errorMessageLinkTitle && (
+                            <Link
+                              href={errorMessageLinkHref}
+                              className="text-white text-sm underline"
+                              onClick={clearLocalStorageRegistrationEmail}
+                            >
+                              {errorMessageLinkTitle}
+                              {"."}
+                            </Link>
+                          )}
+                        </div>
+                      );
+
+                      return errorMessageElement;
+                    }
+                  },
+                )}
+              </Toast>
+            )}
 
             <div className="mt-4 mb-8">
               {registrationEmail ? (
