@@ -8,6 +8,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Checkbox from "../Checkbox/Checkbox";
+import Toast from "../Toast/Toast";
 
 const LoginForm = () => {
   const [emailError, setEmailError] = useState<boolean>(false);
@@ -142,7 +143,6 @@ const LoginForm = () => {
           router.push("/");
         })
         .catch((error) => {
-          //Not signed in
           setFirebaseErrorCode(error.code);
         });
     }
@@ -176,7 +176,7 @@ const LoginForm = () => {
           </h1>
 
           {firebaseErrorCode && (
-            <div>
+            <Toast className="mb-4">
               {Object.keys(t("errorMessages", { returnObjects: true })).map(
                 (key) => {
                   let errorMessageElement;
@@ -194,13 +194,16 @@ const LoginForm = () => {
 
                     errorMessageElement = (
                       <div key={key}>
-                        <h1 className="text-white">{errorMessage}</h1>
+                        <span className="text-white text-sm">
+                          {errorMessage}
+                        </span>{" "}
                         {errorMessageLinkTitle && (
                           <Link
                             href={errorMessageLinkHref}
-                            className="text-white"
+                            className="text-white text-sm underline"
                           >
                             {errorMessageLinkTitle}
+                            {"."}
                           </Link>
                         )}
                       </div>
@@ -210,7 +213,7 @@ const LoginForm = () => {
                   }
                 },
               )}
-            </div>
+            </Toast>
           )}
 
           <Input
