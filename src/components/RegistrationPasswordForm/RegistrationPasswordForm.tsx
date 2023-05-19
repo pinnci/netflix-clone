@@ -8,6 +8,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { addEmail } from "../../../slices/registrationEmailSlice";
 import { AppState } from "../../../store";
+import emailjs from "@emailjs/browser";
 
 import Container from "../Container/Container";
 import Input from "../Input/Input";
@@ -36,6 +37,8 @@ const RegistrationPasswordForm = ({
   const dispatch = useDispatch();
 
   const router = useRouter();
+
+  const formRef = useRef(null);
 
   const registrationEmail = useSelector(
     (state: AppState) => state.registrationEmail.value,
@@ -161,11 +164,19 @@ const RegistrationPasswordForm = ({
           console.log(user);
 
           localStorage.removeItem("registration-email");
-          // ...
-          //TO DO - AUMATICALLY LOG USER IN
-          //TODO : AFTER LOG IN, REDIRECT TO HOMEPAGE WHERE CHECK IF USER IS LOGGED. IF YES, SHOW DASHBOARD. IF NOT, SHOW NOT LOGGED IN PAGE
 
           router.push("/");
+
+          //Send confirmation dummy e-mail
+          emailjs.send(
+            //@ts-ignore
+            process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+            process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+            {
+              email: registrationEmail ? registrationEmail : emailInputValue,
+            },
+            process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+          );
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -193,7 +204,12 @@ const RegistrationPasswordForm = ({
   return (
     <Container className="grow pb-40">
       <div className="pt-8 pb-16">
-        <form className={classes} {...other} onSubmit={handleSubmit}>
+        <form
+          className={classes}
+          onSubmit={handleSubmit}
+          ref={formRef}
+          {...other}
+        >
           <div className="max-w-md">
             <h1
               dangerouslySetInnerHTML={{
