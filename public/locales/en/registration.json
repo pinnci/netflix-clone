@@ -74,5 +74,12 @@
         }
       ]
     }
-  ]
+  ],
+  "errorMessages": {
+    "auth/email-already-in-use": {
+      "errorMessage": "Account with provided e-mail access already exists.",
+      "errorMessageLinkTitle": "Sign In",
+      "errorMessageLinkHref": "/login"
+    }
+  }
 }

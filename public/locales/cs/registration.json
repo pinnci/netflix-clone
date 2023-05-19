@@ -74,5 +74,12 @@
         }
       ]
     }
-  ]
+  ],
+  "errorMessages": {
+    "auth/email-already-in-use": {
+      "errorMessage": "Litujeme, ale účet se zadanou e-mailovou adresou již existuje.",
+      "errorMessageLinkTitle": "Přihlásit se",
+      "errorMessageLinkHref": "/login"
+    }
+  }
 }
