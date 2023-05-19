@@ -70,7 +70,7 @@
     "auth/user-not-found": {
       "errorMessage": "Sorry, we can't find an account with this email address. Please try again or",
       "errorMessageLinkTitle": "create a new account",
-      "errorMessageLinkHref": "/"
+      "errorMessageLinkHref": "/signup/password"
     },
     "auth/email-already-in-use": {
       "errorMessage": "Account with provided e-mail access already exists.",

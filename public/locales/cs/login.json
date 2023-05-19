@@ -70,7 +70,7 @@
     "auth/user-not-found": {
       "errorMessage": "Litujeme, ale účet se zadanou e-mailovou adresou nemůžeme najít. Zkuste to znova nebo",
       "errorMessageLinkTitle": "si založte nový účet",
-      "errorMessageLinkHref": "/"
+      "errorMessageLinkHref": "/signup/password"
     },
     "auth/email-already-in-use": {
       "errorMessage": "Litujeme, ale účet se zadanou e-mailovou adresou již existuje.",
