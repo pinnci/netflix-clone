@@ -3,11 +3,12 @@
 @import "./tailwind.css";
 
 //BASE
+@import "./base/style";
 @import "./base/config";
 @import "./base/colors";
 
 // COMPONENTS
-@import "../components//Logo/styles/style";
+@import "../components/Logo/styles/style";
 @import "../components/Header/styles/style";
 @import "../components/LanguageSelector/styles/style";
 @import "../components/Icon/styles/style";
@@ -20,10 +21,7 @@
 @import "../components/Accordion/styles/style";
 @import "../components/Input/styles/style";
 @import "../components/Footer/styles/style";
-@import "../components/List/styles/style";
 @import "../components/ListItem/styles/style";
-@import "../components/RegistrationPasswordForm/styles/style";
 @import "../components/Layout/styles/style";
 @import "../components/LoginForm/styles/style";
-@import "../components/Checkbox/styles/style";
 @import "../components/Toast/styles/style";
