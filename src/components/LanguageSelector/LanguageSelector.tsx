@@ -27,12 +27,9 @@ const LanguageSelector = ({ className, ...other }: LanguageSelector) => {
 
   return (
     <div className={classes} {...other}>
-      <Icon
-        name="globe"
-        className="languageSelector_container__globeIcon absolute pointer-events-none"
-      />
+      <Icon name="globe" className="left-2 absolute pointer-events-none" />
       <select
-        className="languageSelector rounded w-0 pl-5 pr-8 py-1.5 sm:w-full sm:px-8"
+        className="languageSelector appearance-none rounded w-0 pl-5 pr-8 py-1.5 sm:w-full sm:px-8"
         onChange={handleLocaleChange}
         value={router.locale}
       >
@@ -51,7 +48,7 @@ const LanguageSelector = ({ className, ...other }: LanguageSelector) => {
       </select>
       <Icon
         name="caret-down"
-        className="languageSelector_container__caretIcon absolute pointer-events-none"
+        className="languageSelector_container__caretIcon right-2 absolute pointer-events-none sm:right-3"
       />
     </div>
   );

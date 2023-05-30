@@ -4,8 +4,8 @@
     min-height: _get-rem(960px);
     background: linear-gradient(
       180deg,
-      rgba(0, 8, 29, 0.45) 0%,
-      rgba(0, 8, 29, 1) 90%
+      rgba($color-background, 0.45) 0%,
+      rgba($color-background, 1) 90%
     );
   }
 

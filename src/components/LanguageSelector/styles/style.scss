@@ -1,27 +1,8 @@
-@import "../../../styles/base/style.scss";
-
 .languageSelector_container {
-  color: white;
-
-  &__globeIcon {
-    left: _get-rem(8px);
-  }
-
-  &__caretIcon {
-    right: _get-rem(12px);
-
-    @media (max-width: 640px) {
-      right: _get-rem(8px);
-    }
-  }
+  color: $color-white;
 }
 
 .languageSelector {
   border: 1px solid rgba(128, 128, 128, 0.7);
   background: rgba($color-grey, 0.7);
-
-  //Hide default native caret
-  -moz-appearance: none; /* Firefox */
-  -webkit-appearance: none; /* Safari and Chrome */
-  appearance: none;
 }

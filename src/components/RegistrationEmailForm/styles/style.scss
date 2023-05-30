@@ -1,12 +1,10 @@
-@import "../../../styles/base/colors.scss";
-
 .registrationEmailForm {
   &--bordered {
     background: linear-gradient(0deg, $color-blue, $color-blue) padding-box,
       linear-gradient(
           271.65deg,
-          #233371 5.26%,
-          #00197a 50.02%,
+          lighten($color-background, 20%) 5.26%,
+          lighten($color-background, 16%) 50.02%,
           $color-primary 97.68%
         )
         border-box;
