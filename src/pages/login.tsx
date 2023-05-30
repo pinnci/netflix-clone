@@ -28,7 +28,7 @@ const Login = () => {
       <div className="loginForm__imageContainer absolute w-full h-full">
         <Image
           src={imageSrc}
-          className="loginForm__image object-cover object-left"
+          className="loginForm__image hidden object-cover object-left sm:block"
           alt={t("login:imageAlt")}
           fill
         />

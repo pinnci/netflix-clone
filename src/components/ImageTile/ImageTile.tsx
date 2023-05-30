@@ -20,7 +20,7 @@ const ImageTile = ({
   ...props
 }: ImageTile) => {
   const classes = cx(
-    "image-tile flex items-center",
+    "image-tile flex items-center flex-col sm:flex-row",
     {
       "flex-row-reverse": imagePosition === "left",
       "flex-row": imagePosition === "right",

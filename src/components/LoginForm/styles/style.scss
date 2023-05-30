@@ -8,13 +8,7 @@
 
   &__imageContainer {
     @media (max-width: 640px) {
-      background: black;
-    }
-  }
-
-  &__image {
-    @media (max-width: 640px) {
-      display: none;
+      background: $color-black;
     }
   }
 

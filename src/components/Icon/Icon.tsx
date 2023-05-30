@@ -28,8 +28,8 @@ type Icon = IconProps & JSX.IntrinsicElements["svg"];
 
 const Icon: React.FC<Icon> = ({ className, size, name, ...other }: Icon) => {
   const classes = cx(
+    "icon fill-current block",
     {
-      [`icon`]: true,
       [`icon--${size}`]: size,
     },
     className,
