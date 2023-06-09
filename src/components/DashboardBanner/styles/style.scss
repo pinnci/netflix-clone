@@ -1,0 +1,15 @@
+.dashboard-banner {
+  &__imageContainer {
+    min-height: _get-rem(650px);
+  }
+
+  &__gradient {
+    z-index: 1;
+    min-height: _get-rem(650px);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 8, 29, 0) 12%,
+      rgba(0, 8, 29, 1) 100%
+    );
+  }
+}
