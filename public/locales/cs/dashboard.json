@@ -1,0 +1,18 @@
+{
+  "menu": [
+    {
+      "title": "Domovská stránka",
+      "href": "/"
+    },
+    {
+      "title": "Pořady",
+      "href": "/"
+    },
+    {
+      "title": "Filmy",
+      "href": "/"
+    }
+  ],
+  "media-type": { "tv": { "title": "Tv pořad" }, "movie": { "title": "Film" } },
+  "buttonLabel": "Odhlásit se"
+}

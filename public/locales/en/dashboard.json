@@ -1,0 +1,18 @@
+{
+  "menu": [
+    {
+      "title": "Home",
+      "href": "/"
+    },
+    {
+      "title": "Shows",
+      "href": "/"
+    },
+    {
+      "title": "Movies",
+      "href": "/"
+    }
+  ],
+  "media-type": { "tv": { "title": "Tv show" }, "movie": { "title": "Movie" } },
+  "buttonLabel": "Sign Out"
+}
