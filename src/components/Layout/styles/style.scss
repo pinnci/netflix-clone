@@ -6,4 +6,8 @@
   &--registration {
     background-color: $color-white;
   }
+
+  &--loggedIn {
+    background-color: $color-background;
+  }
 }
