@@ -13,6 +13,47 @@
       "href": "/"
     }
   ],
-  "media-type": { "tv": { "title": "Tv show" }, "movie": { "title": "Movie" } },
-  "buttonLabel": "Sign Out"
+  "media-type": {
+    "tv": {
+      "title": "Tv show"
+    },
+    "movie": {
+      "title": "Movie"
+    }
+  },
+  "buttonLabel": "Sign Out",
+  "categories": [
+    {
+      "key": "Trending",
+      "title": "Trending"
+    },
+    {
+      "key": "NetflixOriginals",
+      "title": "Only on Netflix"
+    },
+    {
+      "key": "TopRated",
+      "title": "Top rated"
+    },
+    {
+      "key": "ActionMovies",
+      "title": "Action movies"
+    },
+    {
+      "key": "ComedyMovies",
+      "title": "Comedy"
+    },
+    {
+      "key": "HorrorMovies",
+      "title": "Horror"
+    },
+    {
+      "key": "RomanceMovies",
+      "title": "Romantic drama"
+    },
+    {
+      "key": "Documentarries",
+      "title": "Documentarries"
+    }
+  ]
 }

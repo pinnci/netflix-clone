@@ -13,6 +13,47 @@
       "href": "/"
     }
   ],
-  "media-type": { "tv": { "title": "Tv pořad" }, "movie": { "title": "Film" } },
-  "buttonLabel": "Odhlásit se"
+  "media-type": {
+    "tv": {
+      "title": "Tv pořad"
+    },
+    "movie": {
+      "title": "Film"
+    }
+  },
+  "buttonLabel": "Odhlásit se",
+  "categories": [
+    {
+      "key": "Trending",
+      "title": "Právě letí"
+    },
+    {
+      "key": "NetflixOriginals",
+      "title": "Uvádí jedině Netflix"
+    },
+    {
+      "key": "TopRated",
+      "title": "Nejlépe hodnocený"
+    },
+    {
+      "key": "ActionMovies",
+      "title": "Akční filmy"
+    },
+    {
+      "key": "ComedyMovies",
+      "title": "Komedie"
+    },
+    {
+      "key": "HorrorMovies",
+      "title": "Horory"
+    },
+    {
+      "key": "RomanceMovies",
+      "title": "Návykové romantické drama"
+    },
+    {
+      "key": "Documentarries",
+      "title": "Dokumentární"
+    }
+  ]
 }
