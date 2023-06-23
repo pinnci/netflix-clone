@@ -2,7 +2,7 @@ import Link from "next/link";
 import cx from "classnames";
 
 type Logo = {
-  variant: "small" | "large";
+  variant?: "small" | "large";
   className?: string;
 };
 
