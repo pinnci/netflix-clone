@@ -62,7 +62,7 @@ const DashboardBanner = ({ className, ...other }: DashboardBanner) => {
       <div className="dashboard-banner__imageContainer relative w-full">
         <Image
           src={`https://image.tmdb.org/t/p/original/${heroBannerImage?.backdrop_path}`}
-          className="object-cover object-left"
+          className="object-cover object-center"
           alt={
             heroBannerImage?.title ||
             heroBannerImage?.original_title ||
@@ -75,19 +75,19 @@ const DashboardBanner = ({ className, ...other }: DashboardBanner) => {
       </div>
       <div className="dashboard-banner__gradient absolute top-0 left-0 right-0 bottom-0"></div>
 
-      <div className="w-full z-20 absolute bottom-0 left-0">
+      <div className="w-full z-20 absolute bottom-28 left-0">
         <Container className="pt-6">
-          <div className="dashboard-banner__content pb-8 max-w-screen-2xl">
-            <h1 className="text-5xl font-black text-white mt-4 mb-0 sm:w-9/12">
+          <div className="dashboard-banner__content max-w-screen-2xl sm:pb-8">
+            {heroBannerImage && (
+              <MovieTypeIndicator mediaType={heroBannerImage.media_type} />
+            )}
+
+            <h1 className="font-black text-white mt-0 mb-4 sm:w-9/12 md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
               {heroBannerImage?.title ||
                 heroBannerImage?.original_title ||
                 heroBannerImage?.name ||
                 "Featured title"}
             </h1>
-
-            {heroBannerImage && (
-              <MovieTypeIndicator mediaType={heroBannerImage.media_type} />
-            )}
 
             <p className="text-base font-light text-white sm:max-w-xl">
               {heroBannerImage?.overview}
