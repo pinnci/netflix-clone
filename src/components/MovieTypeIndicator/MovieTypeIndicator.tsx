@@ -28,7 +28,7 @@ const MovieTypeIndicator = ({
 
           return (
             <p
-              className="text-base font-medium	text-white xl:text-2xl"
+              className="text-base font-normal	text-white xl:text-2xl"
               key={title}
             >
               {title}
@@ -40,10 +40,11 @@ const MovieTypeIndicator = ({
       <div className="relative w-2.5 h-4 ml-2">
         <Image
           src="/images/netflix-logo.png"
-          className="object-cover object-left"
+          className="object-cover object-left w-auto h-full"
           alt="Netlix logo"
-          fill
-          priority
+          width="0"
+          height="0"
+          sizes="100vw"
         />
       </div>
     </div>
