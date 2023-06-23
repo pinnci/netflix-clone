@@ -2,11 +2,16 @@ import Link from "next/link";
 import cx from "classnames";
 
 type Logo = {
+  variant: "small" | "large";
   className?: string;
 };
 
-const Logo = ({ className, ...other }: Logo) => {
-  const classes = cx("logo block h-auto", className);
+const Logo = ({ variant = "large", className, ...other }: Logo) => {
+  const classes = cx(
+    "logo block h-auto",
+    { "logo--small": variant === "small", "logo--large": variant === "large" },
+    className,
+  );
 
   return (
     <Link href="/" className={classes} aria-label="Domovská stránka" {...other}>
