@@ -1,0 +1,33 @@
+.dashboardCategoryRow {
+  &__swiper {
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: $color-white;
+      margin: 0;
+      top: 0;
+      height: 100%;
+      transition: background-color linear 0.1s;
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      background-color: rgba($color-black, 0.5);
+    }
+
+    .swiper-button-disabled {
+      display: none;
+    }
+
+    .swiper-button-next {
+      right: 0;
+      padding-right: _get-rem(30px);
+      padding-left: _get-rem(30px);
+    }
+
+    .swiper-button-prev {
+      left: 0;
+      padding-left: _get-rem(30px);
+      padding-right: _get-rem(30px);
+    }
+  }
+}
