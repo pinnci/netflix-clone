@@ -1,3 +1,35 @@
 @import "./colors.scss";
 
 $default-font-size: 16px;
+
+@font-face {
+  font-family: "Netflix sans";
+  src: url("../../../public/fonts/NetflixSans_W_Rg.woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix sans";
+  src: url("../../../public/fonts/NetflixSans_W_Md.woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix sans";
+  src: url("../../../public/fonts/NetflixSans_W_Bd.woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix sans";
+  src: url("../../../public/fonts/NetflixSans_W_Blk.woff2");
+  font-weight: 900;
+  font-style: normal;
+}
+
+body {
+  font-family: "Netflix sans", sans-serif;
+}
