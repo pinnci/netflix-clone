@@ -8,7 +8,7 @@ import RegistrationPasswordForm from "@/components/RegistrationPasswordForm/Regi
 import type { Locale } from "@/data/languageSelector";
 
 const CreatePassword = () => {
-  const { t } = useTranslation(["commob", "registration"]);
+  const { t } = useTranslation(["common", "registration"]);
 
   return (
     <Layout variant="registration">
