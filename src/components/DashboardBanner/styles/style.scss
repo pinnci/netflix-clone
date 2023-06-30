@@ -1,0 +1,32 @@
+.dashboard-banner {
+  &__imageContainer {
+    height: 100vh;
+    max-height: _get-rem(900px);
+  }
+
+  &__gradient {
+    z-index: 1;
+    height: 100vh;
+    max-height: _get-rem(900px);
+    background: linear-gradient(
+      180deg,
+      rgba($color-dashboard, 0) 12%,
+      rgba($color-dashboard, 1) 100%
+    );
+  }
+
+  &__imageContainer,
+  &__gradient {
+    @media (max-width: 640px) {
+      height: _get-rem(500px);
+    }
+
+    @media (min-width: 641px) {
+      height: _get-rem(600px);
+    }
+
+    @media (min-width: 768px) {
+      height: _get-rem(700px);
+    }
+  }
+}

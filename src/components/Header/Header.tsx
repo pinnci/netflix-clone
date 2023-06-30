@@ -1,6 +1,7 @@
 import HeaderNotLoggedIn from "./HeaderNotLoggedIn";
 import HeaderRegistration from "./HeaderRegistration";
 import HeaderLogin from "./HeaderLogin";
+import HeaderLoggedIn from "./HeaderLoggedIn";
 
 export type Header = {
   variant: "notLoggedIn" | "loggedIn" | "registration" | "login";
@@ -13,7 +14,9 @@ const Header = ({ variant }: Header) => {
     <HeaderRegistration />
   ) : variant === "login" ? (
     <HeaderLogin />
-  ) : null;
+  ) : (
+    <HeaderLoggedIn />
+  );
 };
 
 export default Header;

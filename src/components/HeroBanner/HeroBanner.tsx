@@ -26,6 +26,7 @@ const HeroBanner = ({ className, ...other }: HeroBanner) => {
           className="object-cover object-left"
           alt={t("imageAlt")}
           fill
+          priority
         />
       </div>
       <div className="hero-banner__gradient absolute top-0 left-0 right-0 bottom-0"></div>
