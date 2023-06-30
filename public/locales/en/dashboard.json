@@ -55,5 +55,7 @@
       "key": "Documentarries",
       "title": "Documentarries"
     }
-  ]
+  ],
+  "swiperNextButton": "Show more shows",
+  "swuperPrevButton": "Show previous shows"
 }

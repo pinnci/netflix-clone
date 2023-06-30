@@ -55,5 +55,7 @@
       "key": "Documentarries",
       "title": "Dokumentární"
     }
-  ]
+  ],
+  "swiperNextButton": "Zobrazit více pořadů",
+  "swuperPrevButton": "Zobrazit předchozí pořady"
 }
