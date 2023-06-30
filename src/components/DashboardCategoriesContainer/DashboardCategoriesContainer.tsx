@@ -16,7 +16,7 @@ const DashboardCategoriesContainer = ({
 
   ...other
 }: DashboardCategoriesContainer) => {
-  const [currentLocale, setCurrentLocale] = useState<null | string>(null);
+  const [currentLocale, setCurrentLocale] = useState<string>("");
 
   const router = useRouter();
 
@@ -46,6 +46,7 @@ const DashboardCategoriesContainer = ({
             fetchUrl={`${requests[key]}&language=${currentLocale}`}
             key={key}
             className="mb-4"
+            currentLocale={currentLocale}
           />
         );
       })}
