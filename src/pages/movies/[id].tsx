@@ -21,7 +21,7 @@ type Movie = {
 };
 
 const MovieDetail = ({ data }: MovieDetail) => {
-  console.log("data", data);
+  //console.log("data", data);
 
   return (
     <Layout variant="loggedIn">
@@ -110,11 +110,17 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     })
     .flat();
 
-  const localizedPaths = paths.map((obj, index) => ({
-    ...obj,
-    //@ts-ignore
-    locale: locales[index % locales.length],
-  }));
+  const localizedPaths = paths.flatMap((path) => {
+    return locales?.map((locale) => {
+      return {
+        ...path,
+        params: {
+          ...path.params,
+        },
+        locale: locale,
+      };
+    });
+  });
 
   return {
     paths: localizedPaths,
