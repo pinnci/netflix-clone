@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import cx from "classnames";
 import axios from "axios";
-import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Keyboard } from "swiper";
-import Popup from "reactjs-popup";
 import { useTranslation } from "next-i18next";
-
-import DashboardMoviePopUp from "../DashboardMoviePopUp/DashboardMoviePopUp";
+import DashboardMovie from "../DashboardMovie/DashboardMovie";
 
 type DashboardCategoryRow = {
   title: string;
@@ -33,9 +30,15 @@ const DashboardCategoryRow = ({
   ...other
 }: DashboardCategoryRow) => {
   const [movies, setMovies] = useState([]);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const classes = cx("dashboardCategoryRow", className);
+  const classes = cx(
+    "relative",
+    {
+      ["z-50"]: isHovered,
+    },
+    className,
+  );
 
   const { t } = useTranslation("dashboard");
 
@@ -51,7 +54,16 @@ const DashboardCategoryRow = ({
   }, [fetchUrl]);
 
   return (
-    <div className={classes} {...other}>
+    <div
+      className={classes}
+      {...other}
+      onMouseOver={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setTimeout(() => {
+          setIsHovered(false);
+        }, 100);
+      }}
+    >
       <p className="text-white text-xl mb-2">{title}</p>
 
       <Swiper
@@ -59,12 +71,13 @@ const DashboardCategoryRow = ({
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
-        className="dashboardCategoryRow__swiper"
+        allowSlidePrev
+        allowSlideNext
+        watchSlidesProgress
         modules={[Navigation, Keyboard]}
-        onInit={(swiper) => setActiveIndex(swiper.activeIndex)}
-        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         slidesPerView={2}
         slidesPerGroup={1}
+        allowTouchMove={false}
         keyboard={{
           enabled: true,
         }}
@@ -72,23 +85,20 @@ const DashboardCategoryRow = ({
         spaceBetween={5}
         breakpoints={{
           1280: {
-            width: 1280,
+            width: 1300,
             slidesPerView: 6,
-            slidesPerGroup: 3,
+            slidesPerGroup: 6,
           },
 
           1024: {
-            width: 1024,
             slidesPerView: 5,
             slidesPerGroup: 3,
           },
           768: {
-            width: 768,
             slidesPerView: 4,
             slidesPerGroup: 2,
           },
           640: {
-            width: 640,
             slidesPerView: 3,
             slidesPerGroup: 2,
           },
@@ -97,36 +107,12 @@ const DashboardCategoryRow = ({
         {movies.map((movie: Movie, i) => {
           return (
             <SwiperSlide key={i}>
-              <Popup
-                mouseEnterDelay={400}
-                trigger={
-                  <div className="dashboardCategoryRow__imageContainer relative">
-                    <Image
-                      src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                      className="object-cover object-center w-auto h-auto"
-                      alt={
-                        movie.title ||
-                        movie.original_title ||
-                        movie.name ||
-                        "Featured title"
-                      }
-                      width={230}
-                      height={150}
-                    />
-                  </div>
-                }
-                offsetX={activeIndex === i ? 45 : 0}
-                keepTooltipInside={activeIndex >= i - 6 ? true : false}
-                position="center center"
-                on={["hover", "focus"]}
-              >
-                <DashboardMoviePopUp
-                  title={movie.title || movie.original_title || movie.name}
-                  movieId={movie.id}
-                  imageSrc={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                  currentLocale={currentLocale}
-                />
-              </Popup>
+              <DashboardMovie
+                title={movie.title || movie.original_title || movie.name}
+                id={movie.id}
+                imageSrc={movie.backdrop_path}
+                currentLocale={currentLocale}
+              />
             </SwiperSlide>
           );
         })}
