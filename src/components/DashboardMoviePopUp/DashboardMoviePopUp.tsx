@@ -10,6 +10,7 @@ type DashboardMoviePopUp = {
   imageSrc: string;
   className?: string;
   currentLocale: string;
+  position: "left" | "center" | "right";
 } & React.ComponentProps<"div">;
 
 const DashboardMoviePopUp = ({
@@ -18,12 +19,18 @@ const DashboardMoviePopUp = ({
   imageSrc,
   currentLocale,
   className,
+  position,
   ...other
 }: DashboardMoviePopUp) => {
   const [movieData, setMovieData] = useState<any>(null);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const classes = cx(
-    "dashboardMoviePopUp overflow-hidden rounded-md shadow-md",
+    "dashboard-movie-pop-up__wrapper outline-0 absolute top-1/2 left-1/2 z-10 rounded-md",
+    {
+      [`dashboard-movie-pop-up--${position}`]: position,
+      ["dashboard-movie-pop-up--active"]: isHovered,
+    },
     className,
   );
 
@@ -34,7 +41,6 @@ const DashboardMoviePopUp = ({
       )
       .then((response) => {
         setMovieData(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         axios
@@ -43,7 +49,6 @@ const DashboardMoviePopUp = ({
           )
           .then((response) => {
             setMovieData(response.data);
-            console.log(response.data);
           })
           .catch((error) => {
             console.error(error);
@@ -52,26 +57,37 @@ const DashboardMoviePopUp = ({
   }, [movieId, currentLocale]);
 
   return (
-    <Link href={`/movies/${movieId}`}>
-      <div className={classes} {...other}>
+    <Link
+      href={`/movies/${movieId}`}
+      className={classes}
+      onMouseOver={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="dashboard-movie-pop-up overflow-hidden" {...other}>
         <Image
           src={imageSrc}
-          className="object-cover object-center w-auto h-auto"
+          className="object-cover object-center h-auto w-full rounded-md"
           alt={title}
-          width={230}
-          height={150}
+          width={400}
+          height={250}
         />
 
-        <div className="dashboardMoviePopUp__content p-4">
-          <p className="text-white text-lg">{title}</p>
+        <div className="dashboard-movie-pop-up__content p-4">
+          <p className="text-white text-lg mb-4">{title}</p>
 
-          {movieData?.genres.map((genre: { name: string }, i: number) => {
-            return (
-              <span key={i} className="text-white">
-                {genre.name}
-              </span>
-            );
-          })}
+          <div className="flex flex-wrap">
+            {movieData?.genres.map((genre: { name: string }, i: number) => {
+              return (
+                <div className="flex items-center" key={i}>
+                  <span className="text-white font-light">{genre.name}</span>
+
+                  {i + 2 > movieData.genres.length ? null : (
+                    <span className="text-gray-500 mx-1">•</span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </Link>
