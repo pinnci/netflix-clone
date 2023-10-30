@@ -20,7 +20,7 @@ const DashboardCategoriesContainer = ({
 
   const router = useRouter();
 
-  const classes = cx("dashboardCategoryContainer relative z-20", className);
+  const classes = cx("dashboard-categories-container relative z-20", className);
 
   const { t } = useTranslation("dashboard");
 
