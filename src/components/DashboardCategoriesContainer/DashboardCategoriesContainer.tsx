@@ -13,7 +13,6 @@ type DashboardCategoriesContainer = {
 
 const DashboardCategoriesContainer = ({
   className,
-
   ...other
 }: DashboardCategoriesContainer) => {
   const [currentLocale, setCurrentLocale] = useState<string>("");
