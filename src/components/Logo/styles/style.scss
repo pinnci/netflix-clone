@@ -1,10 +1,17 @@
 .logo {
-  width: _get-rem(148px);
   color: $color-primary;
   fill: $color-primary;
   min-width: _get-rem(89px);
 
-  @media (max-width: 960px) {
+  &--large {
+    width: _get-rem(148px);
+
+    @media (max-width: 960px) {
+      width: _get-rem(89px);
+    }
+  }
+
+  &--small {
     width: _get-rem(89px);
   }
 }

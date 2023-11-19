@@ -1,0 +1,35 @@
+.dashboard-movie-pop-up {
+  &__content {
+    background: $color-dashboard;
+  }
+
+  &__wrapper {
+    transform: translate(-50%, -50%) scale(0.825);
+    width: 30rem;
+    opacity: 0;
+    box-shadow: 1px 3px 18px 9px rgba(0, 0, 0, 1);
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &--active {
+    opacity: 1;
+  }
+
+  &--left {
+    left: 0;
+    transform: translateY(-50%) scale(0.825);
+    transform-origin: left;
+  }
+
+  &--right {
+    left: auto;
+    right: 0;
+    transform: translateY(-50%) scale(0.825);
+    transform-origin: right;
+  }
+
+  &--center {
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.825);
+  }
+}

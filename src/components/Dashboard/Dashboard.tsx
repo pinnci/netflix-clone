@@ -1,19 +1,14 @@
 import Layout from "../Layout/Layout";
 import Container from "../Container/Container";
-
-import { auth } from "../../firebase";
-import { signOut } from "firebase/auth";
+import DashboardBanner from "../DashboardBanner/DashboardBanner";
+import DashboardCategoriesContainer from "../DashboardCategoriesContainer/DashboardCategoriesContainer";
 
 const Dashboard = () => {
   return (
-    <Layout variant="notLoggedIn">
-      <Container>
-        <button
-          className="text-white relative z-20 pt-40"
-          onClick={() => signOut(auth)}
-        >
-          Log out
-        </button>
+    <Layout variant="loggedIn">
+      <DashboardBanner />
+      <Container className="py-6">
+        <DashboardCategoriesContainer />
       </Container>
     </Layout>
   );
