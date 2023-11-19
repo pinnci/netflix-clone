@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Keyboard } from "swiper";
 import { useTranslation } from "next-i18next";
 import DashboardMovie from "../DashboardMovie/DashboardMovie";
+import Icon from "../Icon/Icon";
 
 type DashboardCategoryRow = {
   title: string;
@@ -46,7 +47,16 @@ const DashboardCategoryRow = ({
     axios
       .get(fetchUrl)
       .then((response) => {
-        setMovies(response.data.results);
+        //Not every movie has backdrop_path provided in response, which means that not every movie will be shown with image
+        const moviesWithBackdropPath = response.data.results.filter(
+          (movie: any) => {
+            if (movie.backdrop_path !== null) {
+              return movie;
+            }
+          },
+        );
+
+        setMovies(moviesWithBackdropPath);
       })
       .catch((error) => {
         console.log(error);
@@ -75,32 +85,29 @@ const DashboardCategoryRow = ({
         allowSlideNext
         watchSlidesProgress
         modules={[Navigation, Keyboard]}
-        slidesPerView={2}
-        slidesPerGroup={1}
-        allowTouchMove={false}
+        slidesPerView={3.1}
+        allowTouchMove={true}
         keyboard={{
           enabled: true,
         }}
         loop={false}
-        spaceBetween={5}
+        spaceBetween={10}
         breakpoints={{
           1280: {
-            width: 1300,
+            slidesPerView: 7,
+            slidesPerGroup: 7,
+            allowTouchMove: false,
+          },
+          1024: {
             slidesPerView: 6,
             slidesPerGroup: 6,
-          },
-
-          1024: {
-            slidesPerView: 5,
-            slidesPerGroup: 3,
+            allowTouchMove: true,
           },
           768: {
-            slidesPerView: 4,
-            slidesPerGroup: 2,
+            slidesPerView: 5,
           },
           640: {
-            slidesPerView: 3,
-            slidesPerGroup: 2,
+            slidesPerView: 4,
           },
         }}
       >
@@ -110,7 +117,8 @@ const DashboardCategoryRow = ({
               <DashboardMovie
                 title={movie.title || movie.original_title || movie.name}
                 id={movie.id}
-                imageSrc={movie.backdrop_path}
+                posterPath={movie.poster_path}
+                backdropPath={movie.backdrop_path}
                 currentLocale={currentLocale}
               />
             </SwiperSlide>
@@ -119,11 +127,19 @@ const DashboardCategoryRow = ({
         <button
           className="swiper-button-next"
           aria-label={`${t("swiperNextButton")}`}
-        ></button>
+        >
+          <Icon name="chevron-right" size="medium" className="shrink-0" />
+        </button>
         <button
           className="swiper-button-prev"
           aria-label={`${t("swiperPrevButton")}`}
-        ></button>
+        >
+          <Icon
+            name="chevron-right"
+            size="medium"
+            className="rotate-180 shrink-0"
+          />
+        </button>
       </Swiper>
     </div>
   );

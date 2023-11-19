@@ -6,6 +6,11 @@
   .swiper-slide:not(.swiper-slide-visible) {
     opacity: 0.3;
     pointer-events: none;
+
+    @media screen and (max-width: 1024px) {
+      opacity: 1;
+      pointer-events: all;
+    }
   }
 
   .swiper-slide {
@@ -16,33 +21,45 @@
 
   .swiper-button-next,
   .swiper-button-prev {
+    width: 50px;
+    height: 50px;
     color: $color-white;
     margin: 0;
-    top: 0;
-    height: 100%;
-    transition: background-color linear 0.1s;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 100%;
+    transition: opacity 0.3s ease;
+    background-color: $color-primary;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:after {
+      content: none;
+    }
+
+    @media screen and (max-width: 1023px) {
+      display: none !important;
+    }
   }
 
-  .swiper-button-next:hover,
-  .swiper-button-prev:hover,
-  .swiper-button-next:focus,
-  .swiper-button-prev:focus {
-    background-color: rgba($color-black, 0.5);
+  &:hover {
+    .swiper-button-next:not(.swiper-button-disabled),
+    .swiper-button-prev:not(.swiper-button-disabled) {
+      opacity: 1;
+    }
   }
 
   .swiper-button-disabled {
-    display: none;
+    opacity: 0;
   }
 
   .swiper-button-next {
     right: 0;
-    padding-right: _get-rem(30px);
-    padding-left: _get-rem(30px);
   }
 
   .swiper-button-prev {
     left: 0;
-    padding-left: _get-rem(30px);
-    padding-right: _get-rem(30px);
   }
 }
