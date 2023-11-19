@@ -5,10 +5,10 @@
 
   &__wrapper {
     transform: translate(-50%, -50%) scale(0.825);
-    width: 28rem;
+    width: 30rem;
     opacity: 0;
     box-shadow: 1px 3px 18px 9px rgba(0, 0, 0, 1);
-    transition: 0.3s ease-in-out opacity;
+    transition: opacity 0.3s ease-in-out;
   }
 
   &--active {
