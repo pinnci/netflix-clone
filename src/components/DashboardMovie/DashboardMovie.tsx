@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import DashboardMoviePopUp from "../DashboardMoviePopUp/DashboardMoviePopUp";
 import Image from "next/image";
 import axios from "axios";
+import DashboardMoviePopUp from "../DashboardMoviePopUp/DashboardMoviePopUp";
+import Modal from "../Modal/Modal";
 
 type DashboardMovie = {
   title: string;
@@ -34,6 +35,7 @@ const DashboardMovie = ({
   } | null>(null);
   const [popUpPosition, setPopUpPosition] =
     useState<DashboardMoviePopUp["position"]>("center");
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
 
   let showPopUpTimer: ReturnType<typeof setTimeout>;
   let hidePopUpTimer: ReturnType<typeof setTimeout>;
@@ -106,6 +108,27 @@ const DashboardMovie = ({
 
   return (
     <>
+      <Modal isOpened={isModalOpened} onClose={() => setIsModalOpened(false)}>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+        <p>Skuska</p>
+      </Modal>
+
       <div className="relative">
         <Image
           src={`https://image.tmdb.org/t/p/original/${posterPath}`}
@@ -119,6 +142,7 @@ const DashboardMovie = ({
             }, 800))
           }
           onMouseLeave={() => clearTimeout(showPopUpTimer)}
+          onClick={() => setIsModalOpened(true)}
         />
       </div>
 
