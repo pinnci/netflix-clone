@@ -18,6 +18,7 @@ const DashboardMovie = ({
   posterPath,
   backdropPath,
   currentLocale,
+  ...other
 }: DashboardMovie) => {
   const [popUpVisible, setPopUpVisible] = useState<boolean>(false);
   const [popUpContent, setPopUpContent] = useState<{
@@ -108,28 +109,7 @@ const DashboardMovie = ({
 
   return (
     <>
-      <Modal isOpened={isModalOpened} onClose={() => setIsModalOpened(false)}>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-        <p>Skuska</p>
-      </Modal>
-
-      <div className="relative">
+      <div className="relative" {...other}>
         <Image
           src={`https://image.tmdb.org/t/p/original/${posterPath}`}
           className="object-cover object-center w-auto h-auto rounded-md"
@@ -164,8 +144,62 @@ const DashboardMovie = ({
           releaseDate={popUpContent.releaseDate}
           firstAirDate={popUpContent.firstAirDate}
           lastAirDate={popUpContent.lastAirDate}
+          onClick={() => setIsModalOpened(true)}
         />
       ) : null}
+
+      <Modal isOpened={isModalOpened} onClose={() => setIsModalOpened(false)}>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut turpis
+          dolor, ullamcorper et sem a, congue cursus urna. Sed sollicitudin
+          justo lectus, non blandit ex tempor in. Pellentesque mi urna,
+          malesuada mollis vestibulum id, eleifend ac urna. Duis eu dictum
+          risus. Curabitur tempor, eros et tempus imperdiet, felis libero
+          elementum felis, in luctus risus ipsum quis arcu. Vivamus suscipit
+          sapien justo, lobortis posuere justo aliquet quis. Fusce ultrices
+          lorem et turpis elementum ultrices. Mauris pharetra quam sed euismod
+          consequat. Aliquam erat volutpat. Aliquam eleifend aliquet nisi, ac
+          molestie ex tempor sit amet. Phasellus tincidunt sapien vulputate
+          justo dapibus, ac fringilla ipsum sodales. Morbi viverra tristique
+          sapien sed sollicitudin. Duis consectetur, diam vitae mattis placerat,
+          ipsum nisi dictum nisl, a elementum ex enim nec sapien. Quisque
+          interdum pharetra eros quis hendrerit.
+        </p>
+
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut turpis
+          dolor, ullamcorper et sem a, congue cursus urna. Sed sollicitudin
+          justo lectus, non blandit ex tempor in. Pellentesque mi urna,
+          malesuada mollis vestibulum id, eleifend ac urna. Duis eu dictum
+          risus. Curabitur tempor, eros et tempus imperdiet, felis libero
+          elementum felis, in luctus risus ipsum quis arcu. Vivamus suscipit
+          sapien justo, lobortis posuere justo aliquet quis. Fusce ultrices
+          lorem et turpis elementum ultrices. Mauris pharetra quam sed euismod
+          consequat. Aliquam erat volutpat. Aliquam eleifend aliquet nisi, ac
+          molestie ex tempor sit amet. Phasellus tincidunt sapien vulputate
+          justo dapibus, ac fringilla ipsum sodales. Morbi viverra tristique
+          sapien sed sollicitudin. Duis consectetur, diam vitae mattis placerat,
+          ipsum nisi dictum nisl, a elementum ex enim nec sapien. Quisque
+          interdum pharetra eros quis hendrerit.
+        </p>
+
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut turpis
+          dolor, ullamcorper et sem a, congue cursus urna. Sed sollicitudin
+          justo lectus, non blandit ex tempor in. Pellentesque mi urna,
+          malesuada mollis vestibulum id, eleifend ac urna. Duis eu dictum
+          risus. Curabitur tempor, eros et tempus imperdiet, felis libero
+          elementum felis, in luctus risus ipsum quis arcu. Vivamus suscipit
+          sapien justo, lobortis posuere justo aliquet quis. Fusce ultrices
+          lorem et turpis elementum ultrices. Mauris pharetra quam sed euismod
+          consequat. Aliquam erat volutpat. Aliquam eleifend aliquet nisi, ac
+          molestie ex tempor sit amet. Phasellus tincidunt sapien vulputate
+          justo dapibus, ac fringilla ipsum sodales. Morbi viverra tristique
+          sapien sed sollicitudin. Duis consectetur, diam vitae mattis placerat,
+          ipsum nisi dictum nisl, a elementum ex enim nec sapien. Quisque
+          interdum pharetra eros quis hendrerit.
+        </p>
+      </Modal>
     </>
   );
 };
