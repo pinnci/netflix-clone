@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import Button from "../Button/Button";
+//import Modal from "../Modal/Modal";
 
 type DashboardMoviePopUp = {
   title: string;
@@ -35,6 +36,7 @@ const DashboardMoviePopUp = ({
   ...other
 }: DashboardMoviePopUp) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  //const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
 
   const classes = cx(
     "dashboard-movie-pop-up__wrapper outline-0 absolute top-1/2 left-1/2 z-10 rounded-md",
@@ -97,11 +99,12 @@ const DashboardMoviePopUp = ({
   };
 
   return (
-    <Link
-      href={`/movies/${movieId}`}
+    <div
+      //href={`/movies/${movieId}`}
       className={classes}
       onMouseOver={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      //onClick={() => setIsModalOpened(true)}
     >
       <div className="dashboard-movie-pop-up overflow-hidden" {...other}>
         <Image
@@ -151,7 +154,7 @@ const DashboardMoviePopUp = ({
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
