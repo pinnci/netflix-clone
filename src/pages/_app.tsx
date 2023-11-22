@@ -10,6 +10,14 @@ import localFont from "next/font/local";
 const netflixSans = localFont({
   src: [
     {
+      path: "../../public/fonts/NetflixSans_W_Th.ttf",
+      weight: "100",
+    },
+    {
+      path: "../../public/fonts/NetflixSans_W_Lt.ttf",
+      weight: "200",
+    },
+    {
       path: "../../public/fonts/NetflixSans_W_Rg.woff2",
       weight: "400",
     },
