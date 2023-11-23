@@ -7,6 +7,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        <div id="root-popups" />
         <div id="root-modals" />
       </body>
     </Html>
