@@ -136,11 +136,7 @@ export const getStaticProps: GetStaticProps = async ({
     //Checks for movie
     const res = await axios.get(
       //@ts-ignore
-      `https://api.themoviedb.org/3/movie/${params.id}?api_key=${
-        process.env.NEXT_PUBLIC_TMDB_API_KEY
-      }&language=${
-        locale === "en" ? "en-US" : "cs-CZ"
-      }&append_to_response=videos`,
+      `https://api.themoviedb.org/3/movie/${params.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
     );
     const data = await res.data;
 
@@ -154,11 +150,7 @@ export const getStaticProps: GetStaticProps = async ({
     //Checks for TV shows when movie could not be found
     const res = await axios.get(
       //@ts-ignore
-      `https://api.themoviedb.org/3/tv/${params.id}?api_key=${
-        process.env.NEXT_PUBLIC_TMDB_API_KEY
-      }&language=${
-        locale === "en" ? "en-US" : "cs-CZ"
-      }&append_to_response=videos`,
+      `https://api.themoviedb.org/3/tv/${params.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
     );
     const data = await res.data;
 

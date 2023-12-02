@@ -1,5 +1,4 @@
 import cx from "classnames";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
@@ -15,23 +14,11 @@ const DashboardCategoriesContainer = ({
   className,
   ...other
 }: DashboardCategoriesContainer) => {
-  const [currentLocale, setCurrentLocale] = useState<string>("");
-
   const router = useRouter();
 
   const classes = cx("dashboard-categories-container relative z-20", className);
 
   const { t } = useTranslation("dashboard");
-
-  useEffect(() => {
-    if (router.locale === "en") {
-      setCurrentLocale("en-US");
-    }
-
-    if (router.locale === "cs") {
-      setCurrentLocale("cs-CZ");
-    }
-  }, [currentLocale, router.locale]);
 
   return (
     <div className={classes} {...other}>
@@ -42,10 +29,10 @@ const DashboardCategoriesContainer = ({
         return (
           <DashboardCategoryRow
             title={title}
-            fetchUrl={`${requests[key]}&language=${currentLocale}`}
+            fetchUrl={`${requests[key]}&language=${router.locale}`}
             key={key}
             className="mb-4"
-            currentLocale={currentLocale}
+            currentLocale={router.locale!}
           />
         );
       })}
