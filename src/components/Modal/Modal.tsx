@@ -1,19 +1,58 @@
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
+import { useTranslation } from "next-i18next";
 import cx from "classnames";
+
+import ReactPlayer from "react-player/youtube";
+
+import { handleDate, handleRuntimeFormat } from "../../utils/utils";
+import Button from "../Button/Button";
 
 type Modal = {
   isOpened: boolean;
-  children: any;
-  className?: string;
   onClose: () => void;
+  title: string;
+  overview: string;
+  genres: [{ name: string }];
+  releaseDate: string;
+  firstAirDate: string;
+  lastAirDate: string;
+  runtime: number;
+  originalTitle: string;
+  productionCompanies: [{ name: string }];
+  productionCountries: [{ name: string }];
+  spokenLanguages: [{ name: string }];
+  backdropPath: string;
+  videos: any;
+  movieId: number;
 } & React.ComponentProps<"div">;
 
-const Modal = ({ children, className, isOpened, onClose }: Modal) => {
+const Modal = ({
+  className,
+  isOpened,
+  onClose,
+  title,
+  backdropPath,
+  overview,
+  genres,
+  releaseDate,
+  firstAirDate,
+  lastAirDate,
+  runtime,
+  originalTitle,
+  productionCompanies,
+  productionCountries,
+  spokenLanguages,
+  videos,
+  movieId,
+}: Modal) => {
   const [pageYoffset, setPageYoffset] = useState<number>(0);
   const [transitionType, setTransitionType] = useState<
     "fadeIn" | "fadeOut" | null
   >(null);
+
+  const { t } = useTranslation("modal");
 
   const classes = cx(
     "modal fixed left-1/2 overflow-y-auto z-50 rounded-md w-full h-full max-h-full top-0 sm:top-16 sm:w-11/12 sm:h-auto md:w-11/12 lg:w-9/12 xl:w-8/12",
@@ -49,9 +88,10 @@ const Modal = ({ children, className, isOpened, onClose }: Modal) => {
           "style",
           `position: fixed; top: -${pageYoffset}px; left: 0; right: 0;`,
         );
-    } else {
-      document.body.setAttribute("style", "");
-      window.scrollTo(0, pageYoffset);
+
+      return () => {
+        document.body.setAttribute("style", "");
+      };
     }
   }, [isOpened, pageYoffset]);
 
@@ -61,8 +101,11 @@ const Modal = ({ children, className, isOpened, onClose }: Modal) => {
       setTransitionType("fadeOut");
 
       setTimeout(() => onClose(), 300);
+
+      document.body.setAttribute("style", "");
+      window.scrollTo(0, pageYoffset);
     }, 0);
-  }, [onClose]);
+  }, [onClose, pageYoffset]);
 
   //Support closing modal by pressing ESC button on keyboard
   useEffect(() => {
@@ -78,10 +121,124 @@ const Modal = ({ children, className, isOpened, onClose }: Modal) => {
   return createPortal(
     <>
       <div className={overlayClasses} onClick={handleClose} />
-      <div className={classes}>
+      <div
+        className={classes}
+        role="dialog"
+        aria-hidden={!isOpened}
+        tabIndex={-1}
+        autoFocus={true}
+      >
+        <div className="modal__banner relative">
+          {videos.length > 0 ? (
+            <ReactPlayer
+              url={`https://youtube.com/watch?v=${videos[0].key}`}
+              width={"100%"}
+              height={"444px"}
+              playing
+              controls
+              autoFocus
+            />
+          ) : (
+            <Image
+              src={backdropPath}
+              className="object-cover object-center h-auto w-full rounded-t-md"
+              alt={title}
+              width={400}
+              height={250}
+            />
+          )}
+        </div>
         <div className="modal__content">
-          <button onClick={handleClose}>Close</button>
-          {children}
+          <h1 className="text-white mt-0 mb-4">{title}</h1>
+
+          <div className="flex flex-wrap items-center mb-4 mt-1">
+            <div className="flex items-center mr-2">
+              {genres.slice(0, 3).map((genre: { name: string }, i: number) => {
+                return (
+                  <span
+                    className="text-white border border-white rounded-3xl py-1 px-2 uppercase text-xs font-extralight block mr-1.5"
+                    key={i}
+                  >
+                    {genre.name}
+                  </span>
+                );
+              })}
+            </div>
+
+            <time className="block text-base font-thin text-white mr-1">
+              {handleDate(releaseDate, firstAirDate, lastAirDate)}
+            </time>
+
+            <time className="block text-base font-thin text-white">
+              {handleRuntimeFormat(runtime)}
+            </time>
+          </div>
+
+          <p className="text-white font-thin mb-6">{overview}</p>
+
+          <div className="modal__original-title mb-2">
+            <label className="text-white font-thin mr-2">
+              {`${t("originalTitle")}`}
+            </label>
+            <span className="text-white font-normal">
+              {originalTitle ?? title}
+            </span>
+          </div>
+
+          <div className="modal__production-countries mb-2">
+            <label className="text-white font-thin mr-2">
+              {`${t("productionCountries")}`}
+            </label>
+            <span className="text-white font-normal">
+              {productionCountries.map(
+                (country: { name: string }, i: number) => {
+                  return i + 1 === productionCountries.length
+                    ? country.name
+                    : `${country.name}, `;
+                },
+              )}
+            </span>
+          </div>
+
+          <div className="modal__production-companies mb-2">
+            <label className="text-white font-thin mr-2">
+              {`${t("productionCompanies")}`}
+            </label>
+            <span className="text-white font-normal">
+              {productionCompanies.map(
+                (company: { name: string }, i: number) => {
+                  return i + 1 === productionCompanies.length
+                    ? company.name
+                    : `${company.name}, `;
+                },
+              )}
+            </span>
+          </div>
+
+          <div className="modal__available-languages mb-2">
+            <label className="text-white font-thin mr-2">
+              {`${t("availableLanguages")}`}
+            </label>
+            <span className="text-white font-normal">
+              {spokenLanguages.map((language: { name: string }, i: number) => {
+                return i + 1 === spokenLanguages.length
+                  ? language.name
+                  : `${language.name}, `;
+              })}
+            </span>
+          </div>
+
+          <button
+            className="absolute top-0 right-0"
+            onClick={handleClose}
+            autoFocus
+          >
+            Close
+          </button>
+
+          <Button variant="primary" size="medium" href={`/movies/${movieId}`}>
+            Subpage
+          </Button>
         </div>
       </div>
     </>,

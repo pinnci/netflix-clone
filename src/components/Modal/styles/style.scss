@@ -3,6 +3,7 @@
   background-color: $color-dashboard;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
 
   &--active {
     opacity: 1;
@@ -21,6 +22,7 @@
   }
 
   &__overlay {
+    z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
     background-color: rgba($color-black, 0.7);
