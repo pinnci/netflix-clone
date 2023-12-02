@@ -23,6 +23,7 @@ type HeroBannerImage = {
 const DashboardBanner = ({ className, ...other }: DashboardBanner) => {
   const [heroBannerImage, setHeroBannerImage] =
     useState<null | HeroBannerImage>(null);
+  const [currentLocale, setCurrentLocale] = useState<null | string>(null);
 
   const classes = cx("dashboard-banner relative z-10", className);
 
@@ -33,19 +34,28 @@ const DashboardBanner = ({ className, ...other }: DashboardBanner) => {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${router.locale}`,
-      )
-      .then((res) => {
-        const movies = res.data.results;
+    if (router.locale === "en") {
+      setCurrentLocale("en-US");
+    }
 
-        setHeroBannerImage(movies[randomIntFromInterval(0, movies.length)]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [router.locale]);
+    if (router.locale === "cs") {
+      setCurrentLocale("cs-CZ");
+    }
+
+    if (currentLocale)
+      axios
+        .get(
+          `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${currentLocale}`,
+        )
+        .then((res) => {
+          const movies = res.data.results;
+
+          setHeroBannerImage(movies[randomIntFromInterval(0, movies.length)]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, [currentLocale, router.locale]);
 
   return (
     <div className={classes} {...other}>
