@@ -82,7 +82,9 @@ const DashboardMovie = ({
           spokenLanguages: response.data.spoken_languages,
           videos: response.data.videos.results.filter((video: any) => {
             if (
-              (video.type === "Teaser" || video.type === "Trailer") &&
+              (video.type === "Teaser" ||
+                video.type === "Trailer" ||
+                video.type === "Official Trailer") &&
               video.site === "YouTube"
             ) {
               return video;
@@ -121,7 +123,9 @@ const DashboardMovie = ({
               spokenLanguages: response.data.spoken_languages,
               videos: response.data.videos.results.filter((video: any) => {
                 if (
-                  (video.type === "Teaser" || video.type === "Trailer") &&
+                  (video.type === "Teaser" ||
+                    video.type === "Trailer" ||
+                    video.type === "Official Trailer") &&
                   video.site === "YouTube"
                 ) {
                   return video;
