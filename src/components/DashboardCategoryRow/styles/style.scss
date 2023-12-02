@@ -1,7 +1,6 @@
 //Swiper styles
 .swiper {
   overflow: visible;
-  position: relative;
 
   .swiper-slide:not(.swiper-slide-visible) {
     opacity: 0.3;
@@ -34,6 +33,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10000;
 
     &:after {
       content: none;
@@ -41,13 +41,6 @@
 
     @media screen and (max-width: 1023px) {
       display: none !important;
-    }
-  }
-
-  &:hover {
-    .swiper-button-next:not(.swiper-button-disabled),
-    .swiper-button-prev:not(.swiper-button-disabled) {
-      opacity: 1;
     }
   }
 
@@ -61,5 +54,9 @@
 
   .swiper-button-prev {
     left: 0;
+  }
+
+  .swiper-button--active {
+    opacity: 1;
   }
 }

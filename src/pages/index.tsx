@@ -57,6 +57,7 @@ export async function getStaticProps({ locale }: Locale) {
         "homepage",
         "common",
         "dashboard",
+        "modal",
       ])),
     },
   };
