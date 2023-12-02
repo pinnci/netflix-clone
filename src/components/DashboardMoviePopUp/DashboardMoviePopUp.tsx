@@ -1,9 +1,14 @@
 import cx from "classnames";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../Button/Button";
+import { createPortal } from "react-dom";
+
+import { handleDate, handleRuntimeFormat } from "../../utils/utils";
 
 type DashboardMoviePopUp = {
+  isOpened: boolean;
+  trigger: null | HTMLCanvasElement;
   title: string;
   movieId: number;
   backdropPath: string;
@@ -12,14 +17,16 @@ type DashboardMoviePopUp = {
   tagline: string;
   firstAirDate: string;
   lastAirDate: string;
+  onClose: () => void;
   className?: string;
-  genres: any;
+  genres: [{ name: string }];
   currentLocale: string;
-  position: "left" | "center" | "right";
 } & React.ComponentProps<"div">;
 
 const DashboardMoviePopUp = ({
   title,
+  trigger,
+  isOpened = false,
   movieId,
   backdropPath,
   currentLocale,
@@ -30,77 +37,92 @@ const DashboardMoviePopUp = ({
   tagline,
   genres,
   className,
-  position,
+  onClose,
   ...other
 }: DashboardMoviePopUp) => {
-  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [transitionType, setTransitionType] = useState<
+    "fadeIn" | "fadeOut" | null
+  >(null);
+
+  const [popUpStyles, setPopUpStyles] = useState<{
+    top: number;
+    left?: number;
+    right?: number;
+  }>({
+    top: 0,
+    left: 0,
+    right: 0,
+  });
+
+  const [position, setPosition] = useState<"left" | "center" | "right">(
+    "center",
+  );
 
   const classes = cx(
-    "dashboard-movie-pop-up__wrapper outline-0 absolute top-1/2 left-1/2 z-10 rounded-md",
+    "dashboard-movie-pop-up__wrapper cursor-pointer absolute z-50 rounded-md",
     {
       [`dashboard-movie-pop-up--${position}`]: position,
-      ["dashboard-movie-pop-up--active"]: isHovered,
+      ["dashboard-movie-pop-up--active"]: transitionType === "fadeIn",
+      ["dashboard-movie-pop-up--inActive"]: transitionType === "fadeOut",
     },
     className,
   );
 
-  //Display only year of production
-  const handleDate = (
-    release_date: string,
-    first_air_date: string,
-    last_air_date: string,
-  ) => {
-    let result;
+  const popUpRoot: Element | DocumentFragment =
+    document.getElementById("root-popups")!;
 
-    if (release_date) {
-      const splittedReleaseDate = release_date.split("-");
+  useEffect(() => {
+    if (isOpened && trigger) {
+      //Calculate Pop-up position
+      const rect = trigger.getBoundingClientRect();
+      const top = rect.top;
+      const left = rect.left;
+      const right = rect.right;
+      const windowInnerWidth = window.innerWidth;
 
-      result = splittedReleaseDate[0];
-    } else if (!release_date && first_air_date && last_air_date) {
-      const splittedFirstAirDate = first_air_date.split("-");
-      const splittedLastAirDate = last_air_date.split("-");
+      if (left <= trigger.width) {
+        setPopUpStyles({
+          top: window.scrollY + top + rect.height / 2,
+          left: left,
+        });
+        setPosition("left");
+      } else if (windowInnerWidth - right <= trigger.width) {
+        setPopUpStyles({
+          top: window.scrollY + top + rect.height / 2,
+          right: windowInnerWidth - right,
+        });
+        setPosition("right");
+      } else {
+        setPopUpStyles({
+          top: window.scrollY + top + rect.height / 2,
+          left: left + rect.width / 2,
+        });
+        setPosition("center");
+      }
 
-      result = `${splittedFirstAirDate[0]} - ${splittedLastAirDate[0]}`;
-    } else {
-      return null;
+      setTimeout(() => setTransitionType("fadeIn"), 300);
     }
+  }, [isOpened, trigger, popUpRoot]);
 
-    return (
-      <span className="block text-base font-light text-neutral-400 mr-1">
-        {result}
-      </span>
-    );
+  const handleClose = () => {
+    setTimeout(() => {
+      setTransitionType("fadeOut");
+
+      setTimeout(() => onClose(), 300);
+    }, 0);
   };
 
-  //Display runtime in correct format.
-  //If it's under 60mins, show only mins, otherwise calculate hours and show both
-  const handleRuntimeFormat = (runtime: number | Array<string>) => {
-    let result;
+  if (!isOpened && !trigger) return null;
 
-    if (typeof runtime === "number" && runtime < 60) {
-      result = `| ${runtime}m`;
-    } else if (typeof runtime === "number" && runtime > 60) {
-      const hours = Math.trunc(runtime / 60);
-      const minutes = runtime - hours * 60;
-
-      result = `| ${hours}h ${minutes}m`;
-    } else {
-      return null;
-    }
-
-    return (
-      <span className="block text-base font-light text-neutral-400">
-        {result}
-      </span>
-    );
-  };
-
-  return (
+  return createPortal(
     <div
-      //href={`/movies/${movieId}`}
       className={classes}
-      onMouseOver={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseLeave={handleClose}
+      style={popUpStyles}
+      role="dialog"
+      aria-hidden={!isOpened}
+      tabIndex={-1}
+      autoFocus={true}
       {...other}
     >
       <div className="dashboard-movie-pop-up overflow-hidden" {...other}>
@@ -115,18 +137,18 @@ const DashboardMoviePopUp = ({
         <div className="dashboard-movie-pop-up__content p-5">
           <h3 className="text-white text-3xl mb-1">{title}</h3>
 
-          {tagline ? (
-            <span className="block text-base font-light text-neutral-400 mb-2">
+          {tagline && (
+            <span className="block text-base font-extralight text-white mb-2">
               {tagline}
             </span>
-          ) : null}
+          )}
 
-          <div className="flex flex-wrap items-center mb-4">
-            <div className="flex items-center mt-1 mr-2">
+          <div className="flex flex-wrap items-center mt-1 mb-4">
+            <div className="flex items-center mr-2">
               {genres.slice(0, 3).map((genre: { name: string }, i: number) => {
                 return (
                   <span
-                    className="text-neutral-400 border border-neutral-400 rounded-3xl py-1 px-2 uppercase text-xs font-normal block mr-1.5"
+                    className="text-white border border-white rounded-3xl py-1 px-2 uppercase text-xs font-extralight block mr-1.5"
                     key={i}
                   >
                     {genre.name}
@@ -135,9 +157,13 @@ const DashboardMoviePopUp = ({
               })}
             </div>
 
-            {handleDate(releaseDate, firstAirDate, lastAirDate)}
+            <time className="block text-base font-thin text-white mr-1">
+              {handleDate(releaseDate, firstAirDate, lastAirDate)}
+            </time>
 
-            {handleRuntimeFormat(runtime)}
+            <time className="block text-base font-thin text-white">
+              {handleRuntimeFormat(runtime)}
+            </time>
           </div>
 
           <div className="flex justify-between">
@@ -151,7 +177,8 @@ const DashboardMoviePopUp = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    popUpRoot,
   );
 };
 
