@@ -129,6 +129,17 @@ const Modal = ({
         autoFocus={true}
       >
         <div className="modal__banner relative">
+          <Button
+            variant="close"
+            size="medium"
+            shape="rounded"
+            icon={{ name: "close", size: "small" }}
+            className="absolute top-0 right-0 m-4 text-white"
+            onClick={handleClose}
+            aria-label={`${t("closeButtonLabel")}`}
+            autoFocus
+          />
+
           {videos.length > 0 ? (
             <ReactPlayer
               url={`https://youtube.com/watch?v=${videos[0].key}`}
@@ -137,6 +148,7 @@ const Modal = ({
               playing
               controls
               autoFocus
+              muted={false}
             />
           ) : (
             <Image
@@ -150,6 +162,17 @@ const Modal = ({
         </div>
         <div className="modal__content">
           <h1 className="text-white mt-0 mb-4">{title}</h1>
+
+          <Button
+            variant="secondary"
+            size="medium"
+            href={`/movies/${movieId}`}
+            icon={{ name: "play", size: "small", className: "mr-2" }}
+            className="inline-flex mb-4 text-black"
+            shape="square"
+          >
+            {`${t("play")}`}
+          </Button>
 
           <div className="flex flex-wrap items-center mb-4 mt-1">
             <div className="flex items-center mr-2">
@@ -227,18 +250,6 @@ const Modal = ({
               })}
             </span>
           </div>
-
-          <button
-            className="absolute top-0 right-0"
-            onClick={handleClose}
-            autoFocus
-          >
-            Close
-          </button>
-
-          <Button variant="primary" size="medium" href={`/movies/${movieId}`}>
-            Subpage
-          </Button>
         </div>
       </div>
     </>,
