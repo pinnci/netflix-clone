@@ -76,6 +76,8 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
             <Button
               variant="primary"
               size="small"
+              shape="square"
+              className="text-white"
               onClick={() => signOut(auth)}
             >
               {t("buttonLabel")}

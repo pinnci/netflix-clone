@@ -246,7 +246,8 @@ const LoginForm = () => {
             size="medium"
             variant="primary"
             type="submit"
-            className="w-full justify-center mb-3"
+            className="w-full justify-center mb-3 text-white"
+            shape="square"
           >
             {t("buttonLabel")}
           </Button>
