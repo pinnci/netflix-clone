@@ -58,6 +58,7 @@ export async function getStaticProps({ locale }: Locale) {
         "common",
         "dashboard",
         "modal",
+        "popup",
       ])),
     },
   };
