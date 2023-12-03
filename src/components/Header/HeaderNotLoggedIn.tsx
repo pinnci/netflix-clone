@@ -32,9 +32,11 @@ const HeaderNotLoggedIn = ({ className, ...other }: HeaderNotLoggedIn) => {
             <LanguageSelector className="mx-3 sm:mx-4" />
             <Button
               variant="primary"
+              size="small"
+              shape="square"
+              className="text-white"
               //@ts-ignore
               href={t("header.button.href")}
-              size="small"
             >
               {t("header.button.title")}
             </Button>

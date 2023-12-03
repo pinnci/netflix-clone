@@ -1,5 +1,6 @@
 import cx from "classnames";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import { createPortal } from "react-dom";
@@ -18,6 +19,7 @@ type DashboardMoviePopUp = {
   firstAirDate: string;
   lastAirDate: string;
   onClose: () => void;
+  onPopUpClick: () => void;
   className?: string;
   genres: [{ name: string }];
   currentLocale: string;
@@ -38,6 +40,7 @@ const DashboardMoviePopUp = ({
   genres,
   className,
   onClose,
+  onPopUpClick,
   ...other
 }: DashboardMoviePopUp) => {
   const [transitionType, setTransitionType] = useState<
@@ -59,7 +62,7 @@ const DashboardMoviePopUp = ({
   );
 
   const classes = cx(
-    "dashboard-movie-pop-up__wrapper cursor-pointer absolute z-50 rounded-md",
+    "dashboard-movie-pop-up__wrapper absolute z-50 rounded-md",
     {
       [`dashboard-movie-pop-up--${position}`]: position,
       ["dashboard-movie-pop-up--active"]: transitionType === "fadeIn",
@@ -67,6 +70,8 @@ const DashboardMoviePopUp = ({
     },
     className,
   );
+
+  const { t } = useTranslation("popup");
 
   const popUpRoot: Element | DocumentFragment =
     document.getElementById("root-popups")!;
@@ -122,6 +127,7 @@ const DashboardMoviePopUp = ({
       role="dialog"
       aria-hidden={!isOpened}
       tabIndex={-1}
+      aria-label={title}
       autoFocus={true}
       {...other}
     >
@@ -167,12 +173,29 @@ const DashboardMoviePopUp = ({
           </div>
 
           <div className="flex justify-between">
-            <Button variant="primary" size="medium">
-              Play
+            <Button
+              variant="secondary"
+              size="medium"
+              shape="square"
+              className="text-black"
+              href={`/movies/${movieId}`}
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
+              icon={{ name: "play", size: "small", className: "mr-2" }}
+            >
+              {`${t("play")}`}
             </Button>
 
-            <Button variant="primary" size="medium">
-              More
+            <Button
+              variant="tertiary"
+              size="medium"
+              shape="square"
+              className="text-white"
+              icon={{ name: "info", size: "small", className: "mr-2" }}
+              onClick={() => onPopUpClick()}
+            >
+              {`${t("moreInformation")}`}
             </Button>
           </div>
         </div>

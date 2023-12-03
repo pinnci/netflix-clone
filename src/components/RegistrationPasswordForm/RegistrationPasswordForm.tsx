@@ -340,8 +340,9 @@ const RegistrationPasswordForm = ({
             <Button
               size="large"
               type="submit"
+              shape="square"
               variant="primary"
-              className="w-full text-2xl font-light justify-center"
+              className="w-full text-2xl font-light justify-center text-white"
             >
               {t("buttonTitle")}
             </Button>

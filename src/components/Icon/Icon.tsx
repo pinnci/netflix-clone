@@ -7,6 +7,9 @@ import Plus from "./Icons/Plus";
 import ChevronRight from "./Icons/ChevronRight";
 import Error from "./Icons/Error";
 import Menu from "./Icons/Menu";
+import Play from "./Icons/Play";
+import Close from "./Icons/Close";
+import Info from "./Icons/Info";
 
 export const iconNamesArray = [
   "caret-down",
@@ -15,6 +18,9 @@ export const iconNamesArray = [
   "chevron-right",
   "error",
   "menu",
+  "play",
+  "close",
+  "info",
 ] as const;
 
 export type IconNames = (typeof iconNamesArray)[number];
@@ -51,6 +57,12 @@ const Icon: React.FC<Icon> = ({ className, size, name, ...other }: Icon) => {
         return <Error />;
       case "menu":
         return <Menu />;
+      case "play":
+        return <Play />;
+      case "close":
+        return <Close />;
+      case "info":
+        return <Info />;
       default:
         return <svg />;
     }

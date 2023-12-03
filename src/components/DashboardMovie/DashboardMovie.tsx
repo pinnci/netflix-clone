@@ -154,6 +154,7 @@ const DashboardMovie = ({
         }}
         onClick={() => {
           setIsPopUpOpened(false);
+          setPopUpTrigger(null);
           setIsModalOpened(true);
         }}
         //tabIndex={0}
@@ -187,8 +188,9 @@ const DashboardMovie = ({
           releaseDate={movieData.releaseDate}
           firstAirDate={movieData.firstAirDate}
           lastAirDate={movieData.lastAirDate}
-          onClick={() => {
+          onPopUpClick={() => {
             setIsPopUpOpened(false);
+            setPopUpTrigger(null);
             setIsModalOpened(true);
           }}
         />
@@ -197,7 +199,11 @@ const DashboardMovie = ({
       {movieData && (
         <Modal
           isOpened={isModalOpened}
-          onClose={() => setIsModalOpened(false)}
+          onClose={() => {
+            setIsPopUpOpened(false);
+            setPopUpTrigger(null);
+            setIsModalOpened(false);
+          }}
           title={title}
           genres={movieData.genres}
           releaseDate={movieData.releaseDate}

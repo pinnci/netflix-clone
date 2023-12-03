@@ -138,8 +138,9 @@ const RegistrationEmailForm = ({
           <Button
             size="large"
             variant="start"
+            shape="square"
             type="submit"
-            className="mt-4 sm:mt-0 sm:ml-2"
+            className="mt-4 sm:mt-0 sm:ml-2 text-white"
           >
             {t("registrationEmail.buttonTitle")}
           </Button>
