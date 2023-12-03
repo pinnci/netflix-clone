@@ -2,5 +2,7 @@
   "originalTitle": "Original title:",
   "productionCountries": "Poduction countries:",
   "productionCompanies": "Production companies:",
-  "availableLanguages": "Available languages:"
+  "availableLanguages": "Available languages:",
+  "play": "Play",
+  "closeButtonLabel": "Close"
 }

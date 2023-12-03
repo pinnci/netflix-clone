@@ -2,5 +2,7 @@
   "originalTitle": "Originálni název:",
   "productionCountries": "Produkční země:",
   "productionCompanies": "Produkční společnosti:",
-  "availableLanguages": "Dostupní jazyky:"
+  "availableLanguages": "Dostupní jazyky:",
+  "play": "Přehrát",
+  "closeButtonLabel": "Zavřít"
 }
