@@ -6,6 +6,7 @@ import { Navigation, Keyboard } from "swiper";
 import { useTranslation } from "next-i18next";
 import DashboardMovie from "../DashboardMovie/DashboardMovie";
 import Icon from "../Icon/Icon";
+import Skeleton from "react-loading-skeleton";
 
 type DashboardCategoryRow = {
   title: string;
@@ -31,6 +32,7 @@ const DashboardCategoryRow = ({
   ...other
 }: DashboardCategoryRow) => {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isSwiperHovered, setIsSwiperHovered] = useState<boolean>(false);
   const [swiperReachedBeginning, setSwiperReachedBeginning] =
@@ -51,15 +53,31 @@ const DashboardCategoryRow = ({
       .get(fetchUrl)
       .then((response) => {
         //Not every movie has backdrop_path provided in response, which means that not every movie will be shown with image
-        const moviesWithBackdropPath = response.data.results.filter(
-          (movie: any) => {
-            if (movie.backdrop_path !== null && movie.poster_path !== null) {
-              return movie;
-            }
-          },
-        );
+        let moviesWithBackdropPath;
+
+        if (response.data.results) {
+          moviesWithBackdropPath = response.data.results.filter(
+            (movie: any) => {
+              if (movie.backdrop_path !== null && movie.poster_path !== null) {
+                return movie;
+              }
+            },
+          );
+        } else {
+          moviesWithBackdropPath = response.data.similar.results.filter(
+            (movie: any) => {
+              if (movie.backdrop_path !== null && movie.poster_path !== null) {
+                return movie;
+              }
+            },
+          );
+        }
 
         setMovies(moviesWithBackdropPath);
+
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       })
       .catch((error) => {
         console.log(error);
@@ -123,19 +141,31 @@ const DashboardCategoryRow = ({
             },
           }}
         >
-          {movies.map((movie: Movie, i) => {
-            return (
-              <SwiperSlide key={i}>
-                <DashboardMovie
-                  title={movie.name || movie.title || movie.original_title}
-                  id={movie.id}
-                  posterPath={movie.poster_path}
-                  backdropPath={movie.backdrop_path}
-                  currentLocale={currentLocale}
-                />
-              </SwiperSlide>
-            );
-          })}
+          {isLoading
+            ? Array.from({ length: 10 }).map((_, index) => (
+                <SwiperSlide key={index}>
+                  <Skeleton
+                    height={234}
+                    width={160}
+                    baseColor="#202020"
+                    highlightColor="#303030"
+                  />
+                </SwiperSlide>
+              ))
+            : movies.map((movie: Movie) => {
+                return (
+                  <SwiperSlide key={movie.id}>
+                    <DashboardMovie
+                      title={movie.name || movie.title || movie.original_title}
+                      id={movie.id}
+                      posterPath={movie.poster_path}
+                      backdropPath={movie.backdrop_path}
+                      currentLocale={currentLocale}
+                    />
+                  </SwiperSlide>
+                );
+              })}
+
           <button
             className={cx("swiper-button-next", {
               ["swiper-button--active"]:
