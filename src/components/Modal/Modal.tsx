@@ -1,13 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
 import cx from "classnames";
-
+import DashboardCategoryRow from "../DashboardCategoryRow/DashboardCategoryRow";
 import ReactPlayer from "react-player/youtube";
 
 import { handleDate, handleRuntimeFormat } from "../../utils/utils";
 import Button from "../Button/Button";
+import { useRouter } from "next/router";
 
 type Modal = {
   isOpened: boolean;
@@ -26,6 +27,7 @@ type Modal = {
   backdropPath: string;
   videos: any;
   movieId: number;
+  mediaType: "tv" | "movie";
 } & React.ComponentProps<"div">;
 
 const Modal = ({
@@ -46,11 +48,16 @@ const Modal = ({
   spokenLanguages,
   videos,
   movieId,
+  mediaType,
 }: Modal) => {
   const [pageYoffset, setPageYoffset] = useState<number>(0);
   const [transitionType, setTransitionType] = useState<
     "fadeIn" | "fadeOut" | null
   >(null);
+
+  const router = useRouter();
+
+  const modalOverlayRef = useRef<HTMLDivElement | null>(null);
 
   const { t } = useTranslation("modal");
 
@@ -108,19 +115,32 @@ const Modal = ({
   }, [onClose, pageYoffset]);
 
   //Support closing modal by pressing ESC button on keyboard
-  useEffect(() => {
-    window.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        return handleClose();
+  const handleCloseOnEscKey = useCallback(
+    (event: KeyboardEvent) => {
+      if (modalOverlayRef.current && event.key === "Escape") {
+        modalOverlayRef.current.click();
       }
-    });
-  }, [handleClose]);
+    },
+    [modalOverlayRef],
+  );
+
+  useEffect(() => {
+    if (isOpened) {
+      window.addEventListener("keydown", handleCloseOnEscKey);
+    }
+
+    return () => window.removeEventListener("keydown", close);
+  }, [handleCloseOnEscKey, isOpened, modalOverlayRef]);
 
   if (!isOpened) return null;
 
   return createPortal(
     <>
-      <div className={overlayClasses} onClick={handleClose} />
+      <div
+        className={overlayClasses}
+        onClick={handleClose}
+        ref={modalOverlayRef}
+      />
       <div
         className={classes}
         role="dialog"
@@ -160,7 +180,7 @@ const Modal = ({
             />
           )}
         </div>
-        <div className="modal__content">
+        <div className="modal__content overflow-x-hidden">
           <h1 className="text-white mt-0 mb-4">{title}</h1>
 
           <Button
@@ -238,7 +258,7 @@ const Modal = ({
             </span>
           </div>
 
-          <div className="modal__available-languages mb-2">
+          <div className="modal__available-languages mb-6">
             <label className="text-white font-thin mr-2">
               {`${t("availableLanguages")}`}
             </label>
@@ -250,6 +270,12 @@ const Modal = ({
               })}
             </span>
           </div>
+
+          <DashboardCategoryRow
+            title={`${t("similarLabel")}`}
+            currentLocale={router.locale!}
+            fetchUrl={`https://api.themoviedb.org/3/${mediaType}/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${router.locale}&append_to_response=similar`}
+          />
         </div>
       </div>
     </>,
