@@ -65,8 +65,10 @@ const DashboardMoviePopUp = ({
     "dashboard-movie-pop-up__wrapper absolute z-50 rounded-md",
     {
       [`dashboard-movie-pop-up--${position}`]: position,
-      ["dashboard-movie-pop-up--active"]: transitionType === "fadeIn",
-      ["dashboard-movie-pop-up--inActive"]: transitionType === "fadeOut",
+      [`dashboard-movie-pop-up--${position}--active`]:
+        transitionType === "fadeIn",
+      [`dashboard-movie-pop-up--${position}--inActive`]:
+        transitionType === "fadeOut",
     },
     className,
   );
@@ -193,7 +195,10 @@ const DashboardMoviePopUp = ({
               shape="square"
               className="text-white"
               icon={{ name: "info", size: "small", className: "mr-2" }}
-              onClick={() => onPopUpClick()}
+              onClick={() => {
+                handleClose();
+                onPopUpClick();
+              }}
             >
               {`${t("moreInformation")}`}
             </Button>
