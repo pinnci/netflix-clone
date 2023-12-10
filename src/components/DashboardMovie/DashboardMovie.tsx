@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import DashboardMoviePopUp from "../DashboardMoviePopUp/DashboardMoviePopUp";
@@ -30,6 +30,7 @@ type MovieData = {
   productionCountries: [{ name: string }];
   spokenLanguages: [{ name: string }];
   videos: [{ key: string; site: string }];
+  mediaType: "tv" | "movie";
 } | null;
 
 const DashboardMovie = ({
@@ -42,16 +43,24 @@ const DashboardMovie = ({
 }: DashboardMovie) => {
   const [movieData, setMovieData] = useState<MovieData>(null);
   const [isPopUpOpened, setIsPopUpOpened] = useState<boolean>(false);
-  const [popUpTrigger, setPopUpTrigger] = useState<null | HTMLCanvasElement>(
+  const [popUpTrigger, setPopUpTrigger] = useState<HTMLCanvasElement | null>(
     null,
   );
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+  const [showPopUpTimer, setShowPopUpTimer] = useState<any>(null);
 
-  let showPopUpTimer: ReturnType<typeof setTimeout>;
+  const handleMouseEnter = (event: any) => {
+    setShowPopUpTimer(
+      setTimeout(() => {
+        setPopUpTrigger(event.target);
+        setIsPopUpOpened(true);
+      }, 500),
+    );
+  };
 
-  const handlePopUp = (event: any) => {
-    setPopUpTrigger(event.target);
-    setIsPopUpOpened(true);
+  const handleMouseLeave = () => {
+    clearTimeout(showPopUpTimer);
+    setShowPopUpTimer(null);
   };
 
   useEffect(() => {
@@ -60,40 +69,92 @@ const DashboardMovie = ({
         `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=videos&language=${currentLocale}`,
       )
       .then((response) => {
-        setMovieData({
-          title:
-            response.data.name ||
-            response.data.title ||
-            response.data.original_title,
-          id: id,
-          posterPath: `https://image.tmdb.org/t/p/original${posterPath}`,
-          backdropPath: `https://image.tmdb.org/t/p/original${backdropPath}`,
-          genres: response.data.genres,
-          currentLocale: currentLocale,
-          releaseDate: response.data.release_date,
-          firstAirDate: response.data.first_air_date,
-          lastAirDate: response.data.last_air_date,
-          runtime: response.data.runtime || response.data.episode_run_time,
-          tagline: response.data.tagline,
-          overview: response.data.overview,
-          originalTitle: response.data.original_title,
-          productionCompanies: response.data.production_companies,
-          productionCountries: response.data.production_countries,
-          spokenLanguages: response.data.spoken_languages,
-          videos: response.data.videos.results.filter((video: any) => {
-            if (
-              (video.type === "Teaser" ||
-                video.type === "Trailer" ||
-                video.type === "Official Trailer") &&
-              video.site === "YouTube"
-            ) {
-              return video;
-            }
-          }),
-        });
+        if (
+          id === response.data.id &&
+          title ===
+            (response.data.name ||
+              response.data.title ||
+              response.data.original_title)
+        ) {
+          setMovieData({
+            title:
+              response.data.name ||
+              response.data.title ||
+              response.data.original_title,
+            id: id,
+            posterPath: `https://image.tmdb.org/t/p/original${posterPath}`,
+            backdropPath: `https://image.tmdb.org/t/p/original${backdropPath}`,
+            genres: response.data.genres,
+            currentLocale: currentLocale,
+            releaseDate: response.data.release_date,
+            firstAirDate: response.data.first_air_date,
+            lastAirDate: response.data.last_air_date,
+            runtime: response.data.runtime || response.data.episode_run_time,
+            tagline: response.data.tagline,
+            overview: response.data.overview,
+            originalTitle: response.data.original_title,
+            productionCompanies: response.data.production_companies,
+            productionCountries: response.data.production_countries,
+            spokenLanguages: response.data.spoken_languages,
+            videos: response.data.videos.results.filter((video: any) => {
+              if (
+                (video.type === "Teaser" ||
+                  video.type === "Trailer" ||
+                  video.type === "Official Trailer") &&
+                video.site === "YouTube"
+              ) {
+                return video;
+              }
+            }),
+            mediaType: "movie",
+          });
+        } else {
+          axios
+            .get(
+              `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=videos&language=${currentLocale}`,
+            )
+            .then((response) => {
+              setMovieData({
+                title:
+                  response.data.name ||
+                  response.data.title ||
+                  response.data.original_title,
+                id: id,
+                posterPath: `https://image.tmdb.org/t/p/original${posterPath}`,
+                backdropPath: `https://image.tmdb.org/t/p/original${backdropPath}`,
+                genres: response.data.genres,
+                currentLocale: currentLocale,
+                releaseDate: response.data.release_date,
+                firstAirDate: response.data.first_air_date,
+                lastAirDate: response.data.last_air_date,
+                runtime:
+                  response.data.runtime || response.data.episode_run_time,
+                tagline: response.data.tagline,
+                overview: response.data.overview,
+                originalTitle: response.data.original_title,
+                productionCompanies: response.data.production_companies,
+                productionCountries: response.data.production_countries,
+                spokenLanguages: response.data.spoken_languages,
+                videos: response.data.videos.results.filter((video: any) => {
+                  if (
+                    (video.type === "Teaser" ||
+                      video.type === "Trailer" ||
+                      video.type === "Official Trailer") &&
+                    video.site === "YouTube"
+                  ) {
+                    return video;
+                  }
+                }),
+                mediaType: "tv",
+              });
+            })
+            .catch((error) => {
+              if (error.code === "ERR_BAD_REQUEST") return;
+              console.error("TV show not found!", error);
+            });
+        }
       })
       .catch((error) => {
-        if (error.code === "ERR_BAD_REQUEST") return;
         console.error("Movie not found!", error);
 
         axios
@@ -131,6 +192,7 @@ const DashboardMovie = ({
                   return video;
                 }
               }),
+              mediaType: "tv",
             });
           })
           .catch((error) => {
@@ -144,21 +206,15 @@ const DashboardMovie = ({
     <>
       <div
         className="relative cursor-pointer"
-        onMouseEnter={(e) => {
-          showPopUpTimer = setTimeout(() => {
-            handlePopUp(e);
-          }, 800);
-        }}
-        onMouseLeave={() => {
-          clearTimeout(showPopUpTimer);
-        }}
+        //tabIndex={0}
+        aria-label={title}
+        onMouseEnter={(e) => handleMouseEnter(e)}
+        onMouseLeave={handleMouseLeave}
         onClick={() => {
           setIsPopUpOpened(false);
           setPopUpTrigger(null);
           setIsModalOpened(true);
         }}
-        //tabIndex={0}
-        aria-label={title}
         {...other}
       >
         <Image
@@ -167,13 +223,14 @@ const DashboardMovie = ({
           alt={title}
           width={180}
           height={260}
+          priority
         />
       </div>
 
       {movieData && (
         <DashboardMoviePopUp
           trigger={popUpTrigger}
-          title={movieData.title}
+          title={title}
           movieId={movieData.id}
           backdropPath={movieData.backdropPath}
           currentLocale={movieData.currentLocale}
@@ -188,11 +245,7 @@ const DashboardMovie = ({
           releaseDate={movieData.releaseDate}
           firstAirDate={movieData.firstAirDate}
           lastAirDate={movieData.lastAirDate}
-          onPopUpClick={() => {
-            setIsPopUpOpened(false);
-            setPopUpTrigger(null);
-            setIsModalOpened(true);
-          }}
+          onPopUpClick={() => setIsModalOpened(true)}
         />
       )}
 
@@ -218,6 +271,7 @@ const DashboardMovie = ({
           backdropPath={movieData.backdropPath}
           videos={movieData.videos}
           movieId={movieData.id}
+          mediaType={movieData.mediaType}
         />
       )}
     </>
