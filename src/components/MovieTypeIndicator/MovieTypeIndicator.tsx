@@ -45,6 +45,7 @@ const MovieTypeIndicator = ({
           width="0"
           height="0"
           sizes="100vw"
+          priority
         />
       </div>
     </div>
