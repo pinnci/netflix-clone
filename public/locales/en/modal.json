@@ -4,5 +4,6 @@
   "productionCompanies": "Production companies:",
   "availableLanguages": "Available languages:",
   "play": "Play",
-  "closeButtonLabel": "Close"
+  "closeButtonLabel": "Close",
+  "similarLabel": "More similar"
 }
