@@ -110,13 +110,9 @@ const MovieDetail = ({ data }: MovieDetail) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const reqs = locales
-    ?.map((locale) => {
-      return Object.keys(requests).map((key: string) => {
-        return axios.get(`${requests[key]}&language=${locale}`);
-      });
-    })
-    .flat();
+  const reqs = Object.keys(requests).map((key: string) =>
+    axios.get(requests[key]),
+  );
 
   //@ts-ignore
   const responses = await axios.all(reqs);
