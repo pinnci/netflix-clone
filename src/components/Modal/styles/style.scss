@@ -5,6 +5,15 @@
   transition: opacity 0.3s ease-in-out;
   z-index: 1000;
 
+  &__gradient {
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba($color-dashboard, 0) 12%,
+      rgba($color-dashboard, 1) 100%
+    );
+  }
+
   &--active {
     opacity: 1;
   }

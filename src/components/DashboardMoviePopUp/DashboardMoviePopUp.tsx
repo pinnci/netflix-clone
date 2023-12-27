@@ -5,12 +5,17 @@ import { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import { createPortal } from "react-dom";
 
-import { handleDate, handleRuntimeFormat } from "../../utils/utils";
+import {
+  handleDate,
+  handleRuntimeFormat,
+  handleStringToUrl,
+} from "../../utils/utils";
 
 type DashboardMoviePopUp = {
   isOpened: boolean;
   trigger: null | HTMLCanvasElement;
   title: string;
+  originalTitle: string;
   movieId: number;
   backdropPath: string;
   runtime: number;
@@ -27,6 +32,7 @@ type DashboardMoviePopUp = {
 
 const DashboardMoviePopUp = ({
   title,
+  originalTitle,
   trigger,
   isOpened = false,
   movieId,
@@ -140,7 +146,10 @@ const DashboardMoviePopUp = ({
           alt={title}
           width={400}
           height={250}
+          priority
         />
+
+        <div className="dashboard-movie-pop-up__gradient absolute top-0 left-0 right-0 bottom-0"></div>
 
         <div className="dashboard-movie-pop-up__content p-5">
           <h3 className="text-white text-3xl mb-1">{title}</h3>
@@ -180,7 +189,7 @@ const DashboardMoviePopUp = ({
               size="medium"
               shape="square"
               className="text-black"
-              href={`/movies/${movieId}`}
+              href={`/watch/${movieId}-${handleStringToUrl(originalTitle)}`}
               onClick={(event) => {
                 event.stopPropagation();
               }}

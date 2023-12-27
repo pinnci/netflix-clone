@@ -144,12 +144,14 @@ const DashboardCategoryRow = ({
           {isLoading
             ? Array.from({ length: 10 }).map((_, index) => (
                 <SwiperSlide key={index}>
-                  <Skeleton
-                    height={234}
-                    width={160}
-                    baseColor="#202020"
-                    highlightColor="#303030"
-                  />
+                  <div className="w-24 h-36 sm:w-32 sm:h-52 md:w-36 md:h-56 lg:w-40 lg:h-60">
+                    <Skeleton
+                      height="100%"
+                      width="100%"
+                      baseColor="#202020"
+                      highlightColor="#303030"
+                    />
+                  </div>
                 </SwiperSlide>
               ))
             : movies.map((movie: Movie) => {

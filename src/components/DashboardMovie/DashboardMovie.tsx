@@ -231,6 +231,7 @@ const DashboardMovie = ({
         <DashboardMoviePopUp
           trigger={popUpTrigger}
           title={title}
+          originalTitle={movieData.originalTitle}
           movieId={movieData.id}
           backdropPath={movieData.backdropPath}
           currentLocale={movieData.currentLocale}

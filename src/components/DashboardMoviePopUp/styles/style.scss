@@ -1,6 +1,18 @@
 .dashboard-movie-pop-up {
+  background: $color-dashboard;
+
   &__content {
     background: $color-dashboard;
+  }
+
+  &__gradient {
+    z-index: 1;
+    height: _get-rem(270px);
+    background: linear-gradient(
+      180deg,
+      rgba($color-dashboard, 0) 12%,
+      rgba($color-dashboard, 1) 100%
+    );
   }
 
   &__wrapper {

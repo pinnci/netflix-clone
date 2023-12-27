@@ -110,13 +110,9 @@ const MovieDetail = ({ data }: MovieDetail) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const reqs = locales
-    ?.map((locale) => {
-      return Object.keys(requests).map((key: string) => {
-        return axios.get(`${requests[key]}&language=${locale}`);
-      });
-    })
-    .flat();
+  const reqs = Object.keys(requests).map((key: string) =>
+    axios.get(requests[key]),
+  );
 
   //@ts-ignore
   const responses = await axios.all(reqs);
@@ -124,7 +120,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const paths = responses
     .map((response) => {
       return response.data.results.map((data: Movie) => {
-        const title = data.title || data.name || data.original_title;
+        const title = data.original_title || data.name || data.title;
 
         return { params: { slug: `${data.id}-${handleStringToUrl(title!)}` } };
       });
@@ -165,7 +161,10 @@ export const getStaticProps: GetStaticProps = async ({
 
     if (
       movieId === data.id &&
-      slug === `${movieId}-${handleStringToUrl(data.original_title)}`
+      slug ===
+        `${movieId}-${handleStringToUrl(
+          data.original_title || data.name || data.title,
+        )}`
     ) {
       return {
         props: {
