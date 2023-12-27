@@ -2,7 +2,7 @@ import { NextSeoProps } from "next-seo";
 
 const nextSeoConfig: NextSeoProps = {
   canonical: "https://netflix-clone-pinnci.vercel.app/",
-  titleTemplate: "%s | Netflix",
+  titleTemplate: "Netflix | %s",
   openGraph: {
     type: "website",
     url: "https://netflix-clone-pinnci.vercel.app/",

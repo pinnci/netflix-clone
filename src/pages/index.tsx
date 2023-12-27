@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 
 import Homepage from "../components/Homepage/Homepage";
-import Dashboard from "@/components/Dashboard/Dashboard";
 
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -18,6 +18,8 @@ export default function Home() {
   const dispatch = useDispatch();
   const { t } = useTranslation("common");
 
+  const router = useRouter();
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -28,6 +30,7 @@ export default function Home() {
             email: user.email,
           }),
         );
+        router.push("/browse");
       } else {
         // Logged out
         dispatch(logout());
@@ -35,7 +38,7 @@ export default function Home() {
     });
 
     return unsubscribe;
-  }, [dispatch]);
+  }, [dispatch, router]);
 
   return (
     <>
@@ -45,7 +48,9 @@ export default function Home() {
         openGraph={{ description: `${t("openGraph.description")}` }}
         additionalMetaTags={[{ name: "keywords", content: `${t("keywords")}` }]}
       />
-      <React.Fragment>{!user ? <Homepage /> : <Dashboard />}</React.Fragment>
+      <React.Fragment>
+        <Homepage />
+      </React.Fragment>
     </>
   );
 }
@@ -53,13 +58,7 @@ export default function Home() {
 export async function getStaticProps({ locale }: Locale) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        "homepage",
-        "common",
-        "dashboard",
-        "modal",
-        "popup",
-      ])),
+      ...(await serverSideTranslations(locale, ["homepage", "common"])),
     },
   };
 }
