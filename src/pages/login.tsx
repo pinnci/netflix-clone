@@ -31,6 +31,7 @@ const Login = () => {
           className="loginForm__image hidden object-cover object-left sm:block"
           alt={t("login:imageAlt")}
           fill
+          priority
         />
       </div>
       <Container className="sm:grow relative flex justify-center">
