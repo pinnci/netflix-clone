@@ -44,16 +44,14 @@ const handleRuntimeFormat = (runtime: number | Array<string>) => {
 //Utility which would change passed string to url-ish string.
 //Removes spaces, special characters and, replaces spaces with dashes and turns to lowercase
 const handleStringToUrl = (string: string) => {
-  const skuska = string
+  const result = string
     .replace(/[^a-zA-Z0-9 ]/g, "")
     .replace(/\s+/g, "-")
     .toLowerCase();
 
-  if (skuska === "") {
-    return "movie";
-  } else {
-    return skuska;
-  }
+  if (result === "") return string;
+
+  return result;
 };
 
 export { handleDate, handleRuntimeFormat, handleStringToUrl };
