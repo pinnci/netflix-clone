@@ -6,7 +6,11 @@ import cx from "classnames";
 import DashboardCategoryRow from "../DashboardCategoryRow/DashboardCategoryRow";
 import ReactPlayer from "react-player/youtube";
 
-import { handleDate, handleRuntimeFormat } from "../../utils/utils";
+import {
+  handleDate,
+  handleRuntimeFormat,
+  handleStringToUrl,
+} from "../../utils/utils";
 import Button from "../Button/Button";
 import { useRouter } from "next/router";
 
@@ -171,22 +175,30 @@ const Modal = ({
               muted={false}
             />
           ) : (
-            <Image
-              src={backdropPath}
-              className="object-cover object-center h-auto w-full rounded-t-md"
-              alt={title}
-              width={400}
-              height={250}
-            />
+            <>
+              <Image
+                src={backdropPath}
+                className="object-cover object-center h-auto w-full rounded-t-md"
+                alt={title}
+                width={400}
+                height={444}
+                priority
+              />
+
+              <div className="modal__gradient absolute top-0 left-0 right-0 bottom-0 h-full"></div>
+            </>
           )}
         </div>
+
         <div className="modal__content overflow-x-hidden">
           <h1 className="text-white mt-0 mb-4">{title}</h1>
 
           <Button
             variant="secondary"
             size="medium"
-            href={`/movies/${movieId}`}
+            href={`/watch/${movieId}-${handleStringToUrl(
+              originalTitle || title,
+            )}`}
             icon={{ name: "play", size: "small", className: "mr-2" }}
             className="inline-flex mb-4 text-black"
             shape="square"
