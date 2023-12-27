@@ -9,6 +9,8 @@ import Container from "../Container/Container";
 
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
+import { useRouter } from "next/router";
+import LanguageSelector from "../LanguageSelector/LanguageSelector";
 
 type HeaderLoggedIn = {
   className?: string;
@@ -19,6 +21,8 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
     useState<string>("transparent");
 
   const { t } = useTranslation("dashboard");
+
+  const router = useRouter();
 
   const classes = cx(
     "header header--loggedIn flex absolute top-0 left-0 w-full",
@@ -73,12 +77,16 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
           </div>
 
           <div className="flex">
+            <LanguageSelector className="mx-3 sm:mx-4" />
             <Button
               variant="primary"
               size="small"
               shape="square"
               className="text-white"
-              onClick={() => signOut(auth)}
+              onClick={() => {
+                router.push("/");
+                signOut(auth);
+              }}
             >
               {t("buttonLabel")}
             </Button>
