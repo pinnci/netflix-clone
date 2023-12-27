@@ -196,9 +196,7 @@ const Modal = ({
           <Button
             variant="secondary"
             size="medium"
-            href={`/watch/${movieId}-${handleStringToUrl(
-              originalTitle || title,
-            )}`}
+            href={`/watch/${movieId}-${handleStringToUrl(originalTitle)}`}
             icon={{ name: "play", size: "small", className: "mr-2" }}
             className="inline-flex mb-4 text-black"
             shape="square"
