@@ -144,7 +144,7 @@ const DashboardCategoryRow = ({
           {isLoading
             ? Array.from({ length: 10 }).map((_, index) => (
                 <SwiperSlide key={index}>
-                  <div className="w-24 h-36 sm:w-32 sm:h-52 md:w-36 md:h-56 lg:w-40 lg:h-60">
+                  <div className="w-24 h-36 sm:w-32 sm:h-52 md:w-36 md:h-56 lg:w-40 lg:h-60 xl:w-48 xl:h-64">
                     <Skeleton
                       height="100%"
                       width="100%"
