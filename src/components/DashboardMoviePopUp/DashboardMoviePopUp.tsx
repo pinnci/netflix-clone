@@ -189,7 +189,9 @@ const DashboardMoviePopUp = ({
               size="medium"
               shape="square"
               className="text-black"
-              href={`/watch/${movieId}-${handleStringToUrl(originalTitle)}`}
+              href={`/watch/${movieId}-${handleStringToUrl(
+                originalTitle || title,
+              )}`}
               onClick={(event) => {
                 event.stopPropagation();
               }}
