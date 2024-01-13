@@ -1,13 +1,12 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
+import { NextSeo } from "next-seo";
 import axios from "axios";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import Layout from "@/components/Layout/Layout";
 import Container from "@/components/Container/Container";
 
-import { requests } from "../../data/categoryRequests";
 import { handleStringToUrl } from "@/utils/utils";
-import { NextSeo } from "next-seo";
 
 type MovieDetail = {
   data: {
@@ -16,13 +15,6 @@ type MovieDetail = {
     id: number;
     overview: string;
   };
-};
-
-type Movie = {
-  id: number;
-  title?: string;
-  name?: string;
-  original_title?: string;
 };
 
 const MovieDetail = ({ data }: MovieDetail) => {
@@ -109,48 +101,11 @@ const MovieDetail = ({ data }: MovieDetail) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const reqs = Object.keys(requests).map((key: string) =>
-    axios.get(requests[key]),
-  );
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { slug } = context.query;
+  const locale = context.locale!;
 
-  //@ts-ignore
-  const responses = await axios.all(reqs);
-
-  const paths = responses
-    .map((response) => {
-      return response.data.results.map((data: Movie) => {
-        const title = data.original_title || data.name || data.title;
-
-        return { params: { slug: `${data.id}-${handleStringToUrl(title!)}` } };
-      });
-    })
-    .flat();
-
-  const localizedPaths = paths.flatMap((path) => {
-    return locales?.map((locale) => {
-      return {
-        ...path,
-        params: {
-          ...path.params,
-        },
-        locale: locale,
-      };
-    });
-  });
-
-  return {
-    paths: localizedPaths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({
-  params,
-  locale,
-}: any) => {
-  const movieId = Number(params.slug.split("-")[0]);
-  const slug = params.slug;
+  const movieId = Number(slug?.toString().split("-")[0]);
 
   try {
     //Checks for movie
