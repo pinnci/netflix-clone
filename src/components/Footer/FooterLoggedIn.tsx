@@ -56,34 +56,7 @@ const FooterLoggedIn = ({ className, ...other }: FooterLoggedIn) => {
             </Link>
           </div>
 
-          <div className="footer__linksContainer grid grid-cols-2 sm:gap-4 sm:grid-cols-3 md:flex md:flex-row">
-            {/**@ts-ignore */}
-            {t("footer", { returnObjects: true }).map(
-              ({ column }: FooterColumn, index: number) => {
-                return (
-                  <div className="footer__column md:w-1/4" key={index}>
-                    <List>
-                      {/**@ts-ignore */}
-                      {column.map((data: FooterData, i: number) => {
-                        const { title, href } = data;
-
-                        return (
-                          <ListItem key={i} className="mt-3">
-                            <Link
-                              href={href}
-                              className="inline-block text-sm text-neutral-500 hover:underline"
-                            >
-                              {title}
-                            </Link>
-                          </ListItem>
-                        );
-                      })}
-                    </List>
-                  </div>
-                );
-              },
-            )}
-          </div>
+          <div className="footer__linksContainer grid grid-cols-2 sm:gap-4 sm:grid-cols-3 md:flex md:flex-row"></div>
           <div className="footer__languageSelectorContainer my-6">
             <LanguageSelector className="inline-flex" />
           </div>
