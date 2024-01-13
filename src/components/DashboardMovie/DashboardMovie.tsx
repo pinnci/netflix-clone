@@ -26,6 +26,7 @@ type MovieData = {
   tagline: string;
   overview: string;
   originalTitle: string;
+  originalName: string;
   productionCompanies: [{ name: string }];
   productionCountries: [{ name: string }];
   spokenLanguages: [{ name: string }];
@@ -93,6 +94,7 @@ const DashboardMovie = ({
             tagline: response.data.tagline,
             overview: response.data.overview,
             originalTitle: response.data.original_title,
+            originalName: response.data.original_name,
             productionCompanies: response.data.production_companies,
             productionCountries: response.data.production_countries,
             spokenLanguages: response.data.spoken_languages,
@@ -132,6 +134,7 @@ const DashboardMovie = ({
                 tagline: response.data.tagline,
                 overview: response.data.overview,
                 originalTitle: response.data.original_title,
+                originalName: response.data.original_name,
                 productionCompanies: response.data.production_companies,
                 productionCountries: response.data.production_countries,
                 spokenLanguages: response.data.spoken_languages,
@@ -179,6 +182,7 @@ const DashboardMovie = ({
               tagline: response.data.tagline,
               overview: response.data.overview,
               originalTitle: response.data.original_title,
+              originalName: response.data.original_name,
               productionCompanies: response.data.production_companies,
               productionCountries: response.data.production_countries,
               spokenLanguages: response.data.spoken_languages,
@@ -232,6 +236,7 @@ const DashboardMovie = ({
           trigger={popUpTrigger}
           title={title}
           originalTitle={movieData.originalTitle}
+          originalName={movieData.originalName}
           movieId={movieData.id}
           backdropPath={movieData.backdropPath}
           currentLocale={movieData.currentLocale}
@@ -263,6 +268,7 @@ const DashboardMovie = ({
           releaseDate={movieData.releaseDate}
           runtime={movieData.runtime}
           originalTitle={movieData.originalTitle}
+          originalName={movieData.originalName}
           productionCompanies={movieData.productionCompanies}
           productionCountries={movieData.productionCountries}
           spokenLanguages={movieData.spokenLanguages}
