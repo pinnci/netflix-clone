@@ -25,6 +25,7 @@ type Modal = {
   lastAirDate: string;
   runtime: number;
   originalTitle: string;
+  originalName: string;
   productionCompanies: [{ name: string }];
   productionCountries: [{ name: string }];
   spokenLanguages: [{ name: string }];
@@ -47,6 +48,7 @@ const Modal = ({
   lastAirDate,
   runtime,
   originalTitle,
+  originalName,
   productionCompanies,
   productionCountries,
   spokenLanguages,
@@ -197,7 +199,7 @@ const Modal = ({
             variant="secondary"
             size="medium"
             href={`/watch/${movieId}-${handleStringToUrl(
-              originalTitle || title,
+              originalTitle || originalName,
             )}`}
             icon={{ name: "play", size: "small", className: "mr-2" }}
             className="inline-flex mb-4 text-black"
