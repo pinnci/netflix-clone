@@ -27,6 +27,7 @@ const Layout: React.FC<Layout> = ({
   return (
     <div className={classes} {...other}>
       {children}
+      <Footer variant={variant} />
     </div>
   );
 };
