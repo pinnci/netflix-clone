@@ -57,5 +57,76 @@
     }
   ],
   "swiperNextButton": "Zobrazit více pořadů",
-  "swiperPrevButton": "Zobrazit předchozí pořady"
+  "swiperPrevButton": "Zobrazit předchozí pořady",
+  "footer": [
+    {
+      "column": [
+        {
+          "title": "Audio a popis",
+          "href": "#"
+        },
+        {
+          "title": "Vztahy s investory",
+          "href": "#"
+        },
+        {
+          "title": "Právní upozornění",
+          "href": "#"
+        },
+        {
+          "title": "Reklamy",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Centrum zákaznické podpory",
+          "href": "#"
+        },
+        {
+          "title": "Kariéra",
+          "href": "#"
+        },
+        {
+          "title": "Nastavení souborů cookie",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Dárkové poukazy",
+          "href": "#"
+        },
+        {
+          "title": "Podmínky používání",
+          "href": "#"
+        },
+        {
+          "title": "Podnikové informace",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Pro médiá",
+          "href": "#"
+        },
+        {
+          "title": "Soukromí",
+          "href": "#"
+        },
+        {
+          "title": "Kontaktujte nás",
+          "href": "#"
+        }
+      ]
+    }
+  ],
+  "replicationTitle": "S láskou replikoval"
 }
