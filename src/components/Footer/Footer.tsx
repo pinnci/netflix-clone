@@ -1,6 +1,7 @@
 import FooterNotLoggedIn from "./FooterNotLoggedIn";
 import FooterRegistration from "./FooterRegistration";
 import FooterLogin from "./FooterLogin";
+import FooterLoggedIn from "./FooterLoggedIn";
 
 export type Footer = {
   variant: "notLoggedIn" | "loggedIn" | "registration" | "login";
@@ -13,6 +14,8 @@ const Footer = ({ variant }: Footer) => {
     <FooterRegistration />
   ) : variant === "login" ? (
     <FooterLogin />
+  ) : variant === "loggedIn" ? (
+    <FooterLoggedIn />
   ) : null;
 };
 

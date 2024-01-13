@@ -57,5 +57,76 @@
     }
   ],
   "swiperNextButton": "Show more shows",
-  "swiperPrevButton": "Show previous shows"
+  "swiperPrevButton": "Show previous shows",
+  "footer": [
+    {
+      "column": [
+        {
+          "title": "Audio and description",
+          "href": "#"
+        },
+        {
+          "title": "Relations with investors",
+          "href": "#"
+        },
+        {
+          "title": "Legal notice",
+          "href": "#"
+        },
+        {
+          "title": "Ads",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Customer Support Centre",
+          "href": "#"
+        },
+        {
+          "title": "Career",
+          "href": "#"
+        },
+        {
+          "title": "Cookie settings",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "Gift vouchers",
+          "href": "#"
+        },
+        {
+          "title": "Terms of use",
+          "href": "#"
+        },
+        {
+          "title": "Company information",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "column": [
+        {
+          "title": "For the media",
+          "href": "#"
+        },
+        {
+          "title": "Privacy",
+          "href": "#"
+        },
+        {
+          "title": "Contact us",
+          "href": "#"
+        }
+      ]
+    }
+  ],
+  "replicationTitle": "Replicated with love by"
 }
