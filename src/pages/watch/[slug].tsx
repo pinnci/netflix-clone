@@ -19,6 +19,7 @@ type MovieDetail = {
 
 const MovieDetail = ({ data }: MovieDetail) => {
   console.log("data", data);
+
   return (
     <>
       <NextSeo
@@ -123,7 +124,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     ) {
       return {
         props: {
-          ...(await serverSideTranslations(locale, ["dashboard", "common"])),
+          ...(await serverSideTranslations(locale, ["dashboard"])),
           data,
         },
       };
@@ -136,7 +137,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
       return {
         props: {
-          ...(await serverSideTranslations(locale, ["dashboard", "common"])),
+          ...(await serverSideTranslations(locale, ["dashboard"])),
           data,
         },
       };
@@ -150,7 +151,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
       props: {
-        ...(await serverSideTranslations(locale, ["dashboard", "common"])),
+        ...(await serverSideTranslations(locale, ["dashboard"])),
         data,
       },
     };
