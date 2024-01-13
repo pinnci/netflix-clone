@@ -14,9 +14,9 @@ const Footer = ({ variant }: Footer) => {
     <FooterRegistration />
   ) : variant === "login" ? (
     <FooterLogin />
-  ) : variant === "loggedIn" ? (
+  ) : (
     <FooterLoggedIn />
-  ) : null;
+  );
 };
 
 export default Footer;
