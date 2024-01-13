@@ -21,12 +21,6 @@ const MovieDetail = ({ data }: MovieDetail) => {
   console.log("data", data);
   return (
     <>
-      <NextSeo
-        title={data.title || data.name}
-        description={data.overview}
-        openGraph={{ description: data.overview }}
-      />
-
       <Layout variant="loggedIn">
         <Container className="py-6 pt-20">
           <p className="text-white">{data.title || data.name}</p>
