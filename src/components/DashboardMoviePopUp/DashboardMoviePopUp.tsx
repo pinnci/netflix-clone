@@ -16,6 +16,7 @@ type DashboardMoviePopUp = {
   trigger: null | HTMLCanvasElement;
   title: string;
   originalTitle: string;
+  originalName: string;
   movieId: number;
   backdropPath: string;
   runtime: number;
@@ -33,6 +34,7 @@ type DashboardMoviePopUp = {
 const DashboardMoviePopUp = ({
   title,
   originalTitle,
+  originalName,
   trigger,
   isOpened = false,
   movieId,
@@ -190,7 +192,7 @@ const DashboardMoviePopUp = ({
               shape="square"
               className="text-black"
               href={`/watch/${movieId}-${handleStringToUrl(
-                originalTitle || title,
+                originalTitle || originalName,
               )}`}
               onClick={(event) => {
                 event.stopPropagation();
