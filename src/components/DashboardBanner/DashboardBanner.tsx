@@ -22,6 +22,7 @@ type MovieData = {
   posterPath: string;
   backdropPath: string;
   currentLocale: string;
+  originalName: string;
   releaseDate: string;
   firstAirDate: string;
   lastAirDate: string;
@@ -88,6 +89,7 @@ const DashboardBanner = ({ className, ...other }: DashboardBanner) => {
                 releaseDate: response.data.release_date,
                 firstAirDate: response.data.first_air_date,
                 lastAirDate: response.data.last_air_date,
+                originalName: response.data.original_name,
                 runtime:
                   response.data.runtime || response.data.episode_run_time,
                 tagline: response.data.tagline,
@@ -258,6 +260,7 @@ const DashboardBanner = ({ className, ...other }: DashboardBanner) => {
           onClose={() => {
             setIsModalOpened(false);
           }}
+          originalName={movieData.originalName}
           title={movieData.title}
           genres={movieData.genres}
           releaseDate={movieData.releaseDate}
