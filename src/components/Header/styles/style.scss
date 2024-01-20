@@ -25,4 +25,10 @@
   &--registration {
     border-bottom: 1px solid rgba($color-lightgrey, 0.2);
   }
+
+  &--error {
+    background-color: $color-black;
+
+    height: _get-rem(65px);
+  }
 }
