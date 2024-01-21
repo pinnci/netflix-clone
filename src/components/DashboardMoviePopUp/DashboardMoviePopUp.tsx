@@ -11,25 +11,24 @@ import {
   handleStringToUrl,
 } from "../../utils/utils";
 
+import { MovieData } from "../../utils/utils";
+
 type DashboardMoviePopUp = {
   isOpened: boolean;
   trigger: null | HTMLCanvasElement;
-  title: string;
-  originalTitle: string;
-  originalName: string;
-  movieId: number;
-  backdropPath: string;
-  runtime: number;
-  releaseDate: string;
-  tagline: string;
-  firstAirDate: string;
-  lastAirDate: string;
   onClose: () => void;
   onPopUpClick: () => void;
   className?: string;
-  genres: [{ name: string }];
-  currentLocale: string;
-} & React.ComponentProps<"div">;
+} & Omit<
+  MovieData,
+  | "posterPath"
+  | "overview"
+  | "productionCompanies"
+  | "productionCountries"
+  | "spokenLanguages"
+  | "videos"
+  | "mediaType"
+>;
 
 const DashboardMoviePopUp = ({
   title,
@@ -37,9 +36,9 @@ const DashboardMoviePopUp = ({
   originalName,
   trigger,
   isOpened = false,
-  movieId,
+  id,
   backdropPath,
-  currentLocale,
+  locale,
   runtime,
   releaseDate,
   firstAirDate,
@@ -191,7 +190,7 @@ const DashboardMoviePopUp = ({
               size="medium"
               shape="square"
               className="text-black"
-              href={`/watch/${movieId}-${handleStringToUrl(
+              href={`/watch/${id}-${handleStringToUrl(
                 originalTitle || originalName,
               )}`}
               onClick={(event) => {

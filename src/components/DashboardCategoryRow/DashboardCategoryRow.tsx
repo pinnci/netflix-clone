@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import cx from "classnames";
-import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Keyboard } from "swiper";
 import { useTranslation } from "next-i18next";
+
 import DashboardMovie from "../DashboardMovie/DashboardMovie";
 import Icon from "../Icon/Icon";
 import Skeleton from "react-loading-skeleton";
 
+import { Locale } from "../../data/languageSelector";
+import { getDashboardCategoryRowData } from "@/utils/utils";
+
 type DashboardCategoryRow = {
   title: string;
   fetchUrl: string;
-  currentLocale: string;
+  locale: Locale["locale"];
   className?: string;
 } & React.ComponentProps<"div">;
 
@@ -28,7 +31,7 @@ const DashboardCategoryRow = ({
   title,
   fetchUrl,
   className,
-  currentLocale,
+  locale,
   ...other
 }: DashboardCategoryRow) => {
   const [movies, setMovies] = useState([]);
@@ -49,42 +52,20 @@ const DashboardCategoryRow = ({
   const { t } = useTranslation("dashboard");
 
   useEffect(() => {
-    axios
-      .get(fetchUrl)
-      .then((response) => {
-        //Not every movie has backdrop_path provided in response, which means that not every movie will be shown with image
-        let moviesWithBackdropPath;
+    const config = {
+      fetchUrl,
+    };
 
-        if (response.data.results) {
-          moviesWithBackdropPath = response.data.results.filter(
-            (movie: any) => {
-              if (movie.backdrop_path !== null && movie.poster_path !== null) {
-                return movie;
-              }
-            },
-          );
-        } else {
-          moviesWithBackdropPath = response.data.similar.results.filter(
-            (movie: any) => {
-              if (movie.backdrop_path !== null && movie.poster_path !== null) {
-                return movie;
-              }
-            },
-          );
-        }
+    getDashboardCategoryRowData(config, (response) => {
+      setMovies(response);
 
-        setMovies(moviesWithBackdropPath);
-
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    });
   }, [fetchUrl]);
 
-  return (
+  return movies.length >= 1 ? (
     <div className={classes} {...other}>
       <p className="text-white text-xl mb-2">{title}</p>
 
@@ -162,7 +143,7 @@ const DashboardCategoryRow = ({
                       id={movie.id}
                       posterPath={movie.poster_path}
                       backdropPath={movie.backdrop_path}
-                      currentLocale={currentLocale}
+                      locale={locale}
                     />
                   </SwiperSlide>
                 );
@@ -201,7 +182,7 @@ const DashboardCategoryRow = ({
         </Swiper>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default DashboardCategoryRow;

@@ -3,14 +3,17 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
 import { requests } from "../../data/categoryRequests";
+import { Locale } from "../../data/languageSelector";
 
 import DashboardCategoryRow from "../DashboardCategoryRow/DashboardCategoryRow";
 
 type DashboardCategoriesContainer = {
   className?: string;
+  locale: Locale["locale"];
 } & React.ComponentProps<"div">;
 
 const DashboardCategoriesContainer = ({
+  locale,
   className,
   ...other
 }: DashboardCategoriesContainer) => {
@@ -32,7 +35,7 @@ const DashboardCategoriesContainer = ({
             fetchUrl={`${requests[key]}&language=${router.locale}`}
             key={key}
             className="mb-4"
-            currentLocale={router.locale!}
+            locale={locale}
           />
         );
       })}

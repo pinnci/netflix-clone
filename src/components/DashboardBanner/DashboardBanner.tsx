@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import cx from "classnames";
 import Image from "next/image";
-import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 
 import Container from "../Container/Container";
@@ -10,38 +8,19 @@ import MovieTypeIndicator from "../MovieTypeIndicator/MovieTypeIndicator";
 import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
 import { useTranslation } from "react-i18next";
-import { handleStringToUrl } from "@/utils/utils";
+import { getDashboardBannerData, handleStringToUrl } from "@/utils/utils";
+
+import { MovieData } from "../../utils/utils";
+import { Locale } from "../../data/languageSelector";
 
 type DashboardBanner = {
   className?: string;
+  locale: Locale["locale"];
 } & React.ComponentProps<"div">;
 
-type MovieData = {
-  title: string;
-  id: number;
-  posterPath: string;
-  backdropPath: string;
-  currentLocale: string;
-  originalName: string;
-  releaseDate: string;
-  firstAirDate: string;
-  lastAirDate: string;
-  runtime: number;
-  genres: [{ name: string }];
-  tagline: string;
-  overview: string;
-  originalTitle: string;
-  productionCompanies: [{ name: string }];
-  productionCountries: [{ name: string }];
-  spokenLanguages: [{ name: string }];
-  videos: [{ key: string; site: string }];
-  mediaType: "tv" | "movie";
-} | null;
-
-const DashboardBanner = ({ className, ...other }: DashboardBanner) => {
+const DashboardBanner = ({ className, locale, ...other }: DashboardBanner) => {
   const [movieData, setMovieData] = useState<null | MovieData>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [currentLocale, setCurrentLocale] = useState<null | string>(null);
   const [transitionType, setTransitionType] = useState<"fadeIn" | null>(null);
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
 
@@ -50,76 +29,21 @@ const DashboardBanner = ({ className, ...other }: DashboardBanner) => {
     className,
   );
 
-  const router = useRouter();
-
   const { t } = useTranslation("popup");
 
   useEffect(() => {
-    if (router.locale === "en") {
-      setCurrentLocale("en-US");
-    }
+    const config = {
+      locale,
+    };
 
-    if (router.locale === "cs") {
-      setCurrentLocale("cs-CZ");
-    }
+    getDashboardBannerData(config, (response) => {
+      setMovieData(response);
 
-    if (currentLocale)
-      axios
-        .get(
-          `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${currentLocale}`,
-        )
-        .then((response) => {
-          const trendingMovies = response.data.results;
-
-          axios
-            .get(
-              `https://api.themoviedb.org/3/movie/${trendingMovies[0].id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=videos&language=${currentLocale}`,
-            )
-            .then((response) => {
-              setMovieData({
-                title:
-                  response.data.name ||
-                  response.data.title ||
-                  response.data.original_title,
-                id: response.data.id,
-                posterPath: `https://image.tmdb.org/t/p/original${response.data.poster_path}`,
-                backdropPath: `https://image.tmdb.org/t/p/original${response.data.backdrop_path}`,
-                genres: response.data.genres,
-                currentLocale: currentLocale,
-                releaseDate: response.data.release_date,
-                firstAirDate: response.data.first_air_date,
-                lastAirDate: response.data.last_air_date,
-                originalName: response.data.original_name,
-                runtime:
-                  response.data.runtime || response.data.episode_run_time,
-                tagline: response.data.tagline,
-                overview: response.data.overview,
-                originalTitle: response.data.original_title,
-                productionCompanies: response.data.production_companies,
-                productionCountries: response.data.production_countries,
-                spokenLanguages: response.data.spoken_languages,
-                videos: response.data.videos.results.filter((video: any) => {
-                  if (
-                    (video.type === "Teaser" ||
-                      video.type === "Trailer" ||
-                      video.type === "Official Trailer") &&
-                    video.site === "YouTube"
-                  ) {
-                    return video;
-                  }
-                }),
-                mediaType: "movie",
-              });
-
-              setTimeout(() => {
-                setIsLoading(false);
-              }, 1000);
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  }, [currentLocale, router.locale]);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    });
+  }, [locale]);
 
   useEffect(() => {
     if (!isLoading) setTimeout(() => setTransitionType("fadeIn"), 0);
@@ -274,8 +198,9 @@ const DashboardBanner = ({ className, ...other }: DashboardBanner) => {
           overview={movieData.overview}
           backdropPath={movieData.backdropPath}
           videos={movieData.videos}
-          movieId={movieData.id}
+          id={movieData.id}
           mediaType={movieData.mediaType}
+          locale={locale}
         />
       )}
     </>

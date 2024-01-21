@@ -12,28 +12,14 @@ import {
   handleStringToUrl,
 } from "../../utils/utils";
 import Button from "../Button/Button";
-import { useRouter } from "next/router";
+
+import { MovieData } from "../../utils/utils";
 
 type Modal = {
   isOpened: boolean;
   onClose: () => void;
-  title: string;
-  overview: string;
-  genres: [{ name: string }];
-  releaseDate: string;
-  firstAirDate: string;
-  lastAirDate: string;
-  runtime: number;
-  originalTitle: string;
-  originalName: string;
-  productionCompanies: [{ name: string }];
-  productionCountries: [{ name: string }];
-  spokenLanguages: [{ name: string }];
-  backdropPath: string;
-  videos: any;
-  movieId: number;
-  mediaType: "tv" | "movie";
-} & React.ComponentProps<"div">;
+  className?: string;
+} & Omit<MovieData, "posterPath" | "tagline">;
 
 const Modal = ({
   className,
@@ -53,15 +39,14 @@ const Modal = ({
   productionCountries,
   spokenLanguages,
   videos,
-  movieId,
+  id,
+  locale,
   mediaType,
 }: Modal) => {
   const [pageYoffset, setPageYoffset] = useState<number>(0);
   const [transitionType, setTransitionType] = useState<
     "fadeIn" | "fadeOut" | null
   >(null);
-
-  const router = useRouter();
 
   const modalOverlayRef = useRef<HTMLDivElement | null>(null);
 
@@ -198,7 +183,7 @@ const Modal = ({
           <Button
             variant="secondary"
             size="medium"
-            href={`/watch/${movieId}-${handleStringToUrl(
+            href={`/watch/${id}-${handleStringToUrl(
               originalTitle || originalName,
             )}`}
             icon={{ name: "play", size: "small", className: "mr-2" }}
@@ -287,8 +272,8 @@ const Modal = ({
 
           <DashboardCategoryRow
             title={`${t("similarLabel")}`}
-            currentLocale={router.locale!}
-            fetchUrl={`https://api.themoviedb.org/3/${mediaType}/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${router.locale}&append_to_response=similar`}
+            locale={locale}
+            fetchUrl={`https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=similar`}
           />
         </div>
       </div>
