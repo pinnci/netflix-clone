@@ -27,7 +27,6 @@ type DashboardMoviePopUp = {
   | "productionCountries"
   | "spokenLanguages"
   | "videos"
-  | "mediaType"
 >;
 
 const DashboardMoviePopUp = ({
@@ -38,6 +37,7 @@ const DashboardMoviePopUp = ({
   isOpened = false,
   id,
   backdropPath,
+  mediaType,
   locale,
   runtime,
   releaseDate,
@@ -190,7 +190,7 @@ const DashboardMoviePopUp = ({
               size="medium"
               shape="square"
               className="text-black"
-              href={`/watch/${id}-${handleStringToUrl(
+              href={`/watch/${mediaType}-${id}-${handleStringToUrl(
                 originalTitle || originalName,
               )}`}
               onClick={(event) => {
