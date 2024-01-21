@@ -65,7 +65,7 @@ const DashboardCategoryRow = ({
     });
   }, [fetchUrl]);
 
-  return (
+  return movies.length >= 1 ? (
     <div className={classes} {...other}>
       <p className="text-white text-xl mb-2">{title}</p>
 
@@ -182,7 +182,7 @@ const DashboardCategoryRow = ({
         </Swiper>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default DashboardCategoryRow;
