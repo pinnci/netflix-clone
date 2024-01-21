@@ -150,7 +150,9 @@ const DashboardBanner = ({ className, locale, ...other }: DashboardBanner) => {
                     size="medium"
                     shape="square"
                     className="text-black mr-4"
-                    href={`/watch/${movieData?.id}-${handleStringToUrl(
+                    href={`/watch/${movieData?.mediaType}-${
+                      movieData?.id
+                    }-${handleStringToUrl(
                       movieData?.originalTitle! || movieData?.title!,
                     )}`}
                     onClick={(event) => {
