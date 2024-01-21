@@ -6,9 +6,19 @@ import DashboardCategoriesContainer from "../components/DashboardCategoriesConta
 import type { Locale } from "@/data/languageSelector";
 import { NextSeo } from "next-seo";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const Dashboard = () => {
+  const [locale, setLocale] = useState<Locale["locale"]>("en");
+
   const { t } = useTranslation("common");
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setLocale(router.locale === "cs" ? "cs" : "en");
+  }, [router.locale]);
 
   return (
     <>
@@ -20,9 +30,9 @@ const Dashboard = () => {
       />
 
       <Layout variant="loggedIn">
-        <DashboardBanner />
+        <DashboardBanner locale={locale} />
         <Container className="py-6">
-          <DashboardCategoriesContainer />
+          <DashboardCategoriesContainer locale={locale} />
         </Container>
       </Layout>
     </>
