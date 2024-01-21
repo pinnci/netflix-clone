@@ -108,6 +108,7 @@ const DashboardMovie = ({
           }}
           genres={movieData.genres}
           tagline={movieData.tagline}
+          mediaType={movieData.mediaType}
           runtime={movieData.runtime}
           releaseDate={movieData.releaseDate}
           firstAirDate={movieData.firstAirDate}

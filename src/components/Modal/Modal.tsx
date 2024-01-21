@@ -183,7 +183,7 @@ const Modal = ({
           <Button
             variant="secondary"
             size="medium"
-            href={`/watch/${id}-${handleStringToUrl(
+            href={`/watch/${mediaType}-${id}-${handleStringToUrl(
               originalTitle || originalName,
             )}`}
             icon={{ name: "play", size: "small", className: "mr-2" }}

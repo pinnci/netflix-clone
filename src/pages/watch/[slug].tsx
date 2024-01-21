@@ -106,19 +106,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.query;
   const locale = context.locale!;
 
-  const movieId = Number(slug?.toString().split("-")[0]);
+  const movieId = Number(slug?.toString().split("-")[1]);
+  const mediaType = slug?.toString().split("-")[0];
 
   try {
     //Checks for movie
     const res = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
+      `https://api.themoviedb.org/3/${mediaType}/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
     );
     const data = await res.data;
 
+    //When movie was found based on its ID, check whether there is not mistake in remaining part of slug
     if (
       movieId === data.id &&
       slug ===
-        `${movieId}-${handleStringToUrl(
+        `${mediaType}-${movieId}-${handleStringToUrl(
           data.original_title || data.name || data.title,
         )}`
     ) {
@@ -129,33 +131,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
       };
     } else {
-      //Checks for TV shows when movie's ID and title is not matching
-      const res = await axios.get(
-        `https://api.themoviedb.org/3/tv/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
-      );
-      const data = await res.data;
-
       return {
-        props: {
-          ...(await serverSideTranslations(locale, ["dashboard"])),
-          data,
-        },
+        notFound: true,
       };
     }
-  } catch (error) {
-    //Checks for TV shows when movie could not be found
-    const res = await axios.get(
-      `https://api.themoviedb.org/3/tv/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
-    );
-    const data = await res.data;
-
+  } catch {
+    //When movie was not found then return 404 page
     return {
-      props: {
-        ...(await serverSideTranslations(locale, ["dashboard"])),
-        data,
-      },
+      notFound: true,
     };
   }
 };
-
 export default MovieDetail;
