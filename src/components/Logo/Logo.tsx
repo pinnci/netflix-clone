@@ -3,10 +3,11 @@ import cx from "classnames";
 
 type Logo = {
   variant?: "small" | "large";
+  href: string;
   className?: string;
 };
 
-const Logo = ({ variant = "large", className, ...other }: Logo) => {
+const Logo = ({ variant = "large", className, href, ...other }: Logo) => {
   const classes = cx(
     "logo block h-auto",
     { "logo--small": variant === "small", "logo--large": variant === "large" },
@@ -14,7 +15,12 @@ const Logo = ({ variant = "large", className, ...other }: Logo) => {
   );
 
   return (
-    <Link href="/" className={classes} aria-label="Domovská stránka" {...other}>
+    <Link
+      href={href}
+      className={classes}
+      aria-label="Domovská stránka"
+      {...other}
+    >
       <svg
         viewBox="0 0 111 30"
         version="1.1"

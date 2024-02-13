@@ -26,7 +26,7 @@ const HeaderNotLoggedIn = ({ className, ...other }: HeaderNotLoggedIn) => {
     >
       <header className={classes} {...other}>
         <Container className="flex justify-between items-center">
-          <Logo />
+          <Logo href="/" />
 
           <div className="flex">
             <LanguageSelector className="mx-3 sm:mx-4" />
