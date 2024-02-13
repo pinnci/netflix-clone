@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
 import Container from "../Container/Container";
+import Search from "../Search/Search";
 
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
@@ -58,7 +59,7 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
       >
         <Container className="flex justify-between items-center">
           <div className="flex items-center">
-            <Logo className="mr-6" variant="small" />
+            <Logo className="mr-6" variant="small" href="/browse" />
 
             {/**@ts-ignore */}
             {t("menu", { returnObjects: true }).map((obj, index: number) => {
@@ -66,7 +67,7 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
 
               return (
                 <Link
-                  href={href}
+                  href={`${href}`}
                   className="ml-4 text-white hover:text-neutral-300 transition-all"
                   key={index}
                 >
@@ -76,7 +77,8 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
             })}
           </div>
 
-          <div className="flex">
+          <div className="flex justify-end">
+            <Search />
             <LanguageSelector className="mx-3 sm:mx-4" />
             <Button
               variant="primary"
