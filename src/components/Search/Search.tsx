@@ -22,7 +22,7 @@ const Search = ({ className, ...other }: Search) => {
     {
       ["search__container--active transition-all duration-500"]:
         isOpened && isWidthAnimated,
-      ["transition-none"]: searchedTerm,
+      ["transition-none"]: isOpened && searchedTerm,
     },
   );
 
@@ -44,9 +44,8 @@ const Search = ({ className, ...other }: Search) => {
 
   useEffect(() => {
     if (searchParams.toString().includes("query")) {
-      setIsOpened(true);
-      setIsWidthAnimated(false);
       setSearchedTerm(searchParams.get("query")?.toString());
+      setIsOpened(true);
     }
   }, [searchParams]);
 
