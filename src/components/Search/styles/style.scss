@@ -1,0 +1,14 @@
+.search {
+  &__input {
+    background-color: $color-dashboard;
+  }
+
+  &__container {
+    //transition: width 0.5s ease;
+    width: 0px;
+
+    &--active {
+      width: 300px;
+    }
+  }
+}
