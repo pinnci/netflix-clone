@@ -13,6 +13,7 @@ import Info from "./Icons/Info";
 import Facebook from "./Icons/Facebook";
 import Instagram from "./Icons/Instagram";
 import Youtube from "./Icons/Youtube";
+import Search from "./Icons/Search";
 
 export const iconNamesArray = [
   "caret-down",
@@ -27,6 +28,7 @@ export const iconNamesArray = [
   "facebook",
   "instagram",
   "youtube",
+  "search",
 ] as const;
 
 export type IconNames = (typeof iconNamesArray)[number];
@@ -75,6 +77,8 @@ const Icon: React.FC<Icon> = ({ className, size, name, ...other }: Icon) => {
         return <Instagram />;
       case "youtube":
         return <Youtube />;
+      case "search":
+        return <Search />;
       default:
         return <svg />;
     }
