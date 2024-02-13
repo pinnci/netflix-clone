@@ -11,7 +11,7 @@ type LanguageSelector = {
 
 const LanguageSelector = ({ className, ...other }: LanguageSelector) => {
   const classes = cx(
-    "flex items-center relative languageSelector_container",
+    "flex items-center relative languageSelector_container shrink-0",
     className,
   );
 

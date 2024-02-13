@@ -41,7 +41,7 @@ const DashboardBanner = ({ className, locale, ...other }: DashboardBanner) => {
 
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000);
+      }, 100);
     });
   }, [locale]);
 
