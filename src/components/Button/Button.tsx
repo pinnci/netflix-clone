@@ -5,7 +5,7 @@ import Link from "next/link";
 import Icon from "../Icon/Icon";
 
 type Button = {
-  variant: "primary" | "secondary" | "tertiary" | "start" | "close";
+  variant: "primary" | "secondary" | "tertiary" | "start" | "close" | "ghost";
   shape: "rounded" | "square";
   size: "small" | "medium" | "large";
   className?: string;
@@ -29,7 +29,7 @@ const Button = ({
   ...other
 }: Button) => {
   const classes = cx(
-    "button flex flex-row items-center",
+    "button flex flex-row shrink-0 items-center",
     {
       [`button--${variant}`]: variant,
       "rounded-full p-4": shape === "rounded",
