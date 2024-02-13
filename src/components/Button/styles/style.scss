@@ -34,4 +34,9 @@
       background-color: $color-black;
     }
   }
+
+  &--ghost {
+    background-color: none;
+    padding: 0;
+  }
 }
