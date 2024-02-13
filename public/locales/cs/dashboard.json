@@ -2,15 +2,15 @@
   "menu": [
     {
       "title": "Domovská stránka",
-      "href": "/"
+      "href": "/browse"
     },
     {
       "title": "Pořady",
-      "href": "/"
+      "href": "/browse"
     },
     {
       "title": "Filmy",
-      "href": "/"
+      "href": "/browse"
     }
   ],
   "media-type": {
@@ -22,6 +22,9 @@
     }
   },
   "buttonLabel": "Odhlásit se",
+  "searchLabel": "Hledat",
+  "searchClearLabel": "Smazat",
+  "searchPlaceholder": "Pořady, lidé, žánry",
   "categories": [
     {
       "key": "Trending",

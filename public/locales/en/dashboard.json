@@ -2,15 +2,15 @@
   "menu": [
     {
       "title": "Home",
-      "href": "/"
+      "href": "/browse"
     },
     {
       "title": "Shows",
-      "href": "/"
+      "href": "/browse"
     },
     {
       "title": "Movies",
-      "href": "/"
+      "href": "/browse"
     }
   ],
   "media-type": {
@@ -22,6 +22,9 @@
     }
   },
   "buttonLabel": "Sign Out",
+  "searchLabel": "Search",
+  "searchClearLabel": "Clear",
+  "searchPlaceholder": "Shows, people, genres",
   "categories": [
     {
       "key": "Trending",
