@@ -21,7 +21,7 @@ const HeaderLogin = ({ className, ...other }: HeaderLogin) => {
     >
       <header className={classes} {...other}>
         <Container className="flex justify-between items-center">
-          <Logo />
+          <Logo href="/" />
         </Container>
       </header>
     </nav>

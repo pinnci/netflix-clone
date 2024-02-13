@@ -25,7 +25,7 @@ const HeaderRegistration = ({ className, ...other }: HeaderRegistration) => {
     >
       <header className={classes} {...other}>
         <Container className="flex justify-between items-center">
-          <Logo />
+          <Logo href="/" />
 
           <div className="flex">
             <Link

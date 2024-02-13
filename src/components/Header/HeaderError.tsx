@@ -22,7 +22,7 @@ const HeaderError = ({ className, ...other }: HeaderError) => {
       <header className={classes} {...other}>
         <Container className="flex justify-between items-center">
           <div className="flex items-center">
-            <Logo className="mr-6" variant="small" />
+            <Logo href="/browse" className="mr-6" variant="small" />
           </div>
         </Container>
       </header>
