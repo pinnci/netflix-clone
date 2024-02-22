@@ -5,7 +5,7 @@ import DashboardBanner from "../components/DashboardBanner/DashboardBanner";
 import DashboardCategoriesContainer from "../components/DashboardCategoriesContainer/DashboardCategoriesContainer";
 import type { Locale } from "@/data/languageSelector";
 import { NextSeo } from "next-seo";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 

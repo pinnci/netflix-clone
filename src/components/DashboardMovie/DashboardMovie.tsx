@@ -5,14 +5,13 @@ import Modal from "../Modal/Modal";
 
 import { getDashboardMovieData, MovieData } from "@/utils/utils";
 
-type DashboardMovie = Omit<
+export type DashboardMovie = Omit<
   MovieData,
   | "overview"
   | "productionCompanies"
   | "productionCountries"
   | "spokenLanguages"
   | "videos"
-  | "mediaType"
   | "originalTitle"
   | "originalName"
   | "runtime"
@@ -29,6 +28,7 @@ const DashboardMovie = ({
   posterPath,
   backdropPath,
   locale,
+  mediaType,
   ...other
 }: DashboardMovie) => {
   const [movieData, setMovieData] = useState<MovieData | null>(null);
@@ -60,12 +60,13 @@ const DashboardMovie = ({
       locale,
       backdropPath,
       posterPath,
+      mediaType,
     };
 
     getDashboardMovieData(config, (response) => {
       setMovieData(response);
     });
-  }, [id, locale, posterPath, backdropPath, title]);
+  }, [id, locale, posterPath, backdropPath, title, mediaType]);
 
   return (
     <>

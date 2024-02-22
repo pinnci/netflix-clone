@@ -3,6 +3,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useContext, useState } from "react";
 import { PathContext } from "@/pages/_app";
 import { useTranslation } from "next-i18next";
+import { useDebouncedCallback } from "use-debounce";
 
 import Icon from "../Icon/Icon";
 import Button from "../Button/Button";
@@ -49,7 +50,7 @@ const Search = ({ className, ...other }: Search) => {
     }
   }, [searchParams]);
 
-  const handleChange = (term: string) => {
+  const handleChange = useDebouncedCallback((term: string) => {
     setSearchedTerm(term);
 
     const params = new URLSearchParams(searchParams.toString());
@@ -65,7 +66,7 @@ const Search = ({ className, ...other }: Search) => {
     }
 
     term ? router.replace(`/search?${params.toString()}`) : null;
-  };
+  }, 300);
 
   const handleBlur = () => {
     if (!searchedTerm) {

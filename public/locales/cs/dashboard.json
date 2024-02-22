@@ -25,6 +25,15 @@
   "searchLabel": "Hledat",
   "searchClearLabel": "Smazat",
   "searchPlaceholder": "Pořady, lidé, žánry",
+  "searchError": {
+    "searchedTerm": "Vaše vyhledávání „",
+    "hasNoResults": "“ nemá žádné výsledky.",
+    "recommendations": "Doporučení:",
+    "recommendation1": "Vyzkoušejte jiná klíčová slova",
+    "recommendation2": "Hledáte film nebo TV seriál?",
+    "recommendation3": "Zkuste použít film, název TV pořadu, jméno herce nebo režiséra",
+    "recommendation4": "Vyzkoušejte žánr, jako je komedie, romantika, sport nebo drama"
+  },
   "categories": [
     {
       "key": "Trending",

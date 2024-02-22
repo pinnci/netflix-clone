@@ -25,6 +25,15 @@
   "searchLabel": "Search",
   "searchClearLabel": "Clear",
   "searchPlaceholder": "Shows, people, genres",
+  "searchError": {
+    "searchedTerm": "For term „",
+    "hasNoResults": "“ we can't find any results.",
+    "recommendations": "Recommendations:",
+    "recommendation1": "Try different keywords",
+    "recommendation2": "Are you looking for movie or TV show?",
+    "recommendation3": "Try to use movie name, TV show name, name of actor or director",
+    "recommendation4": "Try genre, like comedy, romantic, sport or drama"
+  },
   "categories": [
     {
       "key": "Trending",
