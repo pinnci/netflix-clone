@@ -25,6 +25,7 @@ type Movie = {
   original_title: string;
   name: string;
   id: number;
+  media_type: "tv" | "movie";
 };
 
 const DashboardCategoryRow = ({
@@ -144,6 +145,7 @@ const DashboardCategoryRow = ({
                       posterPath={movie.poster_path}
                       backdropPath={movie.backdrop_path}
                       locale={locale}
+                      mediaType={movie.media_type}
                     />
                   </SwiperSlide>
                 );
