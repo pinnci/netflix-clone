@@ -7,7 +7,7 @@ import Container from "../Container/Container";
 import MovieTypeIndicator from "../MovieTypeIndicator/MovieTypeIndicator";
 import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { getDashboardBannerData, handleStringToUrl } from "@/utils/utils";
 
 import { MovieData } from "../../utils/utils";
