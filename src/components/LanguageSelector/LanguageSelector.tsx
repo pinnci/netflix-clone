@@ -17,12 +17,12 @@ const LanguageSelector = ({ className, ...other }: LanguageSelector) => {
 
   const router = useRouter();
 
+  const { pathname, asPath, query } = router;
+
   const handleLocaleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
 
-    router.push(router.route, router.asPath, {
-      locale: value,
-    });
+    router.push({ pathname, query }, asPath, { locale: value });
   };
 
   return (
