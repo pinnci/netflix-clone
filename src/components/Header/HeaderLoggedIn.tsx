@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import cx from "classnames";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/router";
+import { PathContext } from "@/pages/_app";
 
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
 import Container from "../Container/Container";
 import Search from "../Search/Search";
-
-import { auth } from "../../firebase";
-import { signOut } from "firebase/auth";
-import { useRouter } from "next/router";
+import SearchMobile from "../Search/SearchMobile";
 import LanguageSelector from "../LanguageSelector/LanguageSelector";
 
 type HeaderLoggedIn = {
@@ -20,14 +21,22 @@ type HeaderLoggedIn = {
 const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
   const [headerBackgroundColor, setHeaderBackgroundColor] =
     useState<string>("transparent");
+  const [isMobileMenuOpened, setIsMobileMenuOpened] = useState<boolean>(false);
 
   const { t } = useTranslation("dashboard");
 
   const router = useRouter();
 
+  const { path } = useContext(PathContext);
+
   const classes = cx(
     "header header--loggedIn flex absolute top-0 left-0 w-full",
     className,
+  );
+
+  const headerMobileMenuClasses = cx(
+    "header__mobile-menu absolute top-12 left-0 w-60 bg-black flex flex-col p-6  z-10 justify-between md:hidden",
+    { ["header__mobile-menu--active"]: isMobileMenuOpened },
   );
 
   const handleBackgroundChange = () => {
@@ -49,7 +58,7 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
   return (
     <nav
       role="navigation"
-      aria-label="Main menu"
+      aria-label={`${t("navigationLabel")}`}
       className="header sticky top-0 z-50"
     >
       <header
@@ -59,32 +68,54 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
       >
         <Container className="flex justify-between items-center">
           <div className="flex items-center">
-            <Logo className="mr-6" variant="small" href="/browse" />
+            <Button
+              icon={{ name: "hamburger-menu", size: "medium" }}
+              variant="ghost"
+              shape="square"
+              size="large"
+              className="block text-white mr-5 md:hidden"
+              aria-label={`${t("navigationLabel")}`}
+              onClick={() => setIsMobileMenuOpened(!isMobileMenuOpened)}
+            />
 
-            {/**@ts-ignore */}
-            {t("menu", { returnObjects: true }).map((obj, index: number) => {
-              const { title, href } = obj;
+            <Logo className="mr-5" variant="small" href="/browse" />
 
-              return (
-                <Link
-                  href={`${href}`}
-                  className="ml-4 text-white hover:text-neutral-300 transition-all"
-                  key={index}
-                >
-                  {title}
-                </Link>
-              );
-            })}
+            <div className="header__desktop-menu hidden md:block">
+              {/**@ts-ignore */}
+              {t("menu", { returnObjects: true }).map((obj, index: number) => {
+                const { title, href } = obj;
+
+                return (
+                  <Link
+                    href={`${href}`}
+                    className={cx(
+                      "text-xs lg:text-sm text-white hover:text-neutral-300 transition-all",
+                      {
+                        ["font-normal"]:
+                          router.asPath === href || path === href,
+                        ["font-thin"]: router.asPath !== href && path !== href,
+                        ["ml-4"]: index !== 0,
+                      },
+                    )}
+                    key={index}
+                  >
+                    {title}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
 
           <div className="flex justify-end">
-            <Search />
-            <LanguageSelector className="mx-3 sm:mx-4" />
+            <Search className="hidden md:block" />
+            <SearchMobile className="block md:hidden" />
+
+            <LanguageSelector className="hidden mx-3 sm:mx-4 md:flex" />
             <Button
               variant="primary"
               size="small"
               shape="square"
-              className="text-white"
+              className="hidden text-white md:block"
               onClick={() => {
                 router.push("/");
                 signOut(auth);
@@ -93,6 +124,57 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
               {t("buttonLabel")}
             </Button>
           </div>
+
+          <div className={headerMobileMenuClasses}>
+            <div className="flex flex-col">
+              {/**@ts-ignore */}
+              {t("menu", { returnObjects: true }).map((obj, index: number) => {
+                const { title, href } = obj;
+
+                return (
+                  <Link
+                    href={`${href}`}
+                    className={cx(
+                      "text-white hover:text-neutral-300 transition-all mb-2",
+                      {
+                        ["font-normal"]: router.asPath === href,
+                        ["font-thin"]: router.asPath !== href,
+                      },
+                    )}
+                    key={index}
+                  >
+                    {title}
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-col">
+              <LanguageSelector className="mb-2" size="large" />
+
+              <Button
+                variant="primary"
+                size="small"
+                shape="square"
+                className=" text-white justify-center"
+                onClick={() => {
+                  router.push("/");
+                  signOut(auth);
+                }}
+              >
+                {t("buttonLabel")}
+              </Button>
+            </div>
+          </div>
+          <div
+            className={cx(
+              "header__mobile-menu-overlay fixed top-12 right-0 left-0 bottom-0 bg-black/50 md:hidden",
+              {
+                ["header__mobile-menu-overlay--active"]: isMobileMenuOpened,
+              },
+            )}
+            onClick={() => setIsMobileMenuOpened(false)}
+          ></div>
         </Container>
       </header>
     </nav>
