@@ -153,7 +153,7 @@ const DashboardBanner = ({ className, locale, ...other }: DashboardBanner) => {
                     href={`/watch/${movieData?.mediaType}-${
                       movieData?.id
                     }-${handleStringToUrl(
-                      movieData?.originalTitle! || movieData?.title!,
+                      movieData?.originalTitle || movieData?.originalName!,
                     )}`}
                     onClick={(event) => {
                       event.stopPropagation();
