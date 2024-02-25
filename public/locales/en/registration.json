@@ -3,7 +3,8 @@
     "button": {
       "title": "Sign In",
       "href": "/login"
-    }
+    },
+    "navigationLabel": "Main menu"
   },
   "title": "Welcome back! <br/> Joining Netflix is easy.",
   "description": "Enter your password and you'll be watching in no time.",

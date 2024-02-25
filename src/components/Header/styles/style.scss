@@ -20,6 +20,12 @@
     height: _get-rem(65px);
 
     transition: background-color 0.2s linear;
+
+    @media (max-width: 767px) {
+      height: _get-rem(50px);
+
+      background-color: $color-black !important;
+    }
   }
 
   &--registration {
@@ -30,5 +36,26 @@
     background-color: $color-black;
 
     height: _get-rem(65px);
+  }
+
+  &__mobile-menu {
+    height: calc(100vh - _get-rem(50px));
+    transform: translateX(-240px);
+    transition: transform 0.3s ease;
+
+    &--active {
+      transform: translateX(0);
+    }
+
+    &-overlay {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+
+      &--active {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
   }
 }

@@ -141,6 +141,7 @@ const Search = ({ className, ...other }: Search) => {
           shape="square"
           aria-label={`${t("searchLabel")}`}
           onClick={handleOpen}
+          className={className}
         >
           <Icon name="search" size="medium" className="text-white" />
         </Button>

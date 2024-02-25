@@ -1,4 +1,5 @@
 import cx from "classnames";
+import { useTranslation } from "next-i18next";
 
 import Logo from "../Logo/Logo";
 import Container from "../Container/Container";
@@ -8,6 +9,8 @@ type HeaderError = {
 } & React.ComponentProps<"header">;
 
 const HeaderError = ({ className, ...other }: HeaderError) => {
+  const { t } = useTranslation("error");
+
   const classes = cx(
     "header header--error flex fixed top-0 left-0 w-full",
     className,
@@ -16,7 +19,7 @@ const HeaderError = ({ className, ...other }: HeaderError) => {
   return (
     <nav
       role="navigation"
-      aria-label="Main menu"
+      aria-label={`${t("navigationLabel")}`}
       className="header sticky top-0 z-50"
     >
       <header className={classes} {...other}>

@@ -7,9 +7,14 @@ import { languageSelector } from "../../data/languageSelector";
 
 type LanguageSelector = {
   className?: string;
+  size?: "small" | "large" | "automatic";
 } & React.ComponentProps<"div">;
 
-const LanguageSelector = ({ className, ...other }: LanguageSelector) => {
+const LanguageSelector = ({
+  className,
+  size = "automatic",
+  ...other
+}: LanguageSelector) => {
   const classes = cx(
     "flex items-center relative languageSelector_container shrink-0",
     className,
@@ -28,8 +33,13 @@ const LanguageSelector = ({ className, ...other }: LanguageSelector) => {
   return (
     <div className={classes} {...other}>
       <Icon name="globe" className="left-2 absolute pointer-events-none" />
+
       <select
-        className="languageSelector appearance-none rounded w-0 pl-5 pr-8 py-1.5 sm:w-full sm:px-8"
+        className={cx("languageSelector appearance-none rounded px-7 py-1.5", {
+          ["w-full"]: size === "large",
+          ["w-0 sm:w-full sm:px-8"]: size === "automatic",
+          ["w-12"]: size === "small",
+        })}
         onChange={handleLocaleChange}
         value={router.locale}
       >
@@ -48,7 +58,13 @@ const LanguageSelector = ({ className, ...other }: LanguageSelector) => {
       </select>
       <Icon
         name="caret-down"
-        className="languageSelector_container__caretIcon right-2 absolute pointer-events-none sm:right-3"
+        className={cx(
+          "languageSelector_container__caretIcon right-2 absolute pointer-events-none",
+          {
+            ["sm:right-3"]: size === "automatic",
+            ["left-8"]: size === "small",
+          },
+        )}
       />
     </div>
   );

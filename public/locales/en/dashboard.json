@@ -6,11 +6,19 @@
     },
     {
       "title": "Shows",
-      "href": "/browse"
+      "href": "/browse/tv"
     },
     {
       "title": "Movies",
-      "href": "/browse"
+      "href": "/browse/movie"
+    },
+    {
+      "title": "New and popular",
+      "href": "/browse/latest"
+    },
+    {
+      "title": "My list",
+      "href": "/browse/my-list"
     }
   ],
   "media-type": {
@@ -21,6 +29,7 @@
       "title": "Movie"
     }
   },
+  "navigationLabel": "Main menu",
   "buttonLabel": "Sign Out",
   "searchLabel": "Search",
   "searchClearLabel": "Clear",

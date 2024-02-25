@@ -1,4 +1,5 @@
 import cx from "classnames";
+import { useTranslation } from "next-i18next";
 
 import Logo from "../Logo/Logo";
 import Container from "../Container/Container";
@@ -8,6 +9,8 @@ type HeaderLogin = {
 } & React.ComponentProps<"header">;
 
 const HeaderLogin = ({ className, ...other }: HeaderLogin) => {
+  const { t } = useTranslation("login");
+
   const classes = cx(
     "header header--login flex absolute top-0 left-0 w-full sm:px-8 md:px-8 lg:px-12",
     className,
@@ -16,7 +19,7 @@ const HeaderLogin = ({ className, ...other }: HeaderLogin) => {
   return (
     <nav
       role="navigation"
-      aria-label="Main menu"
+      aria-label={`${t("navigationLabel")}`}
       className="header relative z-50"
     >
       <header className={classes} {...other}>
