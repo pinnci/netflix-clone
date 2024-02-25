@@ -6,11 +6,19 @@
     },
     {
       "title": "Pořady",
-      "href": "/browse"
+      "href": "/browse/tv"
     },
     {
       "title": "Filmy",
-      "href": "/browse"
+      "href": "/browse/movie"
+    },
+    {
+      "title": "Nové a oblíbené",
+      "href": "/browse/latest"
+    },
+    {
+      "title": "Můj seznam",
+      "href": "/browse/my-list"
     }
   ],
   "media-type": {
@@ -21,6 +29,7 @@
       "title": "Film"
     }
   },
+  "navigationLabel": "Hlavní menu",
   "buttonLabel": "Odhlásit se",
   "searchLabel": "Hledat",
   "searchClearLabel": "Smazat",

@@ -3,7 +3,8 @@
     "button": {
       "title": "Přihlásit se",
       "href": "/login"
-    }
+    },
+    "navigationLabel": "Hlavní menu"
   },
   "title": "Vítejte zpátky! <br/> Registrace k Netflixu je jednoduchá.",
   "description": "Zadejte heslo a můžete se hned začít dívat.",
