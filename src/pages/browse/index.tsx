@@ -1,13 +1,14 @@
-import Layout from "../components/Layout/Layout";
-import Container from "../components/Container/Container";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import DashboardBanner from "../components/DashboardBanner/DashboardBanner";
-import DashboardCategoriesContainer from "../components/DashboardCategoriesContainer/DashboardCategoriesContainer";
 import type { Locale } from "@/data/languageSelector";
 import { NextSeo } from "next-seo";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+
+import Layout from "../../components/Layout/Layout";
+import Container from "../../components/Container/Container";
+import DashboardBanner from "../../components/DashboardBanner/DashboardBanner";
+import DashboardCategoriesContainer from "../../components/DashboardCategoriesContainer/DashboardCategoriesContainer";
 
 const Dashboard = () => {
   const [locale, setLocale] = useState<Locale["locale"]>("en");
