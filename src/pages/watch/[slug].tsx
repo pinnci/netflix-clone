@@ -110,33 +110,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const mediaType = slug?.toString().split("-")[0];
 
   try {
-    //Checks for movie
+    //Checks for movie or tv show
     const res = await axios.get(
       `https://api.themoviedb.org/3/${mediaType}/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
     );
     const data = await res.data;
 
-    //When movie was found based on its ID, check whether there is not mistake in remaining part of slug
-    if (
-      movieId === data.id &&
-      slug ===
-        `${mediaType}-${movieId}-${handleStringToUrl(
-          data.original_title || data.name || data.title,
-        )}`
-    ) {
-      return {
-        props: {
-          ...(await serverSideTranslations(locale, ["dashboard"])),
-          data,
-        },
-      };
-    } else {
-      return {
-        notFound: true,
-      };
-    }
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ["dashboard"])),
+        data,
+      },
+    };
   } catch {
-    //When movie was not found then return 404 page
+    //When movie or tv show was not found then return 404 page
     return {
       notFound: true,
     };
