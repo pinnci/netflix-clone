@@ -20,7 +20,7 @@ const HeaderRegistration = ({ className, ...other }: HeaderRegistration) => {
   return (
     <nav
       role="navigation"
-      aria-label="Main menu"
+      aria-label={`${t("header.navigationLabel")}`}
       className="header relative z-50"
     >
       <header className={classes} {...other}>

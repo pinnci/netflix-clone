@@ -21,7 +21,7 @@ const HeaderNotLoggedIn = ({ className, ...other }: HeaderNotLoggedIn) => {
   return (
     <nav
       role="navigation"
-      aria-label="Main menu"
+      aria-label={`${t("navigationLabel")}`}
       className="header relative z-50"
     >
       <header className={classes} {...other}>
