@@ -1,16 +1,11 @@
 import "@/styles/main.scss";
 import type { AppProps } from "next/app";
-import { wrapper } from "../../store";
 import { DefaultSeo } from "next-seo";
 import SEO from "../../next-seo.config";
 import { appWithTranslation } from "next-i18next";
-import { Provider } from "react-redux";
 import localFont from "next/font/local";
-import { useRouter } from "next/router";
-
-import { auth } from "../firebase";
+import { AuthProvider } from "../../auth";
 import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 import { createContext, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -46,11 +41,7 @@ const netflixSans = localFont({
 
 export const PathContext = createContext<any>(null);
 
-function App({ Component, ...rest }: AppProps) {
-  const { store, props } = wrapper.useWrappedStore(rest);
-  const router = useRouter();
-  const { pathname } = router;
-
+function App({ Component, ...props }: AppProps) {
   const [path, setPath] = useState("");
   const currentPath = usePathname();
 
@@ -58,35 +49,16 @@ function App({ Component, ...rest }: AppProps) {
     if (!currentPath.includes("/search")) setPath(currentPath);
   }, [currentPath]);
 
-  //Prevent
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      const paths = ["/browse", "/search", "/watch/[slug]"];
-
-      if (user) {
-        return;
-      }
-
-      if (pathname === "/") {
-        return;
-      }
-
-      if (paths.includes(pathname)) {
-        return router.push("/login");
-      }
-    });
-  }, [router, pathname]);
-
   return (
     <>
-      <Provider store={store}>
+      <AuthProvider>
         <PathContext.Provider value={{ path, setPath }}>
           <DefaultSeo {...SEO} />
           <main className={`${netflixSans.variable} font-sans`}>
             <Component {...props.pageProps} />
           </main>
         </PathContext.Provider>
-      </Provider>
+      </AuthProvider>
     </>
   );
 }
