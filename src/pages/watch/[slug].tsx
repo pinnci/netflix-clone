@@ -1,19 +1,17 @@
 import { GetServerSideProps } from "next";
 import { NextSeo } from "next-seo";
-import axios from "axios";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import Layout from "@/components/Layout/Layout";
 import Container from "@/components/Container/Container";
-
-import { handleStringToUrl } from "@/utils/utils";
+import { MovieData } from "@/utils/utils";
 
 type MovieDetail = {
   data: {
-    title: string;
-    name: string;
-    id: number;
-    overview: string;
+    title: MovieData["title"];
+    name: MovieData["name"];
+    id: MovieData["id"];
+    overview: MovieData["overview"];
   };
 };
 
@@ -111,10 +109,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     //Checks for movie or tv show
-    const res = await axios.get(
+    const res = await fetch(
       `https://api.themoviedb.org/3/${mediaType}/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
     );
-    const data = await res.data;
+    const data = await res.json();
 
     return {
       props: {
