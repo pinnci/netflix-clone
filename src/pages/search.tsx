@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import { NextSeo } from "next-seo";
-import axios from "axios";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
@@ -76,10 +75,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     //Checks for movies
-    const movies = await axios.get(
+    const movies = await fetch(
       `https://api.themoviedb.org/3/search/movie?query=${normalizedQuery}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
     );
-    const moviesData = await movies.data;
+    const moviesData = await movies.json();
 
     const moviesWithTypes = moviesData.results.map((movie: MovieData) => ({
       ...movie,
@@ -87,10 +86,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }));
 
     //Checks for TV shows
-    const tv = await axios.get(
+    const tv = await fetch(
       `https://api.themoviedb.org/3/search/tv?query=${normalizedQuery}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
     );
-    const tvData = await tv.data;
+    const tvData = await tv.json();
 
     const tvShowsWithTypes = tvData.results.map((tv: MovieData) => ({
       ...tv,
