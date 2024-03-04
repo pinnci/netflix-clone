@@ -1,10 +1,12 @@
 import { GetServerSideProps } from "next";
 import { NextSeo } from "next-seo";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nookies from "nookies";
 
 import Layout from "@/components/Layout/Layout";
 import Container from "@/components/Container/Container";
-import { MovieData } from "@/utils/utils";
+import { MovieData, handleStringToUrl } from "@/utils/utils";
+import { firebaseAdmin } from "../../../firebaseAdmin";
 
 type MovieDetail = {
   data: {
@@ -108,23 +110,44 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const mediaType = slug?.toString().split("-")[0];
 
   try {
-    //Checks for movie or tv show
+    let cookies = nookies.get(context);
+    let token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
+
+    //Checks for movie
     const res = await fetch(
       `https://api.themoviedb.org/3/${mediaType}/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
     );
     const data = await res.json();
 
-    return {
-      props: {
-        ...(await serverSideTranslations(locale, ["dashboard"])),
-        data,
-      },
-    };
+    //When movie was found based on its ID, check whether there is not mistake in remaining part of slug
+    if (
+      token &&
+      movieId === data.id &&
+      slug ===
+        `${mediaType}-${movieId}-${handleStringToUrl(
+          data.original_title || data.name || data.title,
+        )}`
+    ) {
+      return {
+        props: {
+          ...(await serverSideTranslations(locale, ["dashboard"])),
+          data,
+        },
+      };
+    } else {
+      return {
+        notFound: true,
+      };
+    }
   } catch {
-    //When movie or tv show was not found then return 404 page
+    //When movie was not found then return 404 page
     return {
-      notFound: true,
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
     };
   }
 };
+
 export default MovieDetail;

@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRouter as nextRouter } from "next/router";
+import nookies from "nookies";
 
 import Layout from "@/components/Layout/Layout";
 import Container from "@/components/Container/Container";
@@ -12,6 +13,8 @@ import SearchResults from "@/components/SearchResults/SearchResults";
 import type { Locale } from "@/data/languageSelector";
 import type { DashboardMovie as DashboardMovieType } from "../components/DashboardMovie/DashboardMovie";
 import { MovieData } from "@/utils/utils";
+
+import { firebaseAdmin } from "../../firebaseAdmin";
 
 type SearchPage = {
   data: {
@@ -74,6 +77,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const normalizedQuery = query?.toString().replace(" ", "+");
 
   try {
+    const cookies = nookies.get(context);
+    const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
+
     //Checks for movies
     const movies = await fetch(
       `https://api.themoviedb.org/3/search/movie?query=${normalizedQuery}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=videos`,
@@ -112,6 +118,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   } catch {
     //When movie or tv show was not found then return null data
     return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
       props: {
         ...(await serverSideTranslations(locale, [
           "common",
