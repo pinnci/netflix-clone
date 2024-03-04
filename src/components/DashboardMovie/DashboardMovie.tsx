@@ -1,43 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import cx from "classnames";
 import Image from "next/image";
 import DashboardMoviePopUp from "../DashboardMoviePopUp/DashboardMoviePopUp";
 import Modal from "../Modal/Modal";
 
-import { getDashboardMovieData, MovieData } from "@/utils/utils";
+import { MovieData, handleElementInViewport } from "@/utils/utils";
 
-export type DashboardMovie = Omit<
-  MovieData,
-  | "overview"
-  | "productionCompanies"
-  | "productionCountries"
-  | "spokenLanguages"
-  | "videos"
-  | "originalTitle"
-  | "originalName"
-  | "runtime"
-  | "releaseDate"
-  | "tagline"
-  | "firstAirDate"
-  | "lastAirDate"
-  | "genres"
->;
+export type DashboardMovie = {
+  title: MovieData["title"];
+  id: MovieData["id"];
+  posterPath: MovieData["posterPath"];
+  backdropPath: MovieData["backdropPath"];
+  mediaType: MovieData["mediaType"];
+  disablePopUp?: boolean;
+  className?: string;
+  locale: MovieData["locale"];
+};
 
 const DashboardMovie = ({
   title,
   id,
   posterPath,
   backdropPath,
+  disablePopUp = false,
+  className,
   locale,
   mediaType,
   ...other
 }: DashboardMovie) => {
-  const [movieData, setMovieData] = useState<MovieData | null>(null);
   const [isPopUpOpened, setIsPopUpOpened] = useState<boolean>(false);
   const [popUpTrigger, setPopUpTrigger] = useState<HTMLCanvasElement | null>(
     null,
   );
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [showPopUpTimer, setShowPopUpTimer] = useState<any>(null);
+  const [isImageInViewport, setIsImageInViewport] = useState<boolean>(false);
+
+  const classes = cx(
+    "dashboard-movie relative w-full cursor-pointer",
+    className,
+  );
 
   const handleMouseEnter = (event: any) => {
     setShowPopUpTimer(
@@ -53,25 +55,17 @@ const DashboardMovie = ({
     setShowPopUpTimer(null);
   };
 
-  useEffect(() => {
-    const config = {
-      id,
-      title,
-      locale,
-      backdropPath,
-      posterPath,
-      mediaType,
-    };
+  const imageContainerRef = useRef<HTMLImageElement>(null);
 
-    getDashboardMovieData(config, (response) => {
-      setMovieData(response);
-    });
-  }, [id, locale, posterPath, backdropPath, title, mediaType]);
+  useEffect(() => {
+    if (imageContainerRef.current)
+      setIsImageInViewport(handleElementInViewport(imageContainerRef.current));
+  }, []);
 
   return (
     <>
       <div
-        className="relative cursor-pointer"
+        className={classes}
         //tabIndex={0}
         aria-label={title}
         onMouseEnter={(e) => handleMouseEnter(e)}
@@ -84,41 +78,32 @@ const DashboardMovie = ({
         {...other}
       >
         <Image
-          src={`https://image.tmdb.org/t/p/original/${posterPath}`}
-          className="object-cover object-center w-auto h-auto rounded-md"
+          src={`https://image.tmdb.org/t/p/w500/${posterPath}`}
+          className="rounded-md"
           alt={title}
-          width={180}
-          height={260}
-          priority
+          fill
+          sizes="(max-width: 420px) 100px, (max-width: 768px) 130px, (max-width: 1024px) 130px, (max-width: 1280px) 130px , (max-width: 1536px) 130px"
+          priority={isImageInViewport}
+          ref={imageContainerRef}
         />
       </div>
 
-      {movieData && (
+      {!disablePopUp && isPopUpOpened && popUpTrigger && (
         <DashboardMoviePopUp
           trigger={popUpTrigger}
-          title={title}
-          originalTitle={movieData.originalTitle}
-          originalName={movieData.originalName}
-          id={movieData.id}
-          backdropPath={movieData.backdropPath}
-          locale={movieData.locale}
+          id={id}
+          mediaType={mediaType}
+          locale={locale}
           isOpened={isPopUpOpened}
           onClose={() => {
             setIsPopUpOpened(false);
             setPopUpTrigger(null);
           }}
-          genres={movieData.genres}
-          tagline={movieData.tagline}
-          mediaType={movieData.mediaType}
-          runtime={movieData.runtime}
-          releaseDate={movieData.releaseDate}
-          firstAirDate={movieData.firstAirDate}
-          lastAirDate={movieData.lastAirDate}
           onPopUpClick={() => setIsModalOpened(true)}
         />
       )}
 
-      {movieData && (
+      {isModalOpened && (
         <Modal
           isOpened={isModalOpened}
           onClose={() => {
@@ -126,23 +111,9 @@ const DashboardMovie = ({
             setPopUpTrigger(null);
             setIsModalOpened(false);
           }}
-          title={title}
-          genres={movieData.genres}
-          releaseDate={movieData.releaseDate}
-          runtime={movieData.runtime}
-          originalTitle={movieData.originalTitle}
-          originalName={movieData.originalName}
-          productionCompanies={movieData.productionCompanies}
-          productionCountries={movieData.productionCountries}
-          spokenLanguages={movieData.spokenLanguages}
-          firstAirDate={movieData.firstAirDate}
-          lastAirDate={movieData.lastAirDate}
-          overview={movieData.overview}
-          backdropPath={movieData.backdropPath}
-          videos={movieData.videos}
-          id={movieData.id}
-          mediaType={movieData.mediaType}
-          locale={movieData.locale}
+          id={id}
+          mediaType={mediaType}
+          locale={locale}
         />
       )}
     </>
