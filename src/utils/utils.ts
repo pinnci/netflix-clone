@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Locale } from "../data/languageSelector";
 
 //Display only year of production
@@ -63,6 +62,7 @@ export type MovieData = {
   originalTitle: string;
   originalName: string;
   backdropPath: string;
+  name?: string;
   runtime: number;
   releaseDate: string;
   tagline: string;
@@ -79,201 +79,159 @@ export type MovieData = {
   mediaType: "tv" | "movie";
 };
 
-//Utility used to fetch data for DashboardMovie
-const getDashboardMovieData = (
+//Utility used to fetch similar movies
+const getSimilarMovies = async (
   config: {
     id: MovieData["id"];
-    title: MovieData["title"];
-    locale: Locale["locale"];
-    backdropPath: MovieData["backdropPath"];
-    posterPath: MovieData["posterPath"];
+    locale: MovieData["locale"];
     mediaType: MovieData["mediaType"];
   },
   successCallback: (response: any) => void,
 ) => {
-  const { id, locale, backdropPath, posterPath, mediaType } = config;
+  const { id, locale, mediaType } = config;
 
-  let result: MovieData;
+  try {
+    //Checks for movie or tv show
+    const res = await fetch(
+      `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}&append_to_response=similar`,
+    );
+    const data = await res.json();
 
-  axios
-    .get(
-      `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=videos&language=${locale}`,
-    )
-    .then((response) => {
-      result = {
-        title:
-          response.data.name ||
-          response.data.title ||
-          response.data.original_title,
-        id: id,
-        posterPath: `https://image.tmdb.org/t/p/original${posterPath}`,
-        backdropPath: `https://image.tmdb.org/t/p/original${backdropPath}`,
-        genres: response.data.genres,
-        locale: locale,
-        releaseDate: response.data.release_date,
-        firstAirDate: response.data.first_air_date,
-        lastAirDate: response.data.last_air_date,
-        runtime: response.data.runtime || response.data.episode_run_time,
-        tagline: response.data.tagline,
-        overview: response.data.overview,
-        originalTitle: response.data.original_title,
-        originalName: response.data.original_name,
-        productionCompanies: response.data.production_companies,
-        productionCountries: response.data.production_countries,
-        spokenLanguages: response.data.spoken_languages,
-        videos: response.data.videos.results.filter(
-          (video: { type: string; site: string }) => {
-            if (
-              (video.type === "Teaser" ||
-                video.type === "Trailer" ||
-                video.type === "Official Trailer") &&
-              video.site === "YouTube"
-            ) {
-              return video;
-            }
-          },
-        ),
-        mediaType: mediaType,
-      };
-
-      successCallback(result);
-    });
-};
-
-//Utility used to fetch data for DashboardBanner
-const getDashboardBannerData = (
-  config: {
-    locale: Locale["locale"];
-  },
-  successCallback: (response: any) => void,
-) => {
-  const { locale } = config;
-
-  let result;
-
-  axios
-    .get(
-      `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}`,
-    )
-    .then((response) => {
-      const trendingMovie = response.data.results[0];
-
-      axios
-        .get(
-          `https://api.themoviedb.org/3/${trendingMovie.media_type}/${trendingMovie.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=videos&language=${locale}`,
-        )
-        .then((response) => {
-          result = {
-            title:
-              response.data.name ||
-              response.data.title ||
-              response.data.original_title,
-            id: response.data.id,
-            posterPath: `https://image.tmdb.org/t/p/original${response.data.poster_path}`,
-            backdropPath: `https://image.tmdb.org/t/p/original${response.data.backdrop_path}`,
-            genres: response.data.genres,
-            locale: locale,
-            releaseDate: response.data.release_date,
-            firstAirDate: response.data.first_air_date,
-            lastAirDate: response.data.last_air_date,
-            originalName: response.data.original_name,
-            runtime: response.data.runtime || response.data.episode_run_time,
-            tagline: response.data.tagline,
-            overview: response.data.overview,
-            originalTitle: response.data.original_title,
-            productionCompanies: response.data.production_companies,
-            productionCountries: response.data.production_countries,
-            spokenLanguages: response.data.spoken_languages,
-            videos: response.data.videos.results.filter(
-              (video: { type: string; site: string }) => {
-                if (
-                  (video.type === "Teaser" ||
-                    video.type === "Trailer" ||
-                    video.type === "Official Trailer") &&
-                  video.site === "YouTube"
-                ) {
-                  return video;
-                }
-              },
-            ),
-            mediaType: trendingMovie.media_type,
-          };
-
-          successCallback(result);
-        });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-//Utility used to fetch data for DashboardCategoryRow
-const getDashboardCategoryRowData = (
-  config: {
-    fetchUrl: string;
-  },
-  successCallback: (response: any) => void,
-) => {
-  const { fetchUrl } = config;
-
-  //TMDB API does not provide media_type key in response for every movie or tv show but it is marked in fetch url
-  const handleCorrectMediaType = (
-    movie: { media_type: string },
-    fetchUrl: string,
-  ) => {
-    if (fetchUrl.split("/").some((substring) => substring.includes("tv"))) {
-      movie.media_type = "tv";
-      return movie;
-    } else {
-      movie.media_type = "movie";
-      return movie;
-    }
-  };
-
-  //Not every movie has backdrop_path provided in response, which means that not every movie will be shown with image
-  let result;
-
-  axios
-    .get(fetchUrl)
-    .then((response) => {
-      if (response.data.results) {
-        result = response.data.results.filter(
-          (movie: {
-            backdrop_path: string;
-            poster_path: string;
-            media_type: string;
-          }) => {
-            if (movie.backdrop_path !== null && movie.poster_path !== null) {
-              return handleCorrectMediaType(movie, fetchUrl);
-            }
-          },
-        );
-      } else {
-        result = response.data.similar.results.filter(
-          (movie: {
-            backdrop_path: string;
-            poster_path: string;
-            media_type: string;
-          }) => {
-            if (movie.backdrop_path !== null && movie.poster_path !== null) {
-              return handleCorrectMediaType(movie, fetchUrl);
-            }
-          },
-        );
+    const moviesWithImages = data.similar.results.filter((result: any) => {
+      if (result.poster_path !== null && result.backdrop_path !== null) {
+        return result;
       }
-
-      successCallback(result);
-    })
-    .catch((error) => {
-      console.log(error);
     });
+
+    // Assuming you have an array of objects called data.results
+    const updatedResults = moviesWithImages.map((result: any) => {
+      // Add the media_type property to the current object
+      return { ...result, media_type: mediaType };
+    });
+
+    successCallback(updatedResults);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+//Utility used to fetch data for Modal
+const getModalData = async (
+  config: {
+    id: MovieData["id"];
+    locale: MovieData["locale"];
+    mediaType: MovieData["mediaType"];
+  },
+  successCallback: (response: any) => void,
+) => {
+  const { id, locale, mediaType } = config;
+
+  let result: any;
+
+  try {
+    //Checks for movie or tv show
+    const res = await fetch(
+      `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=videos&language=${locale}`,
+    );
+    const data = await res.json();
+
+    result = {
+      title: data.name || data.title || data.original_title,
+      id: id,
+      backdropPath: `https://image.tmdb.org/t/p/w1280${data.backdrop_path}`,
+      genres: data.genres,
+      locale: locale,
+      releaseDate: data.release_date,
+      firstAirDate: data.first_air_date,
+      lastAirDate: data.last_air_date,
+      runtime: data.runtime || data.episode_run_time,
+      overview: data.overview,
+      originalTitle: data.original_title,
+      originalName: data.original_name,
+      productionCompanies: data.production_companies,
+      productionCountries: data.production_countries,
+      spokenLanguages: data.spoken_languages,
+      videos: data.videos.results.filter(
+        (video: { type: string; site: string }) => {
+          if (
+            (video.type === "Teaser" ||
+              video.type === "Trailer" ||
+              video.type === "Official Trailer") &&
+            video.site === "YouTube"
+          ) {
+            return video;
+          }
+        },
+      ),
+      mediaType: mediaType,
+    };
+
+    successCallback(result);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+//Utility used to fetch data for DashboardMoviePopUp
+const getPopUpData = async (
+  config: {
+    id: MovieData["id"];
+    locale: MovieData["locale"];
+    mediaType: MovieData["mediaType"];
+  },
+  successCallback: (response: any) => void,
+) => {
+  const { id, locale, mediaType } = config;
+
+  let result: any;
+
+  try {
+    //Checks for movie or tv show
+    const res = await fetch(
+      `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=videos&language=${locale}`,
+    );
+    const data = await res.json();
+
+    result = {
+      title: data.name || data.title || data.original_title,
+      id: id,
+      backdropPath: `https://image.tmdb.org/t/p/w780${data.backdrop_path}`,
+      genres: data.genres,
+      locale: locale,
+      releaseDate: data.release_date,
+      firstAirDate: data.first_air_date,
+      lastAirDate: data.last_air_date,
+      runtime: data.runtime || data.episode_run_time,
+      tagline: data.tagline,
+      originalTitle: data.original_title,
+      originalName: data.original_name,
+      mediaType: mediaType,
+    };
+
+    successCallback(result);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+const handleElementInViewport = (el: HTMLImageElement) => {
+  const rect = el.getBoundingClientRect();
+
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
 };
 
 export {
   handleDate,
   handleRuntimeFormat,
   handleStringToUrl,
-  getDashboardMovieData,
-  getDashboardBannerData,
-  getDashboardCategoryRowData,
+  getSimilarMovies,
+  getPopUpData,
+  getModalData,
+  handleElementInViewport,
 };

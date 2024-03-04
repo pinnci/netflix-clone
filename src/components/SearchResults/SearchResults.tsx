@@ -1,15 +1,18 @@
 import cx from "classnames";
 import { useTranslation } from "next-i18next";
 
-import DashboardMovie from "../DashboardMovie/DashboardMovie";
-import type { DashboardMovie as DashboardMovieType } from "../DashboardMovie/DashboardMovie";
-import type { Locale } from "@/data/languageSelector";
+import DashboardMovie, {
+  DashboardMovie as DashboardMovieType,
+} from "../DashboardMovie/DashboardMovie";
+
+import { MovieData } from "@/utils/utils";
 
 type SearchResults = {
   results: [DashboardMovieType];
   searchedQuery: string;
   className?: string;
-} & Locale;
+  locale: MovieData["locale"];
+};
 
 const SearchResults = ({
   results,

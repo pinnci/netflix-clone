@@ -1,9 +1,10 @@
 import cx from "classnames";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
+import { MovieData } from "@/utils/utils";
 
 type MovieTypeIndicator = {
-  mediaType: string;
+  mediaType: MovieData["mediaType"];
   className?: string;
 } & React.ComponentProps<"div">;
 
@@ -12,7 +13,7 @@ const MovieTypeIndicator = ({
   className,
   ...other
 }: MovieTypeIndicator) => {
-  const classes = cx("flex mt-4 items-center", className);
+  const classes = cx("flex items-center", className);
 
   const { t } = useTranslation("dashboard");
 
