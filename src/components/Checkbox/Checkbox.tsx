@@ -30,6 +30,7 @@ const Checkbox = ({
         checked={isChecked}
         onClick={() => setIsChecked(!isChecked)}
         onChange={onChange}
+        name={label}
         {...other}
       />
       <label htmlFor={id} className={labelClasses}>
