@@ -19,6 +19,14 @@ const nextSeoConfig: NextSeoProps = {
       href: "favicon/apple-touch-icon.jpg",
       sizes: "180x180",
     },
+    {
+      rel: "preconnect",
+      href: "https://apis.google.com",
+    },
+    {
+      rel: "preconnect",
+      href: "https://api.themoviedb.org",
+    },
   ],
 };
 
