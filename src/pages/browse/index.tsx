@@ -4,13 +4,15 @@ import { NextSeo } from "next-seo";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { GetServerSideProps } from "next";
 
 import Layout from "../../components/Layout/Layout";
 import Container from "../../components/Container/Container";
 import DashboardBanner from "../../components/DashboardBanner/DashboardBanner";
 import DashboardCategoriesContainer from "../../components/DashboardCategoriesContainer/DashboardCategoriesContainer";
+import { requests } from "../../data/categoryRequests";
 
-const Dashboard = () => {
+const Dashboard = ({ data }: any) => {
   const [locale, setLocale] = useState<Locale["locale"]>("en");
 
   const { t } = useTranslation("common");
@@ -31,9 +33,12 @@ const Dashboard = () => {
       />
 
       <Layout variant="loggedIn">
-        <DashboardBanner locale={locale} />
+        <DashboardBanner movieData={data.dashboardBanner} locale={locale} />
         <Container className="py-6">
-          <DashboardCategoriesContainer locale={locale} />
+          <DashboardCategoriesContainer
+            data={data.allCategories}
+            locale={locale}
+          />
         </Container>
       </Layout>
     </>
@@ -42,9 +47,66 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-export async function getStaticProps({ locale }: Locale) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const locale = context.locale!;
+
+  const categoryResults: any = {};
+
+  try {
+    // Fetch data for each request
+
+    for (const key in requests) {
+      if (Object.hasOwnProperty.call(requests, key)) {
+        const url = requests[key];
+        const response = await fetch(url);
+
+        const data = await response.json();
+
+        const updatedResults = data.results.map((result: any) => {
+          let media_type;
+          //DETECT MEDIA_TYPE BASED ON CATEGORY URL
+          if (url.split("/").some((substring) => substring.includes("tv"))) {
+            media_type = "tv";
+          } else {
+            media_type = "movie";
+          }
+
+          // Add the media_type property to the current object
+          return { ...result, media_type };
+        });
+
+        categoryResults[key] = updatedResults;
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+
+  // Get trending movies and TV shows
+  const allTrendingMedia = await fetch(
+    `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=${locale}`,
+  );
+  const allTrendingMediaData = await allTrendingMedia.json();
+
+  const singleTrendingMediaData = allTrendingMediaData.results[0];
+
+  // Get trending movie or TV show detail
+  const trendingMediaDetail = await fetch(
+    `https://api.themoviedb.org/3/${singleTrendingMediaData.media_type}/${singleTrendingMediaData.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=videos&language=${locale}`,
+  );
+  const trendingMediaDetailData = await trendingMediaDetail.json();
+
+  const data = {
+    dashboardBanner: {
+      mediaType: singleTrendingMediaData.media_type,
+      ...trendingMediaDetailData,
+    },
+    allCategories: categoryResults,
+  };
+
   return {
     props: {
+      data,
       ...(await serverSideTranslations(locale, [
         "homepage",
         "common",
@@ -54,4 +116,4 @@ export async function getStaticProps({ locale }: Locale) {
       ])),
     },
   };
-}
+};
