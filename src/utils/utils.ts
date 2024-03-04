@@ -76,7 +76,7 @@ export type MovieData = {
   productionCountries: [{ name: string }];
   spokenLanguages: [{ name: string }];
   videos: [{ key: string; site: string }];
-  mediaType: Locale;
+  mediaType: "tv" | "movie";
 };
 
 //Utility used to fetch similar movies
