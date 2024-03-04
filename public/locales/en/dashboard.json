@@ -21,6 +21,7 @@
       "href": "/browse/my-list"
     }
   ],
+  "languageSelectorLabel": "Language selection",
   "media-type": {
     "tv": {
       "title": "Tv show"

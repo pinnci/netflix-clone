@@ -32,7 +32,7 @@ const FooterLogin = ({ className, ...other }: FooterLogin) => {
           <p className="footer__supportContact">
             <Link
               href={`${t("supportContact.href")}`}
-              className=" text-neutral-500 hover:underline"
+              className=" text-neutral-300 hover:underline"
             >
               {t("supportContact.title")}
             </Link>
@@ -52,7 +52,7 @@ const FooterLogin = ({ className, ...other }: FooterLogin) => {
                           <ListItem key={i} className="mt-3">
                             <Link
                               href={href}
-                              className="inline-block text-sm text-neutral-500 hover:underline"
+                              className="inline-block text-sm text-neutral-300 hover:underline"
                             >
                               {title}
                             </Link>

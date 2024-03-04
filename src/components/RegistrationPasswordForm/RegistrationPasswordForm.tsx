@@ -331,7 +331,7 @@ const RegistrationPasswordForm = ({
             {registrationEmail ? (
               <Link
                 href={`${t("forgottenPassword.href")}`}
-                className="text-blue-500 block mb-6 hover:underline"
+                className="text-blue-600 block mb-6 hover:underline"
               >
                 {t("forgottenPassword.title")}
               </Link>

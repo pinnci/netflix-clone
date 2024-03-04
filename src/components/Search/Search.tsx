@@ -106,6 +106,7 @@ const Search = ({ className, ...other }: Search) => {
 
             <input
               type="text"
+              name={`${t("searchLabel")}`}
               className="search__input block border border-white-200 py-[8px] pl-10 text-sm outline-0 placeholder:text-zinc-400 text-white font-light w-full"
               placeholder={`${t("searchPlaceholder")}`}
               onChange={(e) => {

@@ -45,9 +45,10 @@ const ImageTile = ({
           alt={imageAlt}
           className="image"
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 420px) 340px, (max-width: 768px) 260px, (max-width: 1024px) 420px, (max-width: 1280px) 560px , (max-width: 1536px) 600px"
           placeholder="blur"
           blurDataURL={`${imageSrc}`}
+          priority
         />
       </div>
     </div>

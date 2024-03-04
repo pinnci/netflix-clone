@@ -63,6 +63,8 @@ const SearchMobile = ({ className, ...other }: SearchMobile) => {
       <div className="max-w-28 sm:max-w-48">
         <input
           type="text"
+          id="search"
+          name={`${t("searchLabel")}`}
           className="search__input block border border-white-200 py-[3px] pl-2 text-sm outline-0 placeholder:text-zinc-400 text-white font-light w-full"
           placeholder={`${t("searchLabel")}`}
           onChange={(e) => {

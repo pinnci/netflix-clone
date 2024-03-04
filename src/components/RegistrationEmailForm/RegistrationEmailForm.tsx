@@ -116,9 +116,9 @@ const RegistrationEmailForm = ({
   return (
     <div className={classes} {...other}>
       <form className="flex flex-col" onSubmit={handleSubmit}>
-        <h3 className="registrationEmailForm__title text-lg lg:text-xl">
+        <h2 className="registrationEmailForm__title text-lg lg:text-xl">
           {t("registrationEmail.title")}
-        </h3>
+        </h2>
         <div className="pt-4 flex flex-col items-start sm:flex-row">
           <Input
             label={t("registrationEmail.label")}

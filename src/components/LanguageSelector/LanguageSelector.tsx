@@ -1,5 +1,7 @@
 import cx from "classnames";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { useId } from "react";
 
 import Icon from "../Icon/Icon";
 
@@ -20,7 +22,11 @@ const LanguageSelector = ({
     className,
   );
 
+  const id = useId();
+
   const router = useRouter();
+
+  const { t } = useTranslation("dashboard");
 
   const { pathname, asPath, query } = router;
 
@@ -34,6 +40,10 @@ const LanguageSelector = ({
     <div className={classes} {...other}>
       <Icon name="globe" className="left-2 absolute pointer-events-none" />
 
+      <label htmlFor={id} className="invisible w-0">
+        {`${t("languageSelectorLabel")}`}
+      </label>
+
       <select
         className={cx("languageSelector appearance-none rounded px-7 py-1.5", {
           ["w-full"]: size === "large",
@@ -42,6 +52,9 @@ const LanguageSelector = ({
         })}
         onChange={handleLocaleChange}
         value={router.locale}
+        name="languageSelector"
+        id={id}
+        aria-label={`${t("languageSelectorLabel")}`}
       >
         {languageSelector.map((language, index) => {
           return (
