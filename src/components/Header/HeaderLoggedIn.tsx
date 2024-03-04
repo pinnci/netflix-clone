@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import cx from "classnames";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
-import { auth } from "../../firebase";
-import { signOut } from "firebase/auth";
+import { firebaseClient } from "../../../firebaseClient";
 import { useRouter } from "next/router";
 import { PathContext } from "@/pages/_app";
 
@@ -116,9 +115,13 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
               size="small"
               shape="square"
               className="hidden text-white md:block"
-              onClick={() => {
-                router.push("/");
-                signOut(auth);
+              onClick={async () => {
+                await firebaseClient
+                  .auth()
+                  .signOut()
+                  .then(() => {
+                    router.push("/");
+                  });
               }}
             >
               {t("buttonLabel")}
@@ -157,9 +160,13 @@ const HeaderLoggedIn = ({ className, ...other }: HeaderLoggedIn) => {
                 size="small"
                 shape="square"
                 className=" text-white justify-center"
-                onClick={() => {
-                  router.push("/");
-                  signOut(auth);
+                onClick={async () => {
+                  await firebaseClient
+                    .auth()
+                    .signOut()
+                    .then(() => {
+                      router.push("/");
+                    });
                 }}
               >
                 {t("buttonLabel")}
