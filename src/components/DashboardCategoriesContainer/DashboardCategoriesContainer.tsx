@@ -1,24 +1,34 @@
 import cx from "classnames";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-
-import { requests } from "../../data/categoryRequests";
-import { Locale } from "../../data/languageSelector";
 
 import DashboardCategoryRow from "../DashboardCategoryRow/DashboardCategoryRow";
 
+import { MovieData } from "@/utils/utils";
+
 type DashboardCategoriesContainer = {
   className?: string;
-  locale: Locale["locale"];
+  data: {
+    [key: string]: [
+      {
+        name?: MovieData["name"];
+        title?: MovieData["title"];
+        original_title: MovieData["originalTitle"];
+        id: MovieData["id"];
+        poster_path: MovieData["posterPath"];
+        backdrop_path: MovieData["backdropPath"];
+        media_type: MovieData["mediaType"];
+      },
+    ];
+  };
+  locale: MovieData["locale"];
 } & React.ComponentProps<"div">;
 
 const DashboardCategoriesContainer = ({
   locale,
   className,
+  data,
   ...other
 }: DashboardCategoriesContainer) => {
-  const router = useRouter();
-
   const classes = cx("dashboard-categories-container relative z-20", className);
 
   const { t } = useTranslation("dashboard");
@@ -26,19 +36,21 @@ const DashboardCategoriesContainer = ({
   return (
     <div className={classes} {...other}>
       {/**@ts-ignore */}
-      {t("categories", { returnObjects: true }).map((obj) => {
-        const { title, key } = obj;
+      {t("categories", { returnObjects: true }).map(
+        (obj: { title: string; key: string }) => {
+          const { title, key } = obj;
 
-        return (
-          <DashboardCategoryRow
-            title={title}
-            fetchUrl={`${requests[key]}&language=${router.locale}`}
-            key={key}
-            className="mb-4"
-            locale={locale}
-          />
-        );
-      })}
+          return (
+            <DashboardCategoryRow
+              title={title}
+              data={data[key]}
+              key={key}
+              className="mb-4"
+              locale={locale}
+            />
+          );
+        },
+      )}
     </div>
   );
 };
