@@ -30,7 +30,11 @@ export default CreatePassword;
 export async function getStaticProps({ locale }: Locale) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["registration", "common"])),
+      ...(await serverSideTranslations(locale, [
+        "registration",
+        "common",
+        "dashboard",
+      ])),
     },
   };
 }
