@@ -6,6 +6,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 
+import { firebaseAdmin } from "../../../firebaseAdmin";
+import nookies from "nookies";
+
 import Layout from "../../components/Layout/Layout";
 import Container from "../../components/Container/Container";
 import DashboardBanner from "../../components/DashboardBanner/DashboardBanner";
@@ -53,33 +56,50 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const categoryResults: any = {};
 
   try {
-    // Fetch data for each request
+    const cookies = nookies.get(context);
+    const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
 
-    for (const key in requests) {
-      if (Object.hasOwnProperty.call(requests, key)) {
-        const url = requests[key];
-        const response = await fetch(url);
+    if (token)
+      // Fetch data for each request
+      for (const key in requests) {
+        if (Object.hasOwnProperty.call(requests, key)) {
+          const url = requests[key];
+          const response = await fetch(url);
 
-        const data = await response.json();
+          const data = await response.json();
 
-        const updatedResults = data.results.map((result: any) => {
-          let media_type;
-          //DETECT MEDIA_TYPE BASED ON CATEGORY URL
-          if (url.split("/").some((substring) => substring.includes("tv"))) {
-            media_type = "tv";
-          } else {
-            media_type = "movie";
-          }
+          const updatedResults = data.results.map((result: any) => {
+            let media_type;
+            //DETECT MEDIA_TYPE BASED ON CATEGORY URL
+            if (url.split("/").some((substring) => substring.includes("tv"))) {
+              media_type = "tv";
+            } else {
+              media_type = "movie";
+            }
 
-          // Add the media_type property to the current object
-          return { ...result, media_type };
-        });
+            // Add the media_type property to the current object
+            return { ...result, media_type };
+          });
 
-        categoryResults[key] = updatedResults;
+          categoryResults[key] = updatedResults;
+        }
       }
-    }
   } catch (error) {
     console.error("Error fetching data:", error);
+
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {
+        ...(await serverSideTranslations(locale, [
+          "homepage",
+          "common",
+          "dashboard",
+        ])),
+      },
+    };
   }
 
   // Get trending movies and TV shows

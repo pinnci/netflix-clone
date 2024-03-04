@@ -1,44 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { NextSeo } from "next-seo";
-import { useRouter } from "next/router";
+import nookies from "nookies";
+import { firebaseAdmin } from "../../firebaseAdmin";
+import { GetServerSidePropsContext } from "next";
 
 import Homepage from "../components/Homepage/Homepage";
 
-import { auth } from "../firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "../../slices/userSlice";
-
-import type { Locale } from "@/data/languageSelector";
-
 export default function Home() {
-  const user = useSelector(selectUser);
-  const dispatch = useDispatch();
   const { t } = useTranslation("common");
-
-  const router = useRouter();
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // Logged In
-        dispatch(
-          login({
-            uid: user.uid,
-            email: user.email,
-          }),
-        );
-        router.push("/browse");
-      } else {
-        // Logged out
-        dispatch(logout());
-      }
-    });
-
-    return unsubscribe;
-  }, [dispatch, router]);
 
   return (
     <>
@@ -55,14 +26,37 @@ export default function Home() {
   );
 }
 
-export async function getStaticProps({ locale }: Locale) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, [
-        "homepage",
-        "common",
-        "dashboard",
-      ])),
-    },
-  };
-}
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const locale = context.locale!;
+
+  try {
+    const cookies = nookies.get(context);
+    const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
+
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/browse",
+      },
+      props: {
+        ...(await serverSideTranslations(locale, [
+          "homepage",
+          "common",
+          "dashboard",
+        ])),
+      },
+    };
+  } catch (err) {
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, [
+          "homepage",
+          "common",
+          "dashboard",
+        ])),
+      },
+    };
+  }
+};

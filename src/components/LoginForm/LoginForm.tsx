@@ -2,13 +2,13 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
-import { auth } from "../../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
 
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Checkbox from "../Checkbox/Checkbox";
 import Toast from "../Toast/Toast";
+
+import { firebaseClient } from "../../../firebaseClient";
 
 const LoginForm = () => {
   const [emailError, setEmailError] = useState<boolean>(false);
@@ -119,7 +119,9 @@ const LoginForm = () => {
       !passwordError &&
       passwordInputValue
     ) {
-      signInWithEmailAndPassword(auth, emailInputValue, passwordInputValue)
+      firebaseClient
+        .auth()
+        .signInWithEmailAndPassword(emailInputValue, passwordInputValue)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
@@ -140,7 +142,7 @@ const LoginForm = () => {
             setFirebaseErrorCode(null);
           }
 
-          router.push("/");
+          router.push("/browse");
         })
         .catch((error) => {
           setFirebaseErrorCode(error.code);

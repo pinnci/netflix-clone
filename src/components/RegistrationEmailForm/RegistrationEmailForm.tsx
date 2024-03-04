@@ -1,8 +1,6 @@
 import cx from "classnames";
 import { useRouter } from "next/router";
 import { useState, useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { addEmail } from "../../../slices/registrationEmailSlice";
 import { useTranslation } from "next-i18next";
 
 import Button from "../Button/Button";
@@ -24,8 +22,6 @@ const RegistrationEmailForm = ({
   const [inputField, setInputField] = useState<HTMLInputElement | null>(null);
 
   const { t } = useTranslation("homepage");
-
-  const dispatch = useDispatch();
 
   const router = useRouter();
 
@@ -91,9 +87,6 @@ const RegistrationEmailForm = ({
 
     if (!error && inputValue) {
       router.push("/signup/password");
-
-      dispatch(addEmail(inputValue));
-
       localStorage.setItem("registration-email", inputValue);
     }
   };
@@ -108,10 +101,9 @@ const RegistrationEmailForm = ({
       if (localStorageRegistrationEmail) {
         setInputValue(localStorageRegistrationEmail);
         setSuccess(true);
-        dispatch(addEmail(localStorageRegistrationEmail));
       }
     }
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className={classes} {...other}>
