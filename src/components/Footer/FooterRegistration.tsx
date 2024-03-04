@@ -29,9 +29,9 @@ const FooterRegistration = ({ className, ...other }: FooterRegistration) => {
         <p className="footer__supportContact">
           <Link
             href={`${t("supportContact.phoneNumber")}`}
-            className=" text-neutral-500 hover:underline"
+            className=" text-neutral-600 hover:underline"
           >
-            {t("supportContact.title")}
+            {`${t("supportContact.title")} ${t("supportContact.phoneNumber")}`}
           </Link>
         </p>
         <div className="footer__linksContainer max-w-5xl mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:flex md:flex-row">
@@ -49,7 +49,7 @@ const FooterRegistration = ({ className, ...other }: FooterRegistration) => {
                         <ListItem key={i} className="mt-3">
                           <Link
                             href={href}
-                            className="inline-block text-sm text-neutral-500 hover:underline"
+                            className="inline-block text-sm text-neutral-600 hover:underline"
                           >
                             {title}
                           </Link>

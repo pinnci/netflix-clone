@@ -71,7 +71,7 @@ const FooterLoggedIn = ({ className, ...other }: FooterLoggedIn) => {
                           <ListItem key={i} className="mt-3">
                             <Link
                               href={href}
-                              className="inline-block text-sm text-neutral-500 hover:underline"
+                              className="inline-block text-sm text-neutral-300 hover:underline"
                             >
                               {title}
                             </Link>
@@ -88,7 +88,7 @@ const FooterLoggedIn = ({ className, ...other }: FooterLoggedIn) => {
             <LanguageSelector className="inline-flex" />
           </div>
 
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-neutral-300">
             © 1997-2023 Netflix, Inc. | {`${t("replicationTitle")}`}{" "}
             <Link
               href="https://www.linkedin.com/in/d%C3%A1vid-kop%C3%A1%C4%8Dik-3322401b9/"

@@ -52,7 +52,7 @@ const FooterNotLoggedIn = ({ className, ...other }: FooterNotLoggedIn) => {
                         <ListItem key={i} className="mt-3">
                           <Link
                             href={href}
-                            className="inline-block text-sm text-neutral-500 hover:underline"
+                            className="inline-block text-sm text-neutral-300 hover:underline"
                           >
                             {title}
                           </Link>
