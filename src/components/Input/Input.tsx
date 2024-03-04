@@ -102,6 +102,7 @@ const Input = forwardRef((props: Input, ref) => {
           type={type}
           id={inputId}
           className={inputClasses}
+          name={label}
           ref={
             ref
               ? (el) => {
