@@ -8,34 +8,34 @@ import DashboardMovie from "../DashboardMovie/DashboardMovie";
 import Icon from "../Icon/Icon";
 import Skeleton from "react-loading-skeleton";
 
-import { Locale } from "../../data/languageSelector";
-import { getDashboardCategoryRowData } from "@/utils/utils";
+import { MovieData } from "@/utils/utils";
 
 type DashboardCategoryRow = {
-  title: string;
-  fetchUrl: string;
-  locale: Locale["locale"];
+  title: MovieData["title"];
+  locale: MovieData["locale"];
   className?: string;
+  disablePopUp?: boolean;
+  data: Movie[];
 } & React.ComponentProps<"div">;
 
 type Movie = {
-  poster_path: string;
-  backdrop_path: string;
-  title: string;
-  original_title: string;
-  name: string;
-  id: number;
-  media_type: "tv" | "movie";
+  poster_path: MovieData["posterPath"];
+  backdrop_path: MovieData["backdropPath"];
+  title?: MovieData["title"];
+  original_title: MovieData["originalTitle"];
+  name?: MovieData["name"];
+  id: MovieData["id"];
+  media_type: MovieData["mediaType"];
 };
 
 const DashboardCategoryRow = ({
   title,
-  fetchUrl,
+  data,
+  disablePopUp = false,
   className,
   locale,
   ...other
 }: DashboardCategoryRow) => {
-  const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isSwiperHovered, setIsSwiperHovered] = useState<boolean>(false);
@@ -53,20 +53,13 @@ const DashboardCategoryRow = ({
   const { t } = useTranslation("dashboard");
 
   useEffect(() => {
-    const config = {
-      fetchUrl,
-    };
-
-    getDashboardCategoryRowData(config, (response) => {
-      setMovies(response);
-
+    if (data)
       setTimeout(() => {
         setIsLoading(false);
       }, 100);
-    });
-  }, [fetchUrl]);
+  }, [data]);
 
-  return movies.length >= 1 ? (
+  return (
     <div className={classes} {...other}>
       <p className="text-white text-xl mb-2">{title}</p>
 
@@ -123,33 +116,38 @@ const DashboardCategoryRow = ({
             },
           }}
         >
-          {isLoading
-            ? Array.from({ length: 10 }).map((_, index) => (
-                <SwiperSlide key={index}>
-                  <div className="w-24 h-36 sm:w-32 sm:h-52 md:w-36 md:h-56 lg:w-40 lg:h-60 xl:w-48 xl:h-64">
-                    <Skeleton
-                      height="100%"
-                      width="100%"
-                      baseColor="#202020"
-                      highlightColor="#303030"
-                    />
-                  </div>
-                </SwiperSlide>
-              ))
-            : movies.map((movie: Movie) => {
-                return (
-                  <SwiperSlide key={movie.id}>
-                    <DashboardMovie
-                      title={movie.name || movie.title || movie.original_title}
-                      id={movie.id}
-                      posterPath={movie.poster_path}
-                      backdropPath={movie.backdrop_path}
-                      locale={locale}
-                      mediaType={movie.media_type}
-                    />
+          <div>
+            {isLoading
+              ? Array.from({ length: 10 }).map((_, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="h-52 lg:h-56 xl:h-72 relative w-full cursor-pointer">
+                      <Skeleton
+                        height="100%"
+                        width="100%"
+                        baseColor="#202020"
+                        highlightColor="#303030"
+                      />
+                    </div>
                   </SwiperSlide>
-                );
-              })}
+                ))
+              : data.map((movie: Movie) => {
+                  return (
+                    <SwiperSlide key={movie.id}>
+                      <DashboardMovie
+                        title={
+                          movie.name || movie.title || movie.original_title
+                        }
+                        id={movie.id}
+                        posterPath={movie.poster_path}
+                        backdropPath={movie.backdrop_path}
+                        locale={locale}
+                        mediaType={movie.media_type}
+                        disablePopUp={disablePopUp}
+                      />
+                    </SwiperSlide>
+                  );
+                })}
+          </div>
 
           <button
             className={cx("swiper-button-next", {
@@ -184,7 +182,7 @@ const DashboardCategoryRow = ({
         </Swiper>
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export default DashboardCategoryRow;

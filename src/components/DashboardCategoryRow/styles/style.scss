@@ -1,6 +1,7 @@
 //Swiper styles
 .swiper {
   overflow: visible;
+  min-height: _get-rem(130px);
 
   .swiper-slide:not(.swiper-slide-visible) {
     opacity: 0.3;
