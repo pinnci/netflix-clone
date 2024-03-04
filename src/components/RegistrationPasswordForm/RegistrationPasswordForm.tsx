@@ -3,11 +3,7 @@ import { useRouter } from "next/router";
 import cx from "classnames";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
-import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
-import { addEmail } from "../../../slices/registrationEmailSlice";
-import { AppState } from "../../../store";
+import { firebaseClient } from "../../../firebaseClient";
 import emailjs from "@emailjs/browser";
 
 import Container from "../Container/Container";
@@ -39,15 +35,9 @@ const RegistrationPasswordForm = ({
 
   const { t } = useTranslation("registration");
 
-  const dispatch = useDispatch();
-
   const router = useRouter();
 
   const formRef = useRef(null);
-
-  const registrationEmail = useSelector(
-    (state: AppState) => state.registrationEmail.value,
-  );
 
   const classes = cx(
     "registrationPasswordForm flex justify-center mt-5",
@@ -161,11 +151,9 @@ const RegistrationPasswordForm = ({
     }
 
     if (!passwordError && passwordInputValue) {
-      createUserWithEmailAndPassword(
-        auth,
-        registrationEmail ? registrationEmail : emailInputValue,
-        passwordInputValue,
-      )
+      firebaseClient
+        .auth()
+        .createUserWithEmailAndPassword(emailInputValue, passwordInputValue)
         .then((userCredential) => {
           // Account created
           const user = userCredential.user;
@@ -182,7 +170,7 @@ const RegistrationPasswordForm = ({
             process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
             process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
             {
-              email: registrationEmail ? registrationEmail : emailInputValue,
+              email: emailInputValue,
             },
             process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
           );
@@ -197,14 +185,14 @@ const RegistrationPasswordForm = ({
     setPasswordInputField(passwordInputRef.current);
     setEmailInputField(emailInputRef.current);
 
-    if (!registrationEmail) {
+    if (!emailInputValue) {
       const localStorageRegistrationEmail =
         localStorage.getItem("registration-email");
 
       if (localStorageRegistrationEmail)
-        dispatch(addEmail(localStorageRegistrationEmail));
+        setEmailInputValue(localStorageRegistrationEmail);
     }
-  }, [dispatch, registrationEmail]);
+  }, [emailInputValue]);
 
   return (
     <Container className="grow pb-40">
@@ -218,7 +206,7 @@ const RegistrationPasswordForm = ({
           <div className="max-w-md">
             <h1
               dangerouslySetInnerHTML={{
-                __html: registrationEmail
+                __html: emailInputValue
                   ? `${t("title")}`
                   : `${t("registration.title")}`,
               }}
@@ -228,7 +216,7 @@ const RegistrationPasswordForm = ({
             <p
               className="text-lg"
               dangerouslySetInnerHTML={{
-                __html: registrationEmail
+                __html: emailInputValue
                   ? `${t("description")}`
                   : `${t("registration.description")}`,
               }}
@@ -277,16 +265,16 @@ const RegistrationPasswordForm = ({
             )}
 
             <div className="mt-4 mb-8">
-              {registrationEmail ? (
+              {emailInputValue ? (
                 <>
                   <p className="text-base">{t("emailLabel")}</p>
                   <p className="text-base font-medium mb-4">
-                    {registrationEmail}
+                    {emailInputValue}
                   </p>
                 </>
               ) : null}
 
-              {registrationEmail ? (
+              {emailInputValue ? (
                 <Input
                   label={t("passwordInput.label")}
                   type="password"
@@ -328,7 +316,7 @@ const RegistrationPasswordForm = ({
               )}
             </div>
 
-            {registrationEmail ? (
+            {emailInputValue ? (
               <Link
                 href={`${t("forgottenPassword.href")}`}
                 className="text-blue-600 block mb-6 hover:underline"
