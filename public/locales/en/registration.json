@@ -82,5 +82,6 @@
       "errorMessageLinkTitle": "Sign In",
       "errorMessageLinkHref": "/login"
     }
-  }
+  },
+  "recaptchaErrorMessage": "Please confirm you are not a robot."
 }

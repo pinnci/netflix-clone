@@ -82,5 +82,6 @@
       "errorMessageLinkTitle": "Přihlásit se",
       "errorMessageLinkHref": "/login"
     }
-  }
+  },
+  "recaptchaErrorMessage": "Prosím, potvrďte, že nejste robot."
 }
