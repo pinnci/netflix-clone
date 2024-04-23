@@ -30,12 +30,15 @@ const FooterLogin = ({ className, ...other }: FooterLogin) => {
       <Container>
         <div className="max-w-5xl mx-auto">
           <p className="footer__supportContact">
-            <Link
-              href={`${t("supportContact.href")}`}
-              className=" text-neutral-300 hover:underline"
-            >
-              {t("supportContact.title")}
-            </Link>
+            {t("supportContact.title")}{" "}
+            <span>
+              <Link
+                href={`tel:${t("supportContact.phoneNumber")}`}
+                className="underline"
+              >
+                {t("supportContact.phoneNumber")}
+              </Link>
+            </span>
           </p>
           <div className="footer__linksContainer mt-6 grid grid-cols-2 sm:gap-4 sm:grid-cols-3 md:flex md:flex-row">
             {/**@ts-ignore */}

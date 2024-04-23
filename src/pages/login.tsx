@@ -26,8 +26,8 @@ const Login = () => {
           { name: "keywords", content: `${t("common:keywords")}` },
         ]}
       />
-      <div className="loginForm__gradient absolute w-full min-h-full"></div>
-      <div className="loginForm__imageContainer absolute w-full h-full">
+      <div className="hidden loginForm__gradient absolute w-full min-h-full sm:absolute sm:block"></div>
+      <div className="hidden loginForm__imageContainer absolute w-full h-full sm:absolute sm:block">
         <Image
           src={imageSrc}
           className="loginForm__image hidden object-cover object-left sm:block"
