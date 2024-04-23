@@ -5,18 +5,22 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { firebaseClient } from "../../../firebaseClient";
 import emailjs from "@emailjs/browser";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import Container from "../Container/Container";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Toast from "../Toast/Toast";
+import { MovieData } from "@/utils/utils";
 
 type RegistrationPasswordForm = {
   className?: string;
+  locale: MovieData["locale"];
 } & React.ComponentProps<"form">;
 
 const RegistrationPasswordForm = ({
   className,
+  locale,
   ...other
 }: RegistrationPasswordForm) => {
   const [passwordError, setPasswordError] = useState<boolean>(false);
@@ -32,12 +36,15 @@ const RegistrationPasswordForm = ({
   const [firebaseErrorCode, setFirebaseErrorCode] = useState<string | null>(
     null,
   );
+  const [reCaptchaValue, setReCaptchaValue] = useState<string | null>(null);
+  const [reCaptchaError, setReCaptchaError] = useState<string | null>(null);
 
   const { t } = useTranslation("registration");
 
   const router = useRouter();
 
   const formRef = useRef(null);
+  const captchaRef = useRef(null);
 
   const classes = cx(
     "registrationPasswordForm flex justify-center mt-5",
@@ -150,7 +157,13 @@ const RegistrationPasswordForm = ({
       focusEmailInput();
     }
 
-    if (!passwordError && passwordInputValue) {
+    if (!reCaptchaValue) {
+      setReCaptchaError("The g-recaptcha-response parameter not found");
+    } else {
+      setReCaptchaError("");
+    }
+
+    if (!passwordError && passwordInputValue && reCaptchaValue) {
       firebaseClient
         .auth()
         .createUserWithEmailAndPassword(emailInputValue, passwordInputValue)
@@ -324,6 +337,23 @@ const RegistrationPasswordForm = ({
                 {t("forgottenPassword.title")}
               </Link>
             ) : null}
+
+            <div className="mb-6">
+              <ReCAPTCHA
+                sitekey="6LcOEcMpAAAAAC-f2ekiT4ceSPSXUFIxSrnS1UJH"
+                onChange={(value: string | null) => {
+                  setReCaptchaValue(value);
+                  setReCaptchaError("");
+                }}
+                ref={captchaRef}
+                hl={locale}
+              />
+
+              {reCaptchaError ===
+                "The g-recaptcha-response parameter not found" && (
+                <p>{t("recaptchaErrorMessage")}</p>
+              )}
+            </div>
 
             <Button
               size="large"
