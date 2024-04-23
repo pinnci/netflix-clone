@@ -332,7 +332,7 @@ const RegistrationPasswordForm = ({
             {emailInputValue ? (
               <Link
                 href={`${t("forgottenPassword.href")}`}
-                className="text-blue-600 block mb-6 hover:underline"
+                className="text-blue-600 inline-block mb-6 hover:underline"
               >
                 {t("forgottenPassword.title")}
               </Link>
@@ -340,7 +340,7 @@ const RegistrationPasswordForm = ({
 
             <div className="mb-6">
               <ReCAPTCHA
-                sitekey="6LcOEcMpAAAAAC-f2ekiT4ceSPSXUFIxSrnS1UJH"
+                sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_KEY}`}
                 onChange={(value: string | null) => {
                   setReCaptchaValue(value);
                   setReCaptchaError("");
