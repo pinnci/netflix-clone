@@ -8,6 +8,7 @@ import { AuthProvider } from "../../auth";
 import { useEffect } from "react";
 import { createContext, useState } from "react";
 import { usePathname } from "next/navigation";
+import { Analytics } from "@vercel/analytics/react";
 
 const netflixSans = localFont({
   src: [
@@ -56,6 +57,7 @@ function App({ Component, ...props }: AppProps) {
           <DefaultSeo {...SEO} />
           <main className={`${netflixSans.variable} font-sans`}>
             <Component {...props.pageProps} />
+            <Analytics />
           </main>
         </PathContext.Provider>
       </AuthProvider>
